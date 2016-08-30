@@ -7,7 +7,7 @@
     
 
     <title>
-      关于hexo deploy无反应的解决方法 | Hexo 
+      关于 
     </title>
 
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
@@ -16,22 +16,16 @@
     
     
 
-    <meta name="description" content="#关于hexo deploy无反应的解决方法修改_config.yml文件，添加了以下代码1234deploy:  type: git  repo:https://github.com/xiaodingdangdaddy/xiaodingdangdaddy.github.io.git  branch: master
-运行命令hexo deploy后无反应，在github页面上访问会出现404
-最后">
-<meta property="og:type" content="article">
-<meta property="og:title" content="关于hexo deploy无反应的解决方法 | Hexo">
-<meta property="og:url" content="http://yoursite.com/2016/08/31/abouthexodeploy/index.html">
-<meta property="og:site_name" content="Hexo">
-<meta property="og:description" content="#关于hexo deploy无反应的解决方法修改_config.yml文件，添加了以下代码1234deploy:  type: git  repo:https://github.com/xiaodingdangdaddy/xiaodingdangdaddy.github.io.git  branch: master
-运行命令hexo deploy后无反应，在github页面上访问会出现404
-最后">
-<meta property="og:updated_time" content="2016-08-30T19:08:36.000Z">
+    <meta name="description" content="for love">
+<meta property="og:type" content="website">
+<meta property="og:title" content="关于">
+<meta property="og:url" content="http://yoursite.com/about/index.html">
+<meta property="og:site_name" content="叮当家">
+<meta property="og:description" content="for love">
+<meta property="og:updated_time" content="2016-08-30T21:09:23.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="关于hexo deploy无反应的解决方法 | Hexo">
-<meta name="twitter:description" content="#关于hexo deploy无反应的解决方法修改_config.yml文件，添加了以下代码1234deploy:  type: git  repo:https://github.com/xiaodingdangdaddy/xiaodingdangdaddy.github.io.git  branch: master
-运行命令hexo deploy后无反应，在github页面上访问会出现404
-最后">
+<meta name="twitter:title" content="关于">
+<meta name="twitter:description" content="for love">
     
     
     
@@ -61,9 +55,14 @@
 
         
 
-        <h1 class="panel-cover__title panel-title"><a href="/" title="link to homepage">Hexo</a></h1>
+        <h1 class="panel-cover__title panel-title"><a href="/" title="link to homepage">叮当家</a></h1>
         <hr class="panel-cover__divider" />
 
+        
+        <p class="panel-cover__description">
+          A site for YanXi Zheng
+        </p>
+        <hr class="panel-cover__divider panel-cover__divider--secondary" />
         
 
         <div class="navigation-wrapper">
@@ -192,32 +191,14 @@ classes that you can use:
 
   <header class="post-header">
     
-    <h1 class="post-title">关于hexo deploy无反应的解决方法</h1>
+    <h1 class="post-title">关于</h1>
 
-    
-
-    <div class="post-meta">
-      <time datetime="2016-08-31" class="post-meta__date date">2016-08-31</time> 
-
-      <span class="post-meta__tags tags">
-
-          
-
-          
-
-      </span>
-    </div>
-    
     
 
   </header>
 
   <section id="post-content" class="article-content post">
-    <p>#关于hexo deploy无反应的解决方法<br>修改_config.yml文件，添加了以下代码<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">deploy:</div><div class="line">  type: git</div><div class="line">  repo:https://github.com/xiaodingdangdaddy/xiaodingdangdaddy.github.io.git</div><div class="line">  branch: master</div></pre></td></tr></table></figure></p>
-<p>运行命令hexo deploy后无反应，在github页面上访问会出现404</p>
-<p>最后发现是因为hexo的配置未见格式有问题，必须在repo后加上一个空格，修改为以下<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">deploy:</div><div class="line">  type: git</div><div class="line">  repo: https://github.com/xiaodingdangdaddy/xiaodingdangdaddy.github.io.git</div><div class="line">  branch: master</div></pre></td></tr></table></figure></p>
-<p>一切恢复正常</p>
-
+    
   </section>
 
   
@@ -252,18 +233,6 @@ classes that you can use:
 
 
     
-
-    <script src="/js/awesome-toc.min.js"></script>
-    <script>
-        $(document).ready(function(){
-            $.awesome_toc({
-                overlay: true,
-                contentId: "post-content",
-            });
-        });
-    </script>
-
-
     
     
     <!--kill ie6 -->
