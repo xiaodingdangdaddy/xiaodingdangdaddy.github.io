@@ -1,0 +1,310 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="chrome=1">
+
+    
+
+    <title>
+      Spark1.6.2编程指南学习（主要是python相关用法） | 叮当家 
+    </title>
+
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+    
+      <meta name="author" content="John Doe">
+    
+    
+
+    <meta name="description" content="Spark由于从2015年开始才被广泛关注，相关中文学习资料非常缺乏。在这里通过阅读官方的编程指南，学习的同时也做一些相关笔记
+
+概述Spark的主要抽象概念就是分布式弹性数据集RDD(resilient distributed dataset )，数据结构上是一个只读的分区记录集合，可以跨集群节点并行操作。这些集合是弹性的，如果数据集一部分丢失可以对他们进行重建。RDD具有以下特点1234*">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Spark1.6.2编程指南学习（主要是python相关用法） | 叮当家">
+<meta property="og:url" content="http://yoursite.com/2016/08/31/sparkprogramingGuide-python/index.html">
+<meta property="og:site_name" content="叮当家">
+<meta property="og:description" content="Spark由于从2015年开始才被广泛关注，相关中文学习资料非常缺乏。在这里通过阅读官方的编程指南，学习的同时也做一些相关笔记
+
+概述Spark的主要抽象概念就是分布式弹性数据集RDD(resilient distributed dataset )，数据结构上是一个只读的分区记录集合，可以跨集群节点并行操作。这些集合是弹性的，如果数据集一部分丢失可以对他们进行重建。RDD具有以下特点1234*">
+<meta property="og:updated_time" content="2016-08-31T17:16:47.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Spark1.6.2编程指南学习（主要是python相关用法） | 叮当家">
+<meta name="twitter:description" content="Spark由于从2015年开始才被广泛关注，相关中文学习资料非常缺乏。在这里通过阅读官方的编程指南，学习的同时也做一些相关笔记
+
+概述Spark的主要抽象概念就是分布式弹性数据集RDD(resilient distributed dataset )，数据结构上是一个只读的分区记录集合，可以跨集群节点并行操作。这些集合是弹性的，如果数据集一部分丢失可以对他们进行重建。RDD具有以下特点1234*">
+    
+    
+    
+    <link rel="stylesheet" href="/css/uno.css">
+    <link rel="stylesheet" href="/css/highlight.css">
+    <link rel="stylesheet" href="/css/archive.css">
+    <link rel="stylesheet" href="/css/china-social-icon.css">
+
+</head>
+<body>
+
+    <span class="mobile btn-mobile-menu">
+        <i class="icon icon-list btn-mobile-menu__icon"></i>
+        <i class="icon icon-x-circle btn-mobile-close__icon hidden"></i>
+    </span>
+
+    
+
+<header class="panel-cover panel-cover--collapsed">
+
+
+  <div class="panel-main">
+
+  
+    <div class="panel-main__inner panel-inverted">
+    <div class="panel-main__content">
+
+        
+
+        <h1 class="panel-cover__title panel-title"><a href="/" title="link to homepage">叮当家</a></h1>
+        <hr class="panel-cover__divider" />
+
+        
+        <p class="panel-cover__description">
+          A site for YanXi Zheng
+        </p>
+        <hr class="panel-cover__divider panel-cover__divider--secondary" />
+        
+
+        <div class="navigation-wrapper">
+
+          <nav class="cover-navigation cover-navigation--primary">
+            <ul class="navigation">
+
+              
+                
+                <li class="navigation__item"><a href="/#blog" title="" class="blog-button">首页</a></li>
+              
+                
+                <li class="navigation__item"><a href="/about" title="" class="">关于</a></li>
+              
+                
+                <li class="navigation__item"><a href="/archive" title="" class="">归档</a></li>
+              
+
+            </ul>
+          </nav>
+
+          <!-- ----------------------------
+To add a new social icon simply duplicate one of the list items from below
+and change the class in the <i> tag to match the desired social network
+and then add your link to the <a>. Here is a full list of social network
+classes that you can use:
+
+    icon-social-500px
+    icon-social-behance
+    icon-social-delicious
+    icon-social-designer-news
+    icon-social-deviant-art
+    icon-social-digg
+    icon-social-dribbble
+    icon-social-facebook
+    icon-social-flickr
+    icon-social-forrst
+    icon-social-foursquare
+    icon-social-github
+    icon-social-google-plus
+    icon-social-hi5
+    icon-social-instagram
+    icon-social-lastfm
+    icon-social-linkedin
+    icon-social-medium
+    icon-social-myspace
+    icon-social-path
+    icon-social-pinterest
+    icon-social-rdio
+    icon-social-reddit
+    icon-social-skype
+    icon-social-spotify
+    icon-social-stack-overflow
+    icon-social-steam
+    icon-social-stumbleupon
+    icon-social-treehouse
+    icon-social-tumblr
+    icon-social-twitter
+    icon-social-vimeo
+    icon-social-xbox
+    icon-social-yelp
+    icon-social-youtube
+    icon-social-zerply
+    icon-mail
+
+-------------------------------->
+
+<!-- add social info here -->
+
+
+
+<nav class="cover-navigation navigation--social">
+  <ul class="navigation">
+
+    
+      <!-- Github -->
+      <li class="navigation__item">
+        <a href="https://github.com/xiaodingdangdaddy" title="Huno on GitHub">
+          <i class='icon icon-social-github'></i>
+          <span class="label">GitHub</span>
+        </a>
+      </li>
+    
+
+    <!-- China social icon -->
+    <!--
+    
+      <li class="navigation__item">
+        <a href="" title="">
+          <i class='icon cs-icon-douban'></i>
+          <span class="label">Douban</span>
+        </a>
+      </li>
+
+      <li class="navigation__item">
+        <a href="" title="">
+          <i class='icon cs-icon-weibo'></i>
+          <span class="label">Weibo</span>
+        </a>
+      </li>
+
+    -->
+
+
+
+  </ul>
+</nav>
+
+
+
+        </div>
+
+      </div>
+
+    </div>
+
+    <div class="panel-cover--overlay"></div>
+  </div>
+</header>
+
+    <div class="content-wrapper">
+        <div class="content-wrapper__inner entry">
+            
+
+<article class="post-container post-container--single">
+
+  <header class="post-header">
+    
+    <h1 class="post-title">Spark1.6.2编程指南学习（主要是python相关用法）</h1>
+
+    
+
+    <div class="post-meta">
+      <time datetime="2016-08-31" class="post-meta__date date">2016-08-31</time> 
+
+      <span class="post-meta__tags tags">
+
+          
+
+          
+
+      </span>
+    </div>
+    
+    
+
+  </header>
+
+  <section id="post-content" class="article-content post">
+    <blockquote>
+<p>Spark由于从2015年开始才被广泛关注，相关中文学习资料非常缺乏。在这里通<br>过阅读官方的编程指南，学习的同时也做一些相关笔记</p>
+</blockquote>
+<h2 id="概述"><a href="#概述" class="headerlink" title="概述"></a>概述</h2><p>Spark的主要抽象概念就是<strong>分布式弹性数据集RDD</strong>(resilient distributed dataset )，数据结构上是一个只读的分区记录集合，可以跨集群节点并行操作。这些集合是弹性的，如果数据集一部分丢失可以对他们进行重建。RDD具有以下特点<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">* RDD只能从持久存储或通过Transformations操作产生，相比于分布式共享内存(DSM)可以更高效实现容错，对于丢失部分数据分区只需根据它的lineage就可重新计算出来，而不需要做特定的Checkpoint。</div><div class="line">* RDD的不变性，可以实现类Hadoop MapReduce的推测式执行。</div><div class="line">* RDD的数据分区特性，可以通过数据的本地性来提高性能，这与Hadoop MapReduce是一样的。</div><div class="line">* RDD都是可序列化的，在内存不足时可自动降级为磁盘存储，把RDD存储于磁盘上，这时性能会有大的下降但不会差于现在的MapReduce。</div></pre></td></tr></table></figure></p>
+<p>Spark的另一个抽象概念就是在并行操作中可以共享变量。默认情况下，Spark运行一个函数其实是一组不同节点上的任务集合并行运行，它把函数中用到的变量发送给每一个任务。<br>Spark支持两种共享变量：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">broadcast variables 可以在所有节点内存中缓存值</div><div class="line">accumulators 只能由叠加得出，比如counters和sums</div></pre></td></tr></table></figure></p>
+<h2 id="Spark-链接"><a href="#Spark-链接" class="headerlink" title="Spark 链接"></a>Spark 链接</h2><p>Spark1.6.2需要Python 2.6或者Python 3.4以上版本。可以使用标准CPython解释器,因此像NumPy这样的C函数库是可以用的。另外也支持PyPy 2.3+</p>
+<p>用Python来运行Spark程序，可以使用spark-submit脚本。或者使用bin/pyspark来启动一个交互式Python命令行<br>在python程序中，需要输入一些Spark类，如下<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">from pyspark import SparkContext, SparkConf</div></pre></td></tr></table></figure></p>
+<p>运行PySpark,驱动节点和工作节点中都需要有满足上面要求的python版本,使用的是PATH中的默认python版本。也可以通过PYSPARK_PYTHON来指定想用的Python版本，比如<br><figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">$ PYSPARK_PYTHON=python3<span class="number">.4</span> bin/pyspark</div><div class="line">$ PYSPARK_PYTHON=/opt/pypy<span class="number">-2.5</span>/bin/pypy bin/spark-submit examples/src/main/python/pi.py</div></pre></td></tr></table></figure></p>
+<h2 id="Spark-初始化"><a href="#Spark-初始化" class="headerlink" title="Spark 初始化"></a>Spark 初始化</h2><p>Spark程序第一步要做的就是创建一个SparkContext对象，告诉Spark如何去接入一个集群。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">conf = SparkConf().setAppName(appName).setMaster(master)</div><div class="line">sc = SparkContext(conf=conf)</div></pre></td></tr></table></figure></p>
+<p><strong>appName</strong>参数是你的程序在集群界面上显示的名称。<br><strong>master</strong>可以是Spark,Mesos或者YARN集群的URL，也可以是字符串<strong>“local”</strong>表示运行在本地模式。在实际应用中，很少会把master硬编码，而是通过spark-submit的参数来接收。</p>
+<h2 id="Spark-shell"><a href="#Spark-shell" class="headerlink" title="Spark shell"></a>Spark shell</h2><p>在PySpark shell启动时候，一个特殊的解释器感知 SparkContext就会自动创建出来，也就是变量<strong>sc</strong>。<br>可以使用增强型的python解释器<strong>IPYTHON</strong>.需要IPYTHON 1.0.0和以上版本。通过以下配置，可以在需要用bin/pyspark的时候用ipython代替：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ PYSPARK_DRIVER_PYTHON=ipython ./bin/pyspark</div></pre></td></tr></table></figure></p>
+<h2 id="分布式弹性数据集-RDDs"><a href="#分布式弹性数据集-RDDs" class="headerlink" title="分布式弹性数据集(RDDs)"></a>分布式弹性数据集(RDDs)</h2><p>概念在文章《Spark1.6.2 学习官方文档spark-submit相关内容》有介绍。</p>
+<h3 id="并行的数据集-Parallelized-collections"><a href="#并行的数据集-Parallelized-collections" class="headerlink" title="并行的数据集(Parallelized collections)"></a>并行的数据集(Parallelized collections)</h3><p>下面是使用SparkContext的<strong>paralleize</strong>函数创建一个包含数字1到5的并行数据集合的例子：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">data = [1, 2, 3, 4, 5]</div><div class="line">distData = sc.parallelize(data)</div></pre></td></tr></table></figure></p>
+<p>一旦创建，例子中的分布式数据集distData就可以被并行操作。<br>并行数据集的一个重要参数，就是数据集切分的partition的数目。Spark会为集群中每一个partition运行一个任务。典型情况下，为集群中每一个cpu分2-4个partition. Spark会尝试根据你的集群状况来设置partition的数目。但是，可以手动设置parallelize的第二个参数，来设置partition的数目。比如：<strong>sc.parallelize(data,10)</strong></p>
+<h3 id="外部数据集"><a href="#外部数据集" class="headerlink" title="外部数据集"></a>外部数据集</h3>
+  </section>
+
+  
+  
+
+<section class="post-comments">
+
+    <div class="ds-thread" data-thread-key="2016/08/31/sparkprogramingGuide-python/"></div>
+
+    <script type="text/javascript">
+      var duoshuoQuery = {short_name:"xiaodingdangdaddy"};
+      (function() {
+        var ds = document.createElement('script');
+        ds.type = 'text/javascript';ds.async = true;
+        ds.src = '//static.duoshuo.com/embed.js';
+        ds.charset = 'UTF-8';
+        (document.getElementsByTagName('head')[0] 
+        || document.getElementsByTagName('body')[0]).appendChild(ds);
+      })();
+    </script> 
+
+</section>
+
+
+</article>
+
+
+            <footer class="footer">
+
+    <span class="footer__copyright">&copy; 2014-2015. | 由<a href="https://hexo.io/">Hexo</a>强力驱动 | 主题<a href="https://github.com/someus/huno">Huno</a></span>
+    
+</footer>
+        </div>
+    </div>
+
+    <!-- js files -->
+    <script src="/js/jquery.min.js"></script>
+    <script src="/js/main.js"></script>
+    <script src="/js/scale.fix.js"></script>
+    
+
+    
+
+    <script type="text/javascript" src="//cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <script type="text/javascript"> 
+        $(document).ready(function(){
+            MathJax.Hub.Config({ 
+                tex2jax: {inlineMath: [['[latex]','[/latex]'], ['\\(','\\)']]} 
+            });
+        });
+    </script>
+
+
+    
+
+    <script src="/js/awesome-toc.min.js"></script>
+    <script>
+        $(document).ready(function(){
+            $.awesome_toc({
+                overlay: true,
+                contentId: "post-content",
+            });
+        });
+    </script>
+
+
+    
+    
+    <!--kill ie6 -->
+<!--[if IE 6]>
+  <script src="//letskillie6.googlecode.com/svn/trunk/2/zh_CN.js"></script>
+<![endif]-->
+
+</body>
+</html>

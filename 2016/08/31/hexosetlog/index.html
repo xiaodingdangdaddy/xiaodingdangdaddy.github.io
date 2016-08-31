@@ -24,7 +24,7 @@
 <meta property="og:site_name" content="叮当家">
 <meta property="og:description" content="huno主题设置首页github图标显示需要在根目录下的_config.yml文件中添加以下代码123# Social linkssocial:  GitHub: https://github.com/xiaodingdangdaddy
 关于hexo deploy无反应的解决方法修改_config.yml文件，添加了以下代码1234deploy:  type: git  repo:https://">
-<meta property="og:updated_time" content="2016-08-30T21:29:06.000Z">
+<meta property="og:updated_time" content="2016-08-30T22:02:37.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="hexo 设置过程中出现的问题 | 叮当家">
 <meta name="twitter:description" content="huno主题设置首页github图标显示需要在根目录下的_config.yml文件中添加以下代码123# Social linkssocial:  GitHub: https://github.com/xiaodingdangdaddy
@@ -220,11 +220,33 @@ classes that you can use:
 <p>运行命<strong>令hexo deploy</strong>后无反应，在github页面上访问会出现404</p>
 <p>最后发现是因为格式有问题，必须在repo后加上一个空格，修改为以下<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">deploy:</div><div class="line">  type: git</div><div class="line">  repo: https://github.com/xiaodingdangdaddy/xiaodingdangdaddy.github.io.git</div><div class="line">  branch: master</div></pre></td></tr></table></figure></p>
 <p>一切恢复正常</p>
+<h2 id="在hexo中插入视频的方法"><a href="#在hexo中插入视频的方法" class="headerlink" title="在hexo中插入视频的方法"></a>在hexo中插入视频的方法</h2><p>在文件中插入以下代码</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">&lt;embed type=&quot;video/mp4&quot; allowscriptaccess=&quot;always&quot; allowfullscreen=&quot;true&quot; wmode=&quot;transparent&quot; quality=&quot;high&quot; height=&quot;300&quot; width=&quot;480&quot; src=&quot;http://7xthzp.com2.z0.glb.clouddn.com/IMG_5033.mp4&quot;/&gt;</div></pre></td></tr></table></figure>
 
   </section>
 
   
   
+
+<section class="post-comments">
+
+    <div class="ds-thread" data-thread-key="2016/08/31/hexosetlog/"></div>
+
+    <script type="text/javascript">
+      var duoshuoQuery = {short_name:"xiaodingdangdaddy"};
+      (function() {
+        var ds = document.createElement('script');
+        ds.type = 'text/javascript';ds.async = true;
+        ds.src = '//static.duoshuo.com/embed.js';
+        ds.charset = 'UTF-8';
+        (document.getElementsByTagName('head')[0] 
+        || document.getElementsByTagName('body')[0]).appendChild(ds);
+      })();
+    </script> 
+
+</section>
+
+
 </article>
 
 
