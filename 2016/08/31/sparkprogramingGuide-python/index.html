@@ -7,7 +7,7 @@
     
 
     <title>
-      Spark1.6.2编程指南学习（主要是python相关用法） | 妍兮客栈 
+      Spark1.6.2编程指南tuotuo的解读（主要是python相关用法） | 妍兮客栈 
     </title>
 
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
@@ -20,18 +20,20 @@
 
 概述Spark的主要抽象概念就是分布式弹性数据集RDD(resilient distributed dataset )，数据结构上是一个只读的分区记录集合，可以跨集群节点并行操作。这些集合是弹性的，如果数据集一部分丢失可以对他们进行重建。RDD具有以下特点1234*">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Spark1.6.2编程指南学习（主要是python相关用法） | 妍兮客栈">
+<meta property="og:title" content="Spark1.6.2编程指南tuotuo的解读（主要是python相关用法） | 妍兮客栈">
 <meta property="og:url" content="http://yoursite.com/2016/08/31/sparkprogramingGuide-python/index.html">
 <meta property="og:site_name" content="妍兮客栈">
 <meta property="og:description" content="Spark由于从2015年开始才被广泛关注，相关中文学习资料非常缺乏。在这里通过阅读官方的编程指南，学习的同时也做一些相关笔记
 
 概述Spark的主要抽象概念就是分布式弹性数据集RDD(resilient distributed dataset )，数据结构上是一个只读的分区记录集合，可以跨集群节点并行操作。这些集合是弹性的，如果数据集一部分丢失可以对他们进行重建。RDD具有以下特点1234*">
-<meta property="og:updated_time" content="2016-09-01T17:18:04.000Z">
+<meta property="og:image" content="http://ww3.sinaimg.cn/large/67a6a651gw1f273wuxzjqj20tp0i0wks.jpg">
+<meta property="og:updated_time" content="2016-09-02T11:56:38.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Spark1.6.2编程指南学习（主要是python相关用法） | 妍兮客栈">
+<meta name="twitter:title" content="Spark1.6.2编程指南tuotuo的解读（主要是python相关用法） | 妍兮客栈">
 <meta name="twitter:description" content="Spark由于从2015年开始才被广泛关注，相关中文学习资料非常缺乏。在这里通过阅读官方的编程指南，学习的同时也做一些相关笔记
 
 概述Spark的主要抽象概念就是分布式弹性数据集RDD(resilient distributed dataset )，数据结构上是一个只读的分区记录集合，可以跨集群节点并行操作。这些集合是弹性的，如果数据集一部分丢失可以对他们进行重建。RDD具有以下特点1234*">
+<meta name="twitter:image" content="http://ww3.sinaimg.cn/large/67a6a651gw1f273wuxzjqj20tp0i0wks.jpg">
     
     
     
@@ -197,7 +199,7 @@ classes that you can use:
 
   <header class="post-header">
     
-    <h1 class="post-title">Spark1.6.2编程指南学习（主要是python相关用法）</h1>
+    <h1 class="post-title">Spark1.6.2编程指南tuotuo的解读（主要是python相关用法）</h1>
 
     
 
@@ -245,8 +247,33 @@ classes that you can use:
 <h3 id="为Spark传函数"><a href="#为Spark传函数" class="headerlink" title="为Spark传函数"></a>为Spark传函数</h3><p>Spark的API 在驱动程序运行在集群上时候非常依赖传递的函数。有三种我们推荐使用的函数：<br>1.Lambda表达式。对于简单的函数可以写成lambda表达式。需要注意的是Lambdas不支持muti-statemenet函数，也不支持无返回值的statements.<br>2.较长代码中，Spark调用的本地内部defs<br>3.模块中的高级别函数</p>
 <p>比较一下下面两种map调用方式：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">class MyClass(object):</div><div class="line">    def __init__(self):</div><div class="line">        self.field = &quot;Hello&quot;</div><div class="line">    def doStuff(self, rdd):</div><div class="line">        return rdd.map(lambda s: self.field + s)</div></pre></td></tr></table></figure></p>
 <p>和<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">class MyClass(object):</div><div class="line">    def __init__(self):</div><div class="line">        self.field = &quot;Hello&quot;</div><div class="line">    def doStuff(self, rdd):</div><div class="line">        field = self.field</div><div class="line">        return rdd.map(lambda s: field + s)</div></pre></td></tr></table></figure></p>
-<p>前者因为在rdd.map()中调用了self.field，会使得整个MyClass对象发送到集群中。<br>而后者，聪明的在map()外面将self.field复制给了field，成为了本地变量，然后在map()调用时无需前者那么大的代价。</p>
-<h3 id="理解闭包"><a href="#理解闭包" class="headerlink" title="理解闭包"></a>理解闭包</h3>
+<p>前者因为在rdd.map()中调用了self.field，会使得整个MyClass对象发送到集群中。<br>而后者，聪明的在map()外面将self.field复制给了field，成为了本地变量，然后在map()调用时无需前者那么大的代价。<br>下图也是同样的道理：<br><img src="http://ww3.sinaimg.cn/large/67a6a651gw1f273wuxzjqj20tp0i0wks.jpg" alt="传递函数"><br>右边的方式可以避免将整个对象拷贝到闭包中</p>
+<h3 id="理解闭包"><a href="#理解闭包" class="headerlink" title="理解闭包"></a>理解闭包</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">注意：千万不要在spark中像下面这样coding</div><div class="line">counter = 0</div><div class="line">rdd = sc.parallelize(data)</div><div class="line"></div><div class="line">def increment_counter(x):</div><div class="line">    global counter</div><div class="line">    counter += x</div><div class="line">rdd.foreach(increment_counter)</div></pre></td></tr></table></figure>
+<p>在Spark中上面的代码，在local和cluster模式运行时候，结果是完全不同的。</p>
+<hr>
+<p><strong>local模式</strong>运行。那么这就是一段经典的演示“闭包”概念的代码。函数increment_counter是一个闭包，它有一个自由变量counter, 当这个闭包传递给rdd参与运算的过程中，counter变量一直存在于伴随这个闭包的上下文中，其状态（值）会持续的被改变并保持，因此，在运算结束后，counter的值就是rdd中数据条目的总数。</p>
+<p><strong>cluster模式（多节点）</strong>运行。情况就大不相同了，由于数据被分散到了多个节点上并行处理，计算逻辑，也就是我们的闭包也要分发到各个节点上去执行（分发前，Spark会完成闭包的序列化工作），OK，我们可以确定的是：当闭包分发到各个executor上时，闭包中所有自由变量的值都来自于driver发分发时的那个上下文里，现在闭包完全地独立出来了，就是完全在一个全新的环境中运行了，executor本地的自用变量与driver上的那些对应变量已经没有任何关系了，它们都将在各自的环境里自由演变了，彼此之间没有任何联系了。简单地解释就是：闭包和它的上下文只在一个进程（节点）中有效。因此：在本例中，你不能指望在driver端执行这段代码后得到counter的值，实际上它只是在初值是0的时候被复制了n份传递给executor之外，它在driver端什么也没做，而executor端的那个counter副本只在exexutor本地计算着“局部”的counter, 它已和driver端的这个counter没有丝毫的关系，所以最后的结果是：程序执行结束后，打印的这个counter是driver端的这个coutner,它没有被计算，它的值一直是0.</p>
+<p>总结一下，如果counter是一个全局性（正对整个程序或着说集群）的只读的初值，那么作为闭包的自由变量传播到整个集群这是有意义的，但如果executor企图要改写一个全局性的初值，则这样做是没有意义的。对于Spark来说，合适作为闭包的自由变量应该是这样一种值：在<strong>局部</strong>数据集计算过程中需要持续追踪状态的变量！<br>(闭包理解引用了bluishglc技术博客上的部分内容，<a href="http://blog.csdn.net/bluishglc/article/details/50715879" target="_blank" rel="external">原文链接</a>)</p>
+<hr>
+<p>如果确实需要这种全局变量，分发到各节点执行后，能获取想要的改变后的值，可以使用<strong>Accumulator</strong>。Spark中Accumulators提供了一种在分发给各个工作节点中执行后可以安全更新全局变量的机制。</p>
+<h3 id="打印RDD元素"><a href="#打印RDD元素" class="headerlink" title="打印RDD元素"></a>打印RDD元素</h3><p>人们通常习惯使用rdd.foreach(println)或者rdd.map(println)这种错误的方式来打印出RDD的元素。说其错误，因为这种方式仅仅适用于本地单机模式。在集群模式下，stdout的输出只是在工作节点上执行，本机driver只负责把这样的任务分发给工作节点，自己没有执行。所以本机并不会打印出想要的结果。<br>一种解决方法是调用<strong>collect()</strong>把RDD复制到driver节点上，像这样<strong>rdd.collect().foreach(println)</strong>。但是，这样又产生了新的问题，由于collect()把整个RDD取到本地的单一机器上，可能会导致内存溢出。<br>因此，<strong>最好最安全的策略</strong>是：如果你需要打印RDD的一部分元素，调用<strong>take()</strong>,如下：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">rdd.take(100).foreach(println)</div></pre></td></tr></table></figure></p>
+<p>###Working with Key-Value Pairs<br>Spark在RDDs上的操作对象包括多种类型，有一些RDDs上的特别操作仅仅支持<strong>Key-Value对</strong>。最普遍的是分布式shuffle操作，比如按照Key来grouping或者aggregating元素。<br>下面的代码用<strong>reduceByKey</strong>来计算文件中每一行内容出现的次数：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">lines = sc.textFile(&quot;data.txt&quot;)</div><div class="line">pairs = lines.map(lambda s: (s, 1))</div><div class="line">counts = pairs.reduceByKey(lambda a, b: a + b)</div></pre></td></tr></table></figure></p>
+<p>可以用<strong>counts.sortByKey()</strong>来将(u’string’,1)这样的键值对按字母顺序排序。最后，使用<strong>counts.collect()</strong>把结果作为一系列对象返回给driver program</p>
+<hr>
+<h3 id="Transformations"><a href="#Transformations" class="headerlink" title="Transformations"></a>Transformations</h3><p>下面的表格列出了Spark支持的<strong>transformations</strong><br>更详细的内容，参照官方RDD API(python)–<a href="http://spark.apache.org/docs/1.6.2/api/python/pyspark.html#pyspark.RDD" target="_blank" rel="external">pyspark package</a></p>
+<hr>
+<p><strong>map(func):</strong><br>将每一条源数据通过函数func处理后，形成新的distributed dataset并返回<br><strong>flatMap(func):</strong><br>和map类似，但是每一条输入的源数据，处理后输出项中可以有多个元素<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">&gt;&gt;&gt; rdd = sc.parallelize([2, 3, 4])</div><div class="line">&gt;&gt;&gt; sorted(rdd.flatMap(lambda x: range(1, x)).collect())</div><div class="line">[1, 1, 1, 2, 2, 3]</div><div class="line">&gt;&gt;&gt; sorted(rdd.flatMap(lambda x: [(x, x), (x, x)]).collect())</div><div class="line">[(2, 2), (2, 2), (3, 3), (3, 3), (4, 4), (4, 4)]</div></pre></td></tr></table></figure></p>
+<p><strong>mapPartitions(func):</strong><br>和map类似，但是func必须是Iterator,而且func作用于根据partition划分的多<br>个数据上，并返回partition数目的值<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">&gt;&gt;&gt; rdd = sc.parallelize([1, 2, 3, 4], 2) #第二个参数表明要划分两部分</div><div class="line">&gt;&gt;&gt; def f(iterator): yield sum(iterator)</div><div class="line">&gt;&gt;&gt; rdd.mapPartitions(f).collect()</div><div class="line">[3, 7]   #rdd中的[1,2,3,4],被划分成[1,2]和[3,4],分别作用到f上的到[3,7]</div></pre></td></tr></table></figure></p>
+<p><strong>mapPartitionsWithIndex(func)</strong><br>同mapPartitions函数一样，func需要是Iterator，func作用于每个分区，但是跟踪的是每个分区的原始索引，每个func的返回值也是分区的索引<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">&gt;&gt;&gt; rdd = sc.parallelize([1, 2, 3, 4], 4)</div><div class="line">&gt;&gt;&gt; def f(splitIndex, iterator): yield splitIndex</div><div class="line">&gt;&gt;&gt; rdd.mapPartitionsWithIndex(f).sum()</div><div class="line">6  #rdd 分四个区[1],[2],[3],[4],原始索引分别是0,1,2,3 因此最终加起来的结果是6.若第一行改成分2个区，也就sc.parallelize([1, 2, 3, 4], 2),那最后的结果是两个分区的原始索引0+1=2</div></pre></td></tr></table></figure></p>
+<p><strong>filter(func):</strong><br>那些输入函数func，使得func返回值为真的源数据，组成新的dataset，并返回<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">&gt;&gt;&gt; rdd = sc.parallelize([1, 2, 3, 4, 5])</div><div class="line">&gt;&gt;&gt; rdd.filter(lambda x: x % 2 == 0).collect()</div><div class="line">[2, 4]</div></pre></td></tr></table></figure></p>
+<p><strong>sample(withReplacement,fraction,seed=None)</strong><br>Spark的取样函数，参数一True或者False表明取样后放回或者不放回，参数二表示取样的百分比，参数三用于指定随机数生成种子。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">&gt;&gt;&gt; rdd = sc.parallelize(range(100), 4)</div><div class="line">&gt;&gt;&gt; rdd.sample(False, 0.1, 81).count() </div><div class="line">10</div><div class="line">&gt;&gt;&gt; rdd.sample(False, 0.1, 81).collect()</div><div class="line">[4, 27, 40, 42, 43, 60, 76, 80, 86, 97]</div></pre></td></tr></table></figure></p>
+<p>上面例子中表示设定随机数种子为81，不放回抽样10%。最终返回10个结果</p>
+<p><strong>union(otherDataset)</strong><br>返回一个并集<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">&gt;&gt;&gt; rdd1 = sc.parallelize([1, 1, 2, 3])</div><div class="line">&gt;&gt;&gt; rdd2 = sc.parallelize([2, 3, 4,5])</div><div class="line">&gt;&gt;&gt; rdd1.union(rdd2).collect()</div><div class="line">[1, 1, 2, 3, 2, 3, 4, 5]</div></pre></td></tr></table></figure></p>
+<p><strong>intersection(otherDataset)</strong><br>类似union用法，但是返回的是交集</p>
+<p><strong>distinct([numTasks]))</strong><br>返回RDD元素中不同的值，也就是重复的元素仅保留一个。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">sc.parallelize([1, 1, 2, 2, 2, 3, 3]).distinct().collect()</div><div class="line">[1, 2, 3]</div></pre></td></tr></table></figure></p>
+<p><strong>mapValues(f)</strong><br>将f作用到每一对Key-Value上的Value上，不改变Key<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">&gt;&gt;&gt; x = sc.parallelize([(&quot;a&quot;, [&quot;apple&quot;, &quot;banana&quot;, &quot;lemon&quot;]), (&quot;b&quot;, [&quot;grapes&quot;])])</div><div class="line">&gt;&gt;&gt; def f(x): return len(x)</div><div class="line">&gt;&gt;&gt; x.mapValues(f).collect()</div><div class="line">[(&apos;a&apos;, 3), (&apos;b&apos;, 1)]</div></pre></td></tr></table></figure></p>
+<p><strong>groupByKey([numTasks])</strong><br>把RDD中的Key-Value对，按照每一个Key，单独组合成一个序列。<br>如RDD中如果有[(“a”, 1),(“b”, 1),(“a”, 1),(“a”, 1),(“b”, 1)],将会返回一个RDD <strong>[(‘a’, <pyspark.resultiterable.resultiterable object="" at="" 0x263f990="">), (‘b’, <pyspark.resultiterable.resultiterable object="" at="" 0x263fa10="">)]</pyspark.resultiterable.resultiterable></pyspark.resultiterable.resultiterable></strong>,这里面的pyspark.resultiterable.ResultIterable object就是按照相同key，组合成的序列。接下来可以调用其他函数对这个序列中的内容进行操作，例如<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">&gt;&gt;&gt; rdd = sc.parallelize([(&quot;a&quot;, 1), (&quot;b&quot;, 1), (&quot;a&quot;, 1),(&quot;a&quot;, 1),(&quot;b&quot;, 1)])</div><div class="line">&gt;&gt;&gt; sorted(rdd.groupByKey().mapValues(len).collect())</div><div class="line">[(&apos;a&apos;, 3), (&apos;b&apos;, 2)] #计算序列元素个数</div><div class="line">&gt;&gt;&gt; sorted(rdd.groupByKey().mapValues(list).collect())</div><div class="line">[(&apos;a&apos;, [1, 1, 1]), (&apos;b&apos;, [1, 1])] #将序列中的元素以列表形式展示</div></pre></td></tr></table></figure></p>
+
   </section>
 
   
