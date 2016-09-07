@@ -1,0 +1,293 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="chrome=1">
+
+    
+
+    <title>
+      VMWARE虚拟机网络设置之坑爹的小米路由器 | 妍兮客栈 
+    </title>
+
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+    
+      <meta name="author" content="John Doe">
+    
+    
+
+    <meta name="description" content="今天带着台式机回到家里后，用putty连我hadoop集群安装的几台centos虚拟机时候，死活连不上。尝试了一下，虚拟机之间可以ping通，但是主机就不行。考虑到虚拟机没有动过网络配置，而主机之前折腾过几个翻墙的VPN软件，估计是卸载时候动到了主机网络设置。于是改来改去弄了半天，各种配置都试过了，还是不行。包括虚拟机网络编辑器重置，再配置。然后又到虚拟机上看了下网络设置，确实没有动过。最后心灰意">
+<meta property="og:type" content="article">
+<meta property="og:title" content="VMWARE虚拟机网络设置之坑爹的小米路由器 | 妍兮客栈">
+<meta property="og:url" content="http://yoursite.com/2016/09/08/xiaomi-kengdie/index.html">
+<meta property="og:site_name" content="妍兮客栈">
+<meta property="og:description" content="今天带着台式机回到家里后，用putty连我hadoop集群安装的几台centos虚拟机时候，死活连不上。尝试了一下，虚拟机之间可以ping通，但是主机就不行。考虑到虚拟机没有动过网络配置，而主机之前折腾过几个翻墙的VPN软件，估计是卸载时候动到了主机网络设置。于是改来改去弄了半天，各种配置都试过了，还是不行。包括虚拟机网络编辑器重置，再配置。然后又到虚拟机上看了下网络设置，确实没有动过。最后心灰意">
+<meta property="og:image" content="http://image.baidu.com/search/detail?ct=503316480&z=0&ipn=d&word=%E5%9D%91%E7%88%B9%20%E6%91%94&step_word=&hs=0&pn=1&spn=0&di=109441933590&pi=&rn=1&tn=baiduimagedetail&is=&istype=0&ie=utf-8&oe=utf-8&in=&cl=2&lm=-1&st=undefined&cs=2618576897%2C1231549606&os=248978524%2C1521120424&simid=3472061878%2C457539704&adpicid=0&ln=1971&fr=&fmq=1473246133778_R&fm=&ic=undefined&s=undefined&se=&sme=&tab=0&width=&height=&face=undefined&ist=&jit=&cg=&bdtype=0&oriquery=&objurl=http%3A%2F%2Fimg5.cache.netease.com%2Flady%2F2013%2F5%2F29%2F201305290213091e930.jpg&fromurl=ippr_z2C%24qAzdH3FAzdH3Fks52_z%26e3Bftgw_z%26e3Bv54_z%26e3BvgAzdH3FfAzdH3Fks52_vdkbcc01a8a8hmmv_z%26e3Bip4s&gsm=0&rpstart=0&rpnum=0">
+<meta property="og:updated_time" content="2016-09-07T18:56:07.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="VMWARE虚拟机网络设置之坑爹的小米路由器 | 妍兮客栈">
+<meta name="twitter:description" content="今天带着台式机回到家里后，用putty连我hadoop集群安装的几台centos虚拟机时候，死活连不上。尝试了一下，虚拟机之间可以ping通，但是主机就不行。考虑到虚拟机没有动过网络配置，而主机之前折腾过几个翻墙的VPN软件，估计是卸载时候动到了主机网络设置。于是改来改去弄了半天，各种配置都试过了，还是不行。包括虚拟机网络编辑器重置，再配置。然后又到虚拟机上看了下网络设置，确实没有动过。最后心灰意">
+<meta name="twitter:image" content="http://image.baidu.com/search/detail?ct=503316480&z=0&ipn=d&word=%E5%9D%91%E7%88%B9%20%E6%91%94&step_word=&hs=0&pn=1&spn=0&di=109441933590&pi=&rn=1&tn=baiduimagedetail&is=&istype=0&ie=utf-8&oe=utf-8&in=&cl=2&lm=-1&st=undefined&cs=2618576897%2C1231549606&os=248978524%2C1521120424&simid=3472061878%2C457539704&adpicid=0&ln=1971&fr=&fmq=1473246133778_R&fm=&ic=undefined&s=undefined&se=&sme=&tab=0&width=&height=&face=undefined&ist=&jit=&cg=&bdtype=0&oriquery=&objurl=http%3A%2F%2Fimg5.cache.netease.com%2Flady%2F2013%2F5%2F29%2F201305290213091e930.jpg&fromurl=ippr_z2C%24qAzdH3FAzdH3Fks52_z%26e3Bftgw_z%26e3Bv54_z%26e3BvgAzdH3FfAzdH3Fks52_vdkbcc01a8a8hmmv_z%26e3Bip4s&gsm=0&rpstart=0&rpnum=0">
+    
+    
+    
+    <link rel="stylesheet" href="/css/uno.css">
+    <link rel="stylesheet" href="/css/highlight.css">
+    <link rel="stylesheet" href="/css/archive.css">
+    <link rel="stylesheet" href="/css/china-social-icon.css">
+
+</head>
+<body>
+
+    <span class="mobile btn-mobile-menu">
+        <i class="icon icon-list btn-mobile-menu__icon"></i>
+        <i class="icon icon-x-circle btn-mobile-close__icon hidden"></i>
+    </span>
+
+    
+
+<header class="panel-cover panel-cover--collapsed">
+
+
+  <div class="panel-main">
+
+  
+    <div class="panel-main__inner panel-inverted">
+    <div class="panel-main__content">
+
+        
+
+        <h1 class="panel-cover__title panel-title"><a href="/" title="link to homepage">妍兮客栈</a></h1>
+        <hr class="panel-cover__divider" />
+
+        
+        <p class="panel-cover__description">
+          A site for YanXi Zheng
+        </p>
+        <hr class="panel-cover__divider panel-cover__divider--secondary" />
+        
+
+        <div class="navigation-wrapper">
+
+          <nav class="cover-navigation cover-navigation--primary">
+            <ul class="navigation">
+
+              
+                
+                <li class="navigation__item"><a href="/#blog" title="" class="blog-button">学学习</a></li>
+              
+                
+                <li class="navigation__item"><a href="/about" title="" class="">看看图</a></li>
+              
+                
+                <li class="navigation__item"><a href="/archive" title="" class="">归归档</a></li>
+              
+
+            </ul>
+          </nav>
+
+          <!-- ----------------------------
+To add a new social icon simply duplicate one of the list items from below
+and change the class in the <i> tag to match the desired social network
+and then add your link to the <a>. Here is a full list of social network
+classes that you can use:
+
+    icon-social-500px
+    icon-social-behance
+    icon-social-delicious
+    icon-social-designer-news
+    icon-social-deviant-art
+    icon-social-digg
+    icon-social-dribbble
+    icon-social-facebook
+    icon-social-flickr
+    icon-social-forrst
+    icon-social-foursquare
+    icon-social-github
+    icon-social-google-plus
+    icon-social-hi5
+    icon-social-instagram
+    icon-social-lastfm
+    icon-social-linkedin
+    icon-social-medium
+    icon-social-myspace
+    icon-social-path
+    icon-social-pinterest
+    icon-social-rdio
+    icon-social-reddit
+    icon-social-skype
+    icon-social-spotify
+    icon-social-stack-overflow
+    icon-social-steam
+    icon-social-stumbleupon
+    icon-social-treehouse
+    icon-social-tumblr
+    icon-social-twitter
+    icon-social-vimeo
+    icon-social-xbox
+    icon-social-yelp
+    icon-social-youtube
+    icon-social-zerply
+    icon-mail
+
+-------------------------------->
+
+<!-- add social info here -->
+
+
+
+<nav class="cover-navigation navigation--social">
+  <ul class="navigation">
+
+    
+      <!-- Github -->
+      <li class="navigation__item">
+        <a href="https://github.com/xiaodingdangdaddy" title="Huno on GitHub">
+          <i class='icon icon-social-github'></i>
+          <span class="label">GitHub</span>
+        </a>
+      </li>
+    
+
+    <!-- China social icon -->
+    <!--
+    
+      <li class="navigation__item">
+        <a href="" title="">
+          <i class='icon cs-icon-douban'></i>
+          <span class="label">Douban</span>
+        </a>
+      </li>
+
+      <li class="navigation__item">
+        <a href="" title="">
+          <i class='icon cs-icon-weibo'></i>
+          <span class="label">Weibo</span>
+        </a>
+      </li>
+
+    -->
+
+
+
+  </ul>
+</nav>
+
+
+
+        </div>
+
+      </div>
+
+    </div>
+
+    <div class="panel-cover--overlay"></div>
+  </div>
+</header>
+
+    <div class="content-wrapper">
+        <div class="content-wrapper__inner entry">
+            
+
+<article class="post-container post-container--single">
+
+  <header class="post-header">
+    
+    <h1 class="post-title">VMWARE虚拟机网络设置之坑爹的小米路由器</h1>
+
+    
+
+    <div class="post-meta">
+      <time datetime="2016-09-08" class="post-meta__date date">2016-09-08</time> 
+
+      <span class="post-meta__tags tags">
+
+          
+
+          
+
+      </span>
+    </div>
+    
+    
+
+  </header>
+
+  <section id="post-content" class="article-content post">
+    <p>今天带着台式机回到家里后，用putty连我hadoop集群安装的几台centos虚拟机时候，死活连不上。<br>尝试了一下，虚拟机之间可以ping通，但是主机就不行。考虑到虚拟机没有动过网络配置，而主机之前折腾过几个翻墙的VPN软件，估计是卸载时候动到了主机网络设置。<br>于是改来改去弄了半天，各种配置都试过了，还是不行。包括虚拟机网络编辑器重置，再配置。然后又到虚拟机上看了下网络设置，确实没有动过。<br>最后心灰意冷时候，在主机cmd里输了个ipconfig。出现了192.168.31.<em>*</em>，我之前虚拟机里设置的网关都是192.168.1.1.坑爹嘛这是。狗日的小米路由器趁我不在家时候自己修改了局域网设置！！<br><img src="http://image.baidu.com/search/detail?ct=503316480&amp;z=0&amp;ipn=d&amp;word=%E5%9D%91%E7%88%B9%20%E6%91%94&amp;step_word=&amp;hs=0&amp;pn=1&amp;spn=0&amp;di=109441933590&amp;pi=&amp;rn=1&amp;tn=baiduimagedetail&amp;is=&amp;istype=0&amp;ie=utf-8&amp;oe=utf-8&amp;in=&amp;cl=2&amp;lm=-1&amp;st=undefined&amp;cs=2618576897%2C1231549606&amp;os=248978524%2C1521120424&amp;simid=3472061878%2C457539704&amp;adpicid=0&amp;ln=1971&amp;fr=&amp;fmq=1473246133778_R&amp;fm=&amp;ic=undefined&amp;s=undefined&amp;se=&amp;sme=&amp;tab=0&amp;width=&amp;height=&amp;face=undefined&amp;ist=&amp;jit=&amp;cg=&amp;bdtype=0&amp;oriquery=&amp;objurl=http%3A%2F%2Fimg5.cache.netease.com%2Flady%2F2013%2F5%2F29%2F201305290213091e930.jpg&amp;fromurl=ippr_z2C%24qAzdH3FAzdH3Fks52_z%26e3Bftgw_z%26e3Bv54_z%26e3BvgAzdH3FfAzdH3Fks52_vdkbcc01a8a8hmmv_z%26e3Bip4s&amp;gsm=0&amp;rpstart=0&amp;rpnum=0" alt="坑爹嘛这是"></p>
+
+  </section>
+
+  
+  
+
+<section class="post-comments">
+
+    <div class="ds-thread" data-thread-key="2016/09/08/xiaomi-kengdie/"></div>
+
+    <script type="text/javascript">
+      var duoshuoQuery = {short_name:"xiaodingdangdaddy"};
+      (function() {
+        var ds = document.createElement('script');
+        ds.type = 'text/javascript';ds.async = true;
+        ds.src = '//static.duoshuo.com/embed.js';
+        ds.charset = 'UTF-8';
+        (document.getElementsByTagName('head')[0] 
+        || document.getElementsByTagName('body')[0]).appendChild(ds);
+      })();
+    </script> 
+
+</section>
+
+
+</article>
+
+
+            <footer class="footer">
+
+    <span class="footer__copyright">&copy; 2014-2015. | 由<a href="https://hexo.io/">Hexo</a>强力驱动 | 主题<a href="https://github.com/someus/huno">Huno</a></span>
+    
+</footer>
+        </div>
+    </div>
+
+    <!-- js files -->
+    <script src="/js/jquery.min.js"></script>
+    <script src="/js/main.js"></script>
+    <script src="/js/scale.fix.js"></script>
+    
+
+    
+
+    <script type="text/javascript" src="//cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <script type="text/javascript"> 
+        $(document).ready(function(){
+            MathJax.Hub.Config({ 
+                tex2jax: {inlineMath: [['[latex]','[/latex]'], ['\\(','\\)']]} 
+            });
+        });
+    </script>
+
+
+    
+
+    <script src="/js/awesome-toc.min.js"></script>
+    <script>
+        $(document).ready(function(){
+            $.awesome_toc({
+                overlay: true,
+                contentId: "post-content",
+            });
+        });
+    </script>
+
+
+    
+    
+    <!--kill ie6 -->
+<!--[if IE 6]>
+  <script src="//letskillie6.googlecode.com/svn/trunk/2/zh_CN.js"></script>
+<![endif]-->
+
+</body>
+</html>
