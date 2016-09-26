@@ -7,7 +7,7 @@
     
 
     <title>
-      python练习册，每天一个小程序 | 妍兮客栈 
+      sparkStreaming编程指南network_wordcount例子运行错误解决 | 妍兮客栈 
     </title>
 
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
@@ -16,18 +16,19 @@
     
     
 
-    <meta name="description" content="第0000题：将你的QQ头像(其他也可以)右上角加上红色数字，类似图中的效果实现代码12345678910111213141516171819202122232425262728293031#coding:utf-8from  PIL import Image,ImageDraw,ImageFontclass picAddNum:    def __init__(self):        sel">
+    <meta name="description" content="刚开始接触Spark Streaming,想运行一下官方指南中第一个例子network_wordcount.py，上来就碰了一鼻子灰。
+netcat问题我的运行环境是两台centos7虚拟机，没有自带该软件，在网上找到官方网址下了一个最新的版本是“netcat (The GNU Netcat) 0.7.1”。各种依赖包折腾全部安装之后，按照文档中输入nc -lk 9999 立即报错，因为根本就没有">
 <meta property="og:type" content="article">
-<meta property="og:title" content="python练习册，每天一个小程序 | 妍兮客栈">
-<meta property="og:url" content="http://yoursite.com/2016/09/14/pythonflavor/index.html">
+<meta property="og:title" content="sparkStreaming编程指南network_wordcount例子运行错误解决 | 妍兮客栈">
+<meta property="og:url" content="http://yoursite.com/2016/09/27/sparkStreamingWordCountError/index.html">
 <meta property="og:site_name" content="妍兮客栈">
-<meta property="og:description" content="第0000题：将你的QQ头像(其他也可以)右上角加上红色数字，类似图中的效果实现代码12345678910111213141516171819202122232425262728293031#coding:utf-8from  PIL import Image,ImageDraw,ImageFontclass picAddNum:    def __init__(self):        sel">
-<meta property="og:image" content="https://camo.githubusercontent.com/d518d3929e4054ce2f9183b23e52908da7e5632d/687474703a2f2f692e696d6775722e636f6d2f736732646b75592e706e673f31">
-<meta property="og:updated_time" content="2016-09-26T20:11:25.000Z">
+<meta property="og:description" content="刚开始接触Spark Streaming,想运行一下官方指南中第一个例子network_wordcount.py，上来就碰了一鼻子灰。
+netcat问题我的运行环境是两台centos7虚拟机，没有自带该软件，在网上找到官方网址下了一个最新的版本是“netcat (The GNU Netcat) 0.7.1”。各种依赖包折腾全部安装之后，按照文档中输入nc -lk 9999 立即报错，因为根本就没有">
+<meta property="og:updated_time" content="2016-09-26T21:13:35.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="python练习册，每天一个小程序 | 妍兮客栈">
-<meta name="twitter:description" content="第0000题：将你的QQ头像(其他也可以)右上角加上红色数字，类似图中的效果实现代码12345678910111213141516171819202122232425262728293031#coding:utf-8from  PIL import Image,ImageDraw,ImageFontclass picAddNum:    def __init__(self):        sel">
-<meta name="twitter:image" content="https://camo.githubusercontent.com/d518d3929e4054ce2f9183b23e52908da7e5632d/687474703a2f2f692e696d6775722e636f6d2f736732646b75592e706e673f31">
+<meta name="twitter:title" content="sparkStreaming编程指南network_wordcount例子运行错误解决 | 妍兮客栈">
+<meta name="twitter:description" content="刚开始接触Spark Streaming,想运行一下官方指南中第一个例子network_wordcount.py，上来就碰了一鼻子灰。
+netcat问题我的运行环境是两台centos7虚拟机，没有自带该软件，在网上找到官方网址下了一个最新的版本是“netcat (The GNU Netcat) 0.7.1”。各种依赖包折腾全部安装之后，按照文档中输入nc -lk 9999 立即报错，因为根本就没有">
     
     
     
@@ -193,12 +194,12 @@ classes that you can use:
 
   <header class="post-header">
     
-    <h1 class="post-title">python练习册，每天一个小程序</h1>
+    <h1 class="post-title">sparkStreaming编程指南network_wordcount例子运行错误解决</h1>
 
     
 
     <div class="post-meta">
-      <time datetime="2016-09-14" class="post-meta__date date">2016-09-14</time> 
+      <time datetime="2016-09-27" class="post-meta__date date">2016-09-27</time> 
 
       <span class="post-meta__tags tags">
 
@@ -214,7 +215,12 @@ classes that you can use:
   </header>
 
   <section id="post-content" class="article-content post">
-    <h2 id="第0000题："><a href="#第0000题：" class="headerlink" title="第0000题："></a>第0000题：</h2><p>将你的QQ头像(其他也可以)右上角加上红色数字，类似图中的效果<br><img src="https://camo.githubusercontent.com/d518d3929e4054ce2f9183b23e52908da7e5632d/687474703a2f2f692e696d6775722e636f6d2f736732646b75592e706e673f31" alt="加数字效果"><br>实现代码<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div></pre></td><td class="code"><pre><div class="line">#coding:utf-8</div><div class="line">from  PIL import Image,ImageDraw,ImageFont</div><div class="line"></div><div class="line">class picAddNum:</div><div class="line">    def __init__(self):</div><div class="line">        self.fnt = None</div><div class="line">        self.im = None</div><div class="line">    #打开要编辑的图片</div><div class="line">    def openPic(self,path):</div><div class="line">        self.im = Image.open(path)</div><div class="line">        return True</div><div class="line"></div><div class="line">    #设定字体</div><div class="line">    def setFont(self,fontPath,size):</div><div class="line">        self.fnt = ImageFont.truetype(fontPath,size)</div><div class="line">        return True</div><div class="line"></div><div class="line">    #在图片右上角加上数字</div><div class="line">    def drawNum(self, str, color, font):</div><div class="line">        draw = ImageDraw.Draw(self.im)</div><div class="line">        posX=max(self.im.size)*0.8</div><div class="line">        posY=min(self.im.size)*0.01</div><div class="line">        draw.text((posX,posY), str, color, font)</div><div class="line">        self.im.show()</div><div class="line">        self.im.save(str+&apos;num&apos;+&apos;.jpg&apos;)</div><div class="line">        return True</div><div class="line"></div><div class="line">portrait = picAddNum()</div><div class="line">portrait.openPic(&apos;fox.jpg&apos;)</div><div class="line">portrait.setFont(&quot;C:\Windows\Fonts\simsun.ttc&quot;,80)</div><div class="line">portrait.drawNum(&apos;4&apos;,(255,0,0),portrait.fnt)</div></pre></td></tr></table></figure></p>
+    <p>刚开始接触Spark Streaming,想运行一下官方指南中第一个例子network_wordcount.py，上来就碰了一鼻子灰。</p>
+<h2 id="netcat问题"><a href="#netcat问题" class="headerlink" title="netcat问题"></a>netcat问题</h2><p>我的运行环境是两台centos7虚拟机，没有自带该软件，在网上找到官方网址下了一个最新的版本是“netcat (The GNU Netcat) 0.7.1”。<br>各种依赖包折腾全部安装之后，按照文档中输入nc -lk 9999 立即报错，因为根本就没有-k这个选项啊。坑爹了这下<br>不就是建立连接，发送信息嘛，大不了自己用python socket搞个简单的走起</p>
+<h2 id="spark-Streaming接收不到信息"><a href="#spark-Streaming接收不到信息" class="headerlink" title="spark Streaming接收不到信息"></a>spark Streaming接收不到信息</h2><p>用下面代码，实现了个简单的server.py<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line">#coding=utf-8</div><div class="line">import socket</div><div class="line">s=socket.socket()</div><div class="line">host = socket.gethostname()</div><div class="line">port = 9999</div><div class="line">s.bind((host,port))</div><div class="line">s.listen(5)</div><div class="line">while True:</div><div class="line">    c, addr = s.accept()</div><div class="line">    c.send(&quot;Spark Streaming provides a high-level 、、、(省略掉很多)、、、、abstraction called&quot;)</div><div class="line">    c.close()</div></pre></td></tr></table></figure></p>
+<p>又谢了简单的客户端试了一下，可以接收到发送的消息，OK。<br>运行python server.py后<br>新开一个窗口启动spark streaming<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">./bin/spark-submit examples/src/main/python/streaming/network_wordcount.py master 9999   #我的主机名叫master</div></pre></td></tr></table></figure></p>
+<p>启动后，发现spark streaming根本接收不到消息，各种调试，都不行。<br>最后搜了一下网上发现了问题所在。<br>local 模式下,spark streaming 只启动与CPU核数相同个数的线程。我本机是单核运行时候，相当于默认 –master local[1],只有一个线程，这个线程会被用来运行receive，接收到的数据却没有线程来处理。<br><strong>因此， when running locally, always use “local[n]” as the master URL where n &gt; number of receivers to run</strong><br>修改成：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">./bin/spark-submit --master local[2] examples/src/main/python/streaming/network_wordcount.py master 9999</div></pre></td></tr></table></figure></p>
+<h2 id="完美接收。over"><a href="#完美接收。over" class="headerlink" title="完美接收。over"></a>完美接收。over</h2><h2 id="Time-2016-09-27-04-37-03"><a href="#Time-2016-09-27-04-37-03" class="headerlink" title="Time: 2016-09-27 04:37:03"></a>Time: 2016-09-27 04:37:03</h2><p>(u’operations’, 1)<br>(u’available’, 1)<br>(u’all’, 1)<br>(u’Java’, 1)<br>(u’stream’, 2)<br>(u’tabs’, 1)<br>(u’is’, 1)<br>(u’Kinesis,’, 1)<br>(u’DStream,’, 1)<br>(u’not’, 1)<br>…</p>
 
   </section>
 
@@ -223,7 +229,7 @@ classes that you can use:
 
 <section class="post-comments">
 
-    <div class="ds-thread" data-thread-key="2016/09/14/pythonflavor/"></div>
+    <div class="ds-thread" data-thread-key="2016/09/27/sparkStreamingWordCountError/"></div>
 
     <script type="text/javascript">
       var duoshuoQuery = {short_name:"xiaodingdangdaddy"};
