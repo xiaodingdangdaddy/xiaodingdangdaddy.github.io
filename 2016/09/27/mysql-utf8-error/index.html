@@ -7,7 +7,7 @@
     
 
     <title>
-      Archives: 2016/9 
+      mysql在centos7上不支持中文解决方法 | 妍兮客栈 
     </title>
 
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
@@ -16,15 +16,19 @@
     
     
 
-    <meta name="description" content="for love">
-<meta property="og:type" content="website">
-<meta property="og:title" content="Archives: 2016/9">
-<meta property="og:url" content="http://yoursite.com/archives/2016/09/index.html">
+    <meta name="description" content="Centos7上安装的mysql默认不支持中文编码。在插入中文时候就会显示错误：ERROR 1366 (HY000): Incorrect string value: ‘\xE5\xBC\xA0\xE8\x80\x81…’ for column ‘name’ at row 1
+解决方法：1.停止mysql服务  service mysqld stop2.修改/etc/my.cnf文件在[mysql">
+<meta property="og:type" content="article">
+<meta property="og:title" content="mysql在centos7上不支持中文解决方法 | 妍兮客栈">
+<meta property="og:url" content="http://yoursite.com/2016/09/27/mysql-utf8-error/index.html">
 <meta property="og:site_name" content="妍兮客栈">
-<meta property="og:description" content="for love">
+<meta property="og:description" content="Centos7上安装的mysql默认不支持中文编码。在插入中文时候就会显示错误：ERROR 1366 (HY000): Incorrect string value: ‘\xE5\xBC\xA0\xE8\x80\x81…’ for column ‘name’ at row 1
+解决方法：1.停止mysql服务  service mysqld stop2.修改/etc/my.cnf文件在[mysql">
+<meta property="og:updated_time" content="2016-09-27T12:43:43.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Archives: 2016/9">
-<meta name="twitter:description" content="for love">
+<meta name="twitter:title" content="mysql在centos7上不支持中文解决方法 | 妍兮客栈">
+<meta name="twitter:description" content="Centos7上安装的mysql默认不支持中文编码。在插入中文时候就会显示错误：ERROR 1366 (HY000): Incorrect string value: ‘\xE5\xBC\xA0\xE8\x80\x81…’ for column ‘name’ at row 1
+解决方法：1.停止mysql服务  service mysqld stop2.修改/etc/my.cnf文件在[mysql">
     
     
     
@@ -186,83 +190,61 @@ classes that you can use:
         <div class="content-wrapper__inner entry">
             
 
+<article class="post-container post-container--single">
 
-  <h1 class="archive-title">Archives: 2016/9</h1>
-  <hr class="post-list__divider" />
-
-
-<div class="main-post-list">
-    <ol class="post-list">
+  <header class="post-header">
     
-    
-    <li>
+    <h1 class="post-title">mysql在centos7上不支持中文解决方法</h1>
 
-      <h2 class="post-list__post-title post-title">
-        <a href="/2016/09/27/mysql-utf8-error/" title="link to mysql在centos7上不支持中文解决方法">mysql在centos7上不支持中文解决方法</a>
-      </h2>
-
-      <div class="post-list__meta">
-
-        <time datetime="2016-09-27" class="post-list__meta--date date">2016-09-27</time> 
-      </div>
-
-      <div class="excerpt">
-        
-      </div>
-
-      <hr class="post-list__divider" />
-    </li>
-    
-    <li>
-
-      <h2 class="post-list__post-title post-title">
-        <a href="/2016/09/22/mysql-tips/" title="link to mysql小贴士">mysql小贴士</a>
-      </h2>
-
-      <div class="post-list__meta">
-
-        <time datetime="2016-09-22" class="post-list__meta--date date">2016-09-22</time> 
-      </div>
-
-      <div class="excerpt">
-        
-      </div>
-
-      <hr class="post-list__divider" />
-    </li>
-    
-    <li>
-
-      <h2 class="post-list__post-title post-title">
-        <a href="/2016/09/08/xiaomi-kengdie/" title="link to VMWARE虚拟机网络设置之坑爹的小米路由器">VMWARE虚拟机网络设置之坑爹的小米路由器</a>
-      </h2>
-
-      <div class="post-list__meta">
-
-        <time datetime="2016-09-08" class="post-list__meta--date date">2016-09-08</time> 
-      </div>
-
-      <div class="excerpt">
-        
-      </div>
-
-      <hr class="post-list__divider" />
-    </li>
-    
-  </ol>
-
-  <hr class="post-list__divider " />
-
-<nav class="pagination" role="navigation">
     
 
-    <span class="pagination__page-number"> 1 / 1</span>
+    <div class="post-meta">
+      <time datetime="2016-09-27" class="post-meta__date date">2016-09-27</time> 
+
+      <span class="post-meta__tags tags">
+
+          
+
+          
+
+      </span>
+    </div>
     
     
-</nav>
+
+  </header>
+
+  <section id="post-content" class="article-content post">
+    <p>Centos7上安装的mysql默认不支持中文编码。<br>在插入中文时候就会显示错误：ERROR 1366 (HY000): Incorrect string value: ‘\xE5\xBC\xA0\xE8\x80\x81…’ for column ‘name’ at row 1</p>
+<p>解决方法：<br>1.停止mysql服务<br>  service mysqld stop<br>2.修改/etc/my.cnf文件<br>在[mysqld]下添加：<br>default-storage-engine=INNODB<br>character-set-server=utf8<br>collation-server=utf8_general_ci<br>此外，添加：<br>[client]<br>default-character-set=utf8<br>保存<br>3.启动mysql服务<br>  service mysqld restart<br>4.再次运行INSETRT INTO ,发现还是插入中文失败。<br>5.解决方法是删除该表格，重新创建。发现插入中文成功</p>
+
+  </section>
+
+  
+  
+
+<section class="post-comments">
+
+    <div class="ds-thread" data-thread-key="2016/09/27/mysql-utf8-error/"></div>
+
+    <script type="text/javascript">
+      var duoshuoQuery = {short_name:"xiaodingdangdaddy"};
+      (function() {
+        var ds = document.createElement('script');
+        ds.type = 'text/javascript';ds.async = true;
+        ds.src = '//static.duoshuo.com/embed.js';
+        ds.charset = 'UTF-8';
+        (document.getElementsByTagName('head')[0] 
+        || document.getElementsByTagName('body')[0]).appendChild(ds);
+      })();
+    </script> 
+
+</section>
 
 
-</div>
+</article>
+
+
             <footer class="footer">
 
     <span class="footer__copyright">&copy; 2014-2015. | 由<a href="https://hexo.io/">Hexo</a>强力驱动 | 主题<a href="https://github.com/someus/huno">Huno</a></span>
@@ -290,6 +272,18 @@ classes that you can use:
 
 
     
+
+    <script src="/js/awesome-toc.min.js"></script>
+    <script>
+        $(document).ready(function(){
+            $.awesome_toc({
+                overlay: true,
+                contentId: "post-content",
+            });
+        });
+    </script>
+
+
     
     
     <!--kill ie6 -->
