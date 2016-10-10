@@ -1,0 +1,302 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="chrome=1">
+
+    
+
+    <title>
+      mysql小贴士 | 妍兮客栈 
+    </title>
+
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+    
+      <meta name="author" content="John Doe">
+    
+    
+
+    <meta name="description" content="HAVING 用法通常在使用 GROUP BY 后，又需要限制条件，这时候不能用WHERE语句。使用HAVING是个很好的选择
++————-+——-+————-+| Store_Name  | Sales | Txn_Date    |+————-+——-+————-+| Los Angeles |  1500 | 05-jan-1999 || San Diego   |   250 | 07-j">
+<meta property="og:type" content="article">
+<meta property="og:title" content="mysql小贴士 | 妍兮客栈">
+<meta property="og:url" content="http://yoursite.com/2016/02/22/mysql-tips/index.html">
+<meta property="og:site_name" content="妍兮客栈">
+<meta property="og:description" content="HAVING 用法通常在使用 GROUP BY 后，又需要限制条件，这时候不能用WHERE语句。使用HAVING是个很好的选择
++————-+——-+————-+| Store_Name  | Sales | Txn_Date    |+————-+——-+————-+| Los Angeles |  1500 | 05-jan-1999 || San Diego   |   250 | 07-j">
+<meta property="og:updated_time" content="2016-10-10T12:04:13.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="mysql小贴士 | 妍兮客栈">
+<meta name="twitter:description" content="HAVING 用法通常在使用 GROUP BY 后，又需要限制条件，这时候不能用WHERE语句。使用HAVING是个很好的选择
++————-+——-+————-+| Store_Name  | Sales | Txn_Date    |+————-+——-+————-+| Los Angeles |  1500 | 05-jan-1999 || San Diego   |   250 | 07-j">
+    
+    
+    
+    <link rel="stylesheet" href="/css/uno.css">
+    <link rel="stylesheet" href="/css/highlight.css">
+    <link rel="stylesheet" href="/css/archive.css">
+    <link rel="stylesheet" href="/css/china-social-icon.css">
+
+</head>
+<body>
+
+    <span class="mobile btn-mobile-menu">
+        <i class="icon icon-list btn-mobile-menu__icon"></i>
+        <i class="icon icon-x-circle btn-mobile-close__icon hidden"></i>
+    </span>
+
+    
+
+<header class="panel-cover panel-cover--collapsed">
+
+
+  <div class="panel-main">
+
+  
+    <div class="panel-main__inner panel-inverted">
+    <div class="panel-main__content">
+
+        
+
+        <h1 class="panel-cover__title panel-title"><a href="/" title="link to homepage">妍兮客栈</a></h1>
+        <hr class="panel-cover__divider" />
+
+        
+        <p class="panel-cover__description">
+          A site for YanXi Zheng
+        </p>
+        <hr class="panel-cover__divider panel-cover__divider--secondary" />
+        
+
+        <div class="navigation-wrapper">
+
+          <nav class="cover-navigation cover-navigation--primary">
+            <ul class="navigation">
+
+              
+                
+                <li class="navigation__item"><a href="/#blog" title="" class="blog-button">学学习</a></li>
+              
+                
+                <li class="navigation__item"><a href="/about" title="" class="">看看图</a></li>
+              
+                
+                <li class="navigation__item"><a href="/archive" title="" class="">归归档</a></li>
+              
+
+            </ul>
+          </nav>
+
+          <!-- ----------------------------
+To add a new social icon simply duplicate one of the list items from below
+and change the class in the <i> tag to match the desired social network
+and then add your link to the <a>. Here is a full list of social network
+classes that you can use:
+
+    icon-social-500px
+    icon-social-behance
+    icon-social-delicious
+    icon-social-designer-news
+    icon-social-deviant-art
+    icon-social-digg
+    icon-social-dribbble
+    icon-social-facebook
+    icon-social-flickr
+    icon-social-forrst
+    icon-social-foursquare
+    icon-social-github
+    icon-social-google-plus
+    icon-social-hi5
+    icon-social-instagram
+    icon-social-lastfm
+    icon-social-linkedin
+    icon-social-medium
+    icon-social-myspace
+    icon-social-path
+    icon-social-pinterest
+    icon-social-rdio
+    icon-social-reddit
+    icon-social-skype
+    icon-social-spotify
+    icon-social-stack-overflow
+    icon-social-steam
+    icon-social-stumbleupon
+    icon-social-treehouse
+    icon-social-tumblr
+    icon-social-twitter
+    icon-social-vimeo
+    icon-social-xbox
+    icon-social-yelp
+    icon-social-youtube
+    icon-social-zerply
+    icon-mail
+
+-------------------------------->
+
+<!-- add social info here -->
+
+
+
+<nav class="cover-navigation navigation--social">
+  <ul class="navigation">
+
+    
+      <!-- Github -->
+      <li class="navigation__item">
+        <a href="https://github.com/xiaodingdangdaddy" title="Huno on GitHub">
+          <i class='icon icon-social-github'></i>
+          <span class="label">GitHub</span>
+        </a>
+      </li>
+    
+
+    <!-- China social icon -->
+    <!--
+    
+      <li class="navigation__item">
+        <a href="" title="">
+          <i class='icon cs-icon-douban'></i>
+          <span class="label">Douban</span>
+        </a>
+      </li>
+
+      <li class="navigation__item">
+        <a href="" title="">
+          <i class='icon cs-icon-weibo'></i>
+          <span class="label">Weibo</span>
+        </a>
+      </li>
+
+    -->
+
+
+
+  </ul>
+</nav>
+
+
+
+        </div>
+
+      </div>
+
+    </div>
+
+    <div class="panel-cover--overlay"></div>
+  </div>
+</header>
+
+    <div class="content-wrapper">
+        <div class="content-wrapper__inner entry">
+            
+
+<article class="post-container post-container--single">
+
+  <header class="post-header">
+    
+    <h1 class="post-title">mysql小贴士</h1>
+
+    
+
+    <div class="post-meta">
+      <time datetime="2016-02-22" class="post-meta__date date">2016-02-22</time> 
+
+      <span class="post-meta__tags tags">
+
+          
+
+          
+
+      </span>
+    </div>
+    
+    
+
+  </header>
+
+  <section id="post-content" class="article-content post">
+    <h2 id="HAVING-用法"><a href="#HAVING-用法" class="headerlink" title="HAVING 用法"></a>HAVING 用法</h2><p>通常在使用 GROUP BY 后，又需要限制条件，这时候不能用WHERE语句。使用HAVING是个很好的选择</p>
+<p>+————-+——-+————-+<br>| Store_Name  | Sales | Txn_Date    |<br>+————-+——-+————-+<br>| Los Angeles |  1500 | 05-jan-1999 |<br>| San Diego   |   250 | 07-jan-1999 |<br>| Los Angeles |   300 | 08-jan-1999 |<br>| Boston      |   700 | 08-jan-1999 |<br>| NewYork     |  2000 | NULL        |<br>+————-+——-+————-+</p>
+<p>对上面表格来说，若我们要找出Sales 大于 1500的 Store_Name,则：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">SELECT Store_Name, SUM(Sales) </div><div class="line">FROM Store_Information </div><div class="line">GROUP BY Store_Name</div><div class="line">HAVING SUM(Sales) &gt; 1500;</div></pre></td></tr></table></figure></p>
+<h2 id="索引介绍"><a href="#索引介绍" class="headerlink" title="索引介绍"></a>索引介绍</h2><p>资料库和表格时MySQL数据库最基本的原件，设计良好的数据库，无论是资料的正确性还是后续的维护查询都不会发生什么问题。<br>利用索引index除了可以预防数据出现问题外，在表格中记录量很大情况下，可以增加查询与维护资料的效率。<br>对于以上的Store_Information表格执行<br>SELECT * FROM Store_Informatin WHERE Store_Name = ‘Boston’<br>如果没有索引帮助，引擎就会从头开始一边读取一边判断。如果建立Store_Name的索引，引擎就会从索引档中搜寻，找到后，再从索引档对照到表格记录。<br>tips:索引同样可以增加删除或者修改的效率<br>索引分为三种：<br>1主键索引(primary key),一个表格只能有一个，设定为主键索引的栏位值不可重复，也不可以储存NULL。因此适合在编码、代号、身份证号这种栏位<br>2唯一索引(unique index),设定为唯一索引的栏位值同样不可重复，但是可以为NULL.适合用在类似员工资料表格中，存储邮箱号，电话号码等，允许NULL值的栏位<br>3非唯一索引(non-unigue index),只是用来增加查询维护资料的效率，无其他限制。</p>
+<p>索引建立方法：<br>1使用’CREATE INDEX’在建立表格后，可以建立唯一索引和非唯一索引。<br>CREATE UNIQUE INDEX city ON Store_Information (Store_Name)<br>CREATE INDEX city ON Store_Information (Store_Name)<br>2在建立表格时候建立索引，可以有下面两种方式<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line">CREATE TABLE addressbook(</div><div class="line">  id    INT UNSIGNED PRIMARY KEY,</div><div class="line">  email VARCHAR(36)  UNIQUE KEY</div><div class="line">)</div><div class="line">或者</div><div class="line">CREATE TABLE addressbook(</div><div class="line">  id    INT UNSIGNED，</div><div class="line">  email VARCHAR(36)，</div><div class="line">  PRIMARY KEY (id),</div><div class="line">  UNIQUE  KEY (email)</div><div class="line">)</div></pre></td></tr></table></figure></p>
+<h2 id="ANY-关键词的用法"><a href="#ANY-关键词的用法" class="headerlink" title="ANY 关键词的用法"></a>ANY 关键词的用法</h2><p>ANY关键词必须后面接一个比较操作符(即&gt;,&lt;,=等)。ANY关键词的意思是“对于在子查询返回的列中的任一数值，例如：<br>SELECT s1 FROM t1 WHERE s1 &gt; ANY (SELECT s1 FROM t2);<br>IN是”＝ANY”的别名。因此，这两个语句是一样的：<br>SELECT s1 FROM t1 WHERE s1 = ANY (SELECT s1 FROM t2);<br>SELECT s1 FROM t1 WHERE s1 IN    (SELECT s1 FROM t2);</p>
+<h2 id="关于行级锁、表级锁和页级锁"><a href="#关于行级锁、表级锁和页级锁" class="headerlink" title="关于行级锁、表级锁和页级锁"></a>关于行级锁、表级锁和页级锁</h2><p>行级：InnoDB引擎.单独对一行记录加锁。由于仅对指定记录加锁，这样其他进程还是可以对同一个表中的其他记录进行操作。特点：开销大，加锁慢。会出现死锁。锁定粒度最小，发生锁冲突的概率最低，并发度也最高。适合于有大量按索引条件并法更新少量不同数据，同时又有并发查询的应用，如一些在线事务处理系统(OLTP).<br>页级：BDB引擎.一次锁定相邻的一组记录。由于表级锁速度快但冲突多，行级锁冲突少但速度慢。页级锁等于是个折中的做法。开销和加锁时间介于行级和表级之间。会出现死锁，锁定粒度也介于二者之间，并发度一般。<br>表级：MyISAM引擎.直接锁定整张表，在锁定期间，其他进程无法对该表进行写操作。开销最小，加锁最快。不会出现死锁。锁定粒度大，发生锁冲突概率最高，并发度最低。适合于以查询为主，只有少量按索引条件更新数据的应用，如web应用。</p>
+<p>Mysql5.5.5版本开始默认引擎为InnoDB。<br>行级锁的优点：<br>1当在许多线程中访问不同的行时，只存在少量的锁定冲突。<br>2回滚时只有少量的更改。<br>3可以长时间锁定单一的行<br>行级锁的缺点：<br>1比页级和表级锁占用更多的内存。<br>2当在表的大部分中使用时，比页级和表级要速度慢，因为你必须获取更多的锁。<br>3如果在大部分数据上常使用GROUP BY等必须扫描整个表的操作时，比其他锁要明显慢很多。<br>InnoDB和MyISAM锁的最大不同在于：一是支持事务TRANSACTION，二是采用行级锁。<br>事务是由一组SQL语句组成的逻辑处理单元，有四个属性，简称ACID属性：<br>1原子性Atomicity.事务是一个原子操作单元，其对数据的修改，要么全部执行，要么全部不执行。<br>2一致性Consistent.在事务开始和完成时，数据必须保持一致状态。<br>3隔离性Isolation.数据库系统提供一定的隔离机制，保障事务在不受外部并发操作影响的‘独立’环境执行。<br>4持久性Durable.事务完成后，它对于数据的修改时永久的，即使出现系统故障也能保持。</p>
+<p>InnoDB有两种模式的行锁：<br>1共享锁。允许一个事务读取一行，阻止其他事务获得相同数据集的排它锁。<br>2排他锁。允许获得排他锁的事务更新数据，阻止其他事务取得相同数据集的共享读锁和排他写锁。<br>InnoDB的行锁是通过给索引项加锁来实现的。即只有通过索引条件检索数据，才能使用行级锁，否则使用表锁.</p>
+
+  </section>
+
+  
+  
+
+<section class="post-comments">
+
+    <div class="ds-thread" data-thread-key="2016/02/22/mysql-tips/"></div>
+
+    <script type="text/javascript">
+      var duoshuoQuery = {short_name:"xiaodingdangdaddy"};
+      (function() {
+        var ds = document.createElement('script');
+        ds.type = 'text/javascript';ds.async = true;
+        ds.src = '//static.duoshuo.com/embed.js';
+        ds.charset = 'UTF-8';
+        (document.getElementsByTagName('head')[0] 
+        || document.getElementsByTagName('body')[0]).appendChild(ds);
+      })();
+    </script> 
+
+</section>
+
+
+</article>
+
+
+            <footer class="footer">
+
+    <span class="footer__copyright">&copy; 2014-2015. | 由<a href="https://hexo.io/">Hexo</a>强力驱动 | 主题<a href="https://github.com/someus/huno">Huno</a></span>
+    
+</footer>
+        </div>
+    </div>
+
+    <!-- js files -->
+    <script src="/js/jquery.min.js"></script>
+    <script src="/js/main.js"></script>
+    <script src="/js/scale.fix.js"></script>
+    
+
+    
+
+    <script type="text/javascript" src="//cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <script type="text/javascript"> 
+        $(document).ready(function(){
+            MathJax.Hub.Config({ 
+                tex2jax: {inlineMath: [['[latex]','[/latex]'], ['\\(','\\)']]} 
+            });
+        });
+    </script>
+
+
+    
+
+    <script src="/js/awesome-toc.min.js"></script>
+    <script>
+        $(document).ready(function(){
+            $.awesome_toc({
+                overlay: true,
+                contentId: "post-content",
+            });
+        });
+    </script>
+
+
+    
+    
+    <!--kill ie6 -->
+<!--[if IE 6]>
+  <script src="//letskillie6.googlecode.com/svn/trunk/2/zh_CN.js"></script>
+<![endif]-->
+
+</body>
+</html>
