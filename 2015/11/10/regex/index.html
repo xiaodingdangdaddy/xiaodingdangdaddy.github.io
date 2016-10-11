@@ -1,0 +1,306 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="chrome=1">
+
+    
+
+    <title>
+      关于正则表达式 | 妍兮客栈 
+    </title>
+
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+    
+      <meta name="author" content="John Doe">
+    
+    
+
+    <meta name="description" content="正则表达式学习和总结。原文链接
+元字符常用的元字符：.  匹配除换行符以外的任意字符\w 匹配字母或数字或下划线或汉字\s 匹配任意空白符\d 匹配数字\b 匹配单词的开始或结束^  匹配字符串的开始$  匹配字符串的结束
+比如一个网站要求填写的QQ号码必须为5到12位，可以使用^\d{5,12}$如果去掉^和$就会匹配到一些包含5到12个数字的非法QQ号码。
+字符转义在需要转义的字符前使用\如\">
+<meta property="og:type" content="article">
+<meta property="og:title" content="关于正则表达式 | 妍兮客栈">
+<meta property="og:url" content="http://yoursite.com/2015/11/10/regex/index.html">
+<meta property="og:site_name" content="妍兮客栈">
+<meta property="og:description" content="正则表达式学习和总结。原文链接
+元字符常用的元字符：.  匹配除换行符以外的任意字符\w 匹配字母或数字或下划线或汉字\s 匹配任意空白符\d 匹配数字\b 匹配单词的开始或结束^  匹配字符串的开始$  匹配字符串的结束
+比如一个网站要求填写的QQ号码必须为5到12位，可以使用^\d{5,12}$如果去掉^和$就会匹配到一些包含5到12个数字的非法QQ号码。
+字符转义在需要转义的字符前使用\如\">
+<meta property="og:updated_time" content="2016-10-10T13:59:43.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="关于正则表达式 | 妍兮客栈">
+<meta name="twitter:description" content="正则表达式学习和总结。原文链接
+元字符常用的元字符：.  匹配除换行符以外的任意字符\w 匹配字母或数字或下划线或汉字\s 匹配任意空白符\d 匹配数字\b 匹配单词的开始或结束^  匹配字符串的开始$  匹配字符串的结束
+比如一个网站要求填写的QQ号码必须为5到12位，可以使用^\d{5,12}$如果去掉^和$就会匹配到一些包含5到12个数字的非法QQ号码。
+字符转义在需要转义的字符前使用\如\">
+    
+    
+    
+    <link rel="stylesheet" href="/css/uno.css">
+    <link rel="stylesheet" href="/css/highlight.css">
+    <link rel="stylesheet" href="/css/archive.css">
+    <link rel="stylesheet" href="/css/china-social-icon.css">
+
+</head>
+<body>
+
+    <span class="mobile btn-mobile-menu">
+        <i class="icon icon-list btn-mobile-menu__icon"></i>
+        <i class="icon icon-x-circle btn-mobile-close__icon hidden"></i>
+    </span>
+
+    
+
+<header class="panel-cover panel-cover--collapsed">
+
+
+  <div class="panel-main">
+
+  
+    <div class="panel-main__inner panel-inverted">
+    <div class="panel-main__content">
+
+        
+
+        <h1 class="panel-cover__title panel-title"><a href="/" title="link to homepage">妍兮客栈</a></h1>
+        <hr class="panel-cover__divider" />
+
+        
+        <p class="panel-cover__description">
+          A site for YanXi Zheng
+        </p>
+        <hr class="panel-cover__divider panel-cover__divider--secondary" />
+        
+
+        <div class="navigation-wrapper">
+
+          <nav class="cover-navigation cover-navigation--primary">
+            <ul class="navigation">
+
+              
+                
+                <li class="navigation__item"><a href="/#blog" title="" class="blog-button">学学习</a></li>
+              
+                
+                <li class="navigation__item"><a href="/about" title="" class="">看看图</a></li>
+              
+                
+                <li class="navigation__item"><a href="/archive" title="" class="">归归档</a></li>
+              
+
+            </ul>
+          </nav>
+
+          <!-- ----------------------------
+To add a new social icon simply duplicate one of the list items from below
+and change the class in the <i> tag to match the desired social network
+and then add your link to the <a>. Here is a full list of social network
+classes that you can use:
+
+    icon-social-500px
+    icon-social-behance
+    icon-social-delicious
+    icon-social-designer-news
+    icon-social-deviant-art
+    icon-social-digg
+    icon-social-dribbble
+    icon-social-facebook
+    icon-social-flickr
+    icon-social-forrst
+    icon-social-foursquare
+    icon-social-github
+    icon-social-google-plus
+    icon-social-hi5
+    icon-social-instagram
+    icon-social-lastfm
+    icon-social-linkedin
+    icon-social-medium
+    icon-social-myspace
+    icon-social-path
+    icon-social-pinterest
+    icon-social-rdio
+    icon-social-reddit
+    icon-social-skype
+    icon-social-spotify
+    icon-social-stack-overflow
+    icon-social-steam
+    icon-social-stumbleupon
+    icon-social-treehouse
+    icon-social-tumblr
+    icon-social-twitter
+    icon-social-vimeo
+    icon-social-xbox
+    icon-social-yelp
+    icon-social-youtube
+    icon-social-zerply
+    icon-mail
+
+-------------------------------->
+
+<!-- add social info here -->
+
+
+
+<nav class="cover-navigation navigation--social">
+  <ul class="navigation">
+
+    
+      <!-- Github -->
+      <li class="navigation__item">
+        <a href="https://github.com/xiaodingdangdaddy" title="Huno on GitHub">
+          <i class='icon icon-social-github'></i>
+          <span class="label">GitHub</span>
+        </a>
+      </li>
+    
+
+    <!-- China social icon -->
+    <!--
+    
+      <li class="navigation__item">
+        <a href="" title="">
+          <i class='icon cs-icon-douban'></i>
+          <span class="label">Douban</span>
+        </a>
+      </li>
+
+      <li class="navigation__item">
+        <a href="" title="">
+          <i class='icon cs-icon-weibo'></i>
+          <span class="label">Weibo</span>
+        </a>
+      </li>
+
+    -->
+
+
+
+  </ul>
+</nav>
+
+
+
+        </div>
+
+      </div>
+
+    </div>
+
+    <div class="panel-cover--overlay"></div>
+  </div>
+</header>
+
+    <div class="content-wrapper">
+        <div class="content-wrapper__inner entry">
+            
+
+<article class="post-container post-container--single">
+
+  <header class="post-header">
+    
+    <h1 class="post-title">关于正则表达式</h1>
+
+    
+
+    <div class="post-meta">
+      <time datetime="2015-11-10" class="post-meta__date date">2015-11-10</time> 
+
+      <span class="post-meta__tags tags">
+
+          
+
+          
+
+      </span>
+    </div>
+    
+    
+
+  </header>
+
+  <section id="post-content" class="article-content post">
+    <p>正则表达式学习和总结。<a href="http://deerchao.net/tutorials/regex/regex.htm" target="_blank" rel="external">原文链接</a></p>
+<h2 id="元字符"><a href="#元字符" class="headerlink" title="元字符"></a>元字符</h2><p>常用的元字符：<br><strong>.</strong>  匹配除换行符以外的任意字符<br><strong>\w</strong> 匹配字母或数字或下划线或汉字<br><strong>\s</strong> 匹配任意空白符<br><strong>\d</strong> 匹配数字<br><strong>\b</strong> 匹配单词的开始或结束<br><strong>^</strong>  匹配字符串的开始<br><strong>$</strong>  匹配字符串的结束</p>
+<p>比如一个网站要求填写的QQ号码必须为5到12位，可以使用<strong>^\d{5,12}$</strong><br>如果去掉<strong>^和$</strong>就会匹配到一些包含5到12个数字的非法QQ号码。</p>
+<h2 id="字符转义"><a href="#字符转义" class="headerlink" title="字符转义"></a>字符转义</h2><p>在需要转义的字符前使用<strong>\</strong>如\.或者\*</p>
+<h2 id="重复"><a href="#重复" class="headerlink" title="重复"></a>重复</h2><p>常用的限定符：<br><strong>*</strong> 重复零次或更多次<br><strong>+</strong> 重复一次或更多次<br><strong>?</strong> 重复零次或一次<br><strong>{n}</strong>重复n次<br><strong>{n,}</strong>重复n次或更多次<br><strong>{n,m}</strong>重复n到m次<br>Windows\d+匹配Windows后面跟1个或更多数字<br>^\w+匹配一行的第一个单词(或整个字符串的第一个单词，具体匹配哪个意思得看选项设置)</p>
+<h2 id="字符类"><a href="#字符类" class="headerlink" title="字符类"></a>字符类</h2><p>因为有了对应字符集合的元字符，查找数字、字母、空白等这些是很简单的。<br>如果像匹配没有预定义元字符的字符集合比如 元音字母a e i o u。可以使用方括号。比如[aeiou]匹配任一个元音字母，[0-9]作用和\d一样匹配一位数字<br>如果要匹配像010-62975398、(010)62975333、01062976555这样的电话号码。可以使用正则<strong>(?\d{3}[)-]?\d{8}</strong><br>其中的<strong>[)-]?</strong>表示区号和电话号码之间可以用) -或者没有</p>
+<h2 id="分支条件"><a href="#分支条件" class="headerlink" title="分支条件"></a>分支条件</h2><p>上面的正则表达式<strong>(?\d{3}[)-]?\d{8}</strong>在匹配到正确的电话号码同时，也会冒出来010)62975398这种不正确的格式。<br>这里就需要用到分支条件了。<br>如实现上面的目的，可以用正则<strong>\d{3}[- ]?\d{8}|(\d{3})[- ]?\d{8}</strong>.<br>这个表达式匹配3位区号的电话号码，其中区号可以用小括号括起来，也可以不用，区号与本地号间可以用连字号或空格间隔，也可以没有间隔<br><strong>\d{5}-\d{4}|\d{5}</strong>这个表达式用于匹配美国的邮政编码。美国邮编的规则是5位数字，或者用连字号间隔的9位数字。之所以要给出这个例子是因为它能说明一个问题：使用分枝条件时，要注意各个条件的顺序。如果你把它改成<strong>\d{5}|\d{5}-\d{4}</strong>的话，那么就只会匹配5位的邮编(以及9位邮编的前5位)。原因是匹配分枝条件时，将会从左到右地测试每个条件，如果满足了某个分枝的话，就不会去再管其它的条件了</p>
+
+  </section>
+
+  
+  
+
+<section class="post-comments">
+
+    <div class="ds-thread" data-thread-key="2015/11/10/regex/"></div>
+
+    <script type="text/javascript">
+      var duoshuoQuery = {short_name:"xiaodingdangdaddy"};
+      (function() {
+        var ds = document.createElement('script');
+        ds.type = 'text/javascript';ds.async = true;
+        ds.src = '//static.duoshuo.com/embed.js';
+        ds.charset = 'UTF-8';
+        (document.getElementsByTagName('head')[0] 
+        || document.getElementsByTagName('body')[0]).appendChild(ds);
+      })();
+    </script> 
+
+</section>
+
+
+</article>
+
+
+            <footer class="footer">
+
+    <span class="footer__copyright">&copy; 2014-2015. | 由<a href="https://hexo.io/">Hexo</a>强力驱动 | 主题<a href="https://github.com/someus/huno">Huno</a></span>
+    
+</footer>
+        </div>
+    </div>
+
+    <!-- js files -->
+    <script src="/js/jquery.min.js"></script>
+    <script src="/js/main.js"></script>
+    <script src="/js/scale.fix.js"></script>
+    
+
+    
+
+    <script type="text/javascript" src="//cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <script type="text/javascript"> 
+        $(document).ready(function(){
+            MathJax.Hub.Config({ 
+                tex2jax: {inlineMath: [['[latex]','[/latex]'], ['\\(','\\)']]} 
+            });
+        });
+    </script>
+
+
+    
+
+    <script src="/js/awesome-toc.min.js"></script>
+    <script>
+        $(document).ready(function(){
+            $.awesome_toc({
+                overlay: true,
+                contentId: "post-content",
+            });
+        });
+    </script>
+
+
+    
+    
+    <!--kill ie6 -->
+<!--[if IE 6]>
+  <script src="//letskillie6.googlecode.com/svn/trunk/2/zh_CN.js"></script>
+<![endif]-->
+
+</body>
+</html>
