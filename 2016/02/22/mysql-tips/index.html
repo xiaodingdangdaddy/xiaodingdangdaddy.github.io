@@ -24,7 +24,7 @@
 <meta property="og:site_name" content="妍兮客栈">
 <meta property="og:description" content="HAVING 用法通常在使用 GROUP BY 后，又需要限制条件，这时候不能用WHERE语句。使用HAVING是个很好的选择
 +————-+——-+————-+| Store_Name  | Sales | Txn_Date    |+————-+——-+————-+| Los Angeles |  1500 | 05-jan-1999 || San Diego   |   250 | 07-j">
-<meta property="og:updated_time" content="2016-10-10T12:04:13.000Z">
+<meta property="og:updated_time" content="2016-10-11T13:15:31.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="mysql小贴士 | 妍兮客栈">
 <meta name="twitter:description" content="HAVING 用法通常在使用 GROUP BY 后，又需要限制条件，这时候不能用WHERE语句。使用HAVING是个很好的选择
@@ -224,6 +224,20 @@ classes that you can use:
 <h2 id="关于行级锁、表级锁和页级锁"><a href="#关于行级锁、表级锁和页级锁" class="headerlink" title="关于行级锁、表级锁和页级锁"></a>关于行级锁、表级锁和页级锁</h2><p>行级：InnoDB引擎.单独对一行记录加锁。由于仅对指定记录加锁，这样其他进程还是可以对同一个表中的其他记录进行操作。特点：开销大，加锁慢。会出现死锁。锁定粒度最小，发生锁冲突的概率最低，并发度也最高。适合于有大量按索引条件并法更新少量不同数据，同时又有并发查询的应用，如一些在线事务处理系统(OLTP).<br>页级：BDB引擎.一次锁定相邻的一组记录。由于表级锁速度快但冲突多，行级锁冲突少但速度慢。页级锁等于是个折中的做法。开销和加锁时间介于行级和表级之间。会出现死锁，锁定粒度也介于二者之间，并发度一般。<br>表级：MyISAM引擎.直接锁定整张表，在锁定期间，其他进程无法对该表进行写操作。开销最小，加锁最快。不会出现死锁。锁定粒度大，发生锁冲突概率最高，并发度最低。适合于以查询为主，只有少量按索引条件更新数据的应用，如web应用。</p>
 <p>Mysql5.5.5版本开始默认引擎为InnoDB。<br>行级锁的优点：<br>1当在许多线程中访问不同的行时，只存在少量的锁定冲突。<br>2回滚时只有少量的更改。<br>3可以长时间锁定单一的行<br>行级锁的缺点：<br>1比页级和表级锁占用更多的内存。<br>2当在表的大部分中使用时，比页级和表级要速度慢，因为你必须获取更多的锁。<br>3如果在大部分数据上常使用GROUP BY等必须扫描整个表的操作时，比其他锁要明显慢很多。<br>InnoDB和MyISAM锁的最大不同在于：一是支持事务TRANSACTION，二是采用行级锁。<br>事务是由一组SQL语句组成的逻辑处理单元，有四个属性，简称ACID属性：<br>1原子性Atomicity.事务是一个原子操作单元，其对数据的修改，要么全部执行，要么全部不执行。<br>2一致性Consistent.在事务开始和完成时，数据必须保持一致状态。<br>3隔离性Isolation.数据库系统提供一定的隔离机制，保障事务在不受外部并发操作影响的‘独立’环境执行。<br>4持久性Durable.事务完成后，它对于数据的修改时永久的，即使出现系统故障也能保持。</p>
 <p>InnoDB有两种模式的行锁：<br>1共享锁。允许一个事务读取一行，阻止其他事务获得相同数据集的排它锁。<br>2排他锁。允许获得排他锁的事务更新数据，阻止其他事务取得相同数据集的共享读锁和排他写锁。<br>InnoDB的行锁是通过给索引项加锁来实现的。即只有通过索引条件检索数据，才能使用行级锁，否则使用表锁.</p>
+<h2 id="MySql-备份策略"><a href="#MySql-备份策略" class="headerlink" title="MySql 备份策略"></a>MySql 备份策略</h2><p><a href="http://zheming.wang/blog/2015/01/09/30E015EC-9C3A-4E1A-B148-BE81B6DAB5D2/" target="_blank" rel="external">参考链接</a></p>
+<h3 id="1-实时备份"><a href="#1-实时备份" class="headerlink" title="1.实时备份"></a>1.实时备份</h3><p>主从备份<br>主从复制时数据库的一种自动备份机制，使用MySQL中的Replication机制进行实时的数据备份。在多层数据库架构中，用于备份的数据库应位于第二层，以减少复制延时对数据完整性造成的影响。</p>
+<h3 id="2-数据热备"><a href="#2-数据热备" class="headerlink" title="2.数据热备"></a>2.数据热备</h3><p>hotbackup工具。是Innodb提供的收费数据备份工具，可以在不停止数据库写入的情况下，对使用Innodb引擎的存储数据进行复制备份。</p>
+<h3 id="3-数据冷备"><a href="#3-数据冷备" class="headerlink" title="3.数据冷备"></a>3.数据冷备</h3><p>3.1 mysqlhotcopy<br>这是一个随MySQL一起发布的数据备份工具。在不停止mysqld进程的情况下对使用MyISAM引擎存储的数据进行备份。<br>3.2 数据库Dump<br>也就是使用<strong>mysqldumo</strong>等工具或select into outfile等语句将MySQL数据导出到文件。并拷贝到备份服务器进行备份的方式。<br>使用范围：</p>
+<ul>
+<li>由于Dumo出来的数据需要重新导入MySQL，这个过程非常耗时间，因此通常用于数据量小于<strong>20G</strong>的情况</li>
+<li>由于Dump出来的数据时文本形式的SQL语句，适用于对备份数据有人工审核要求的情况。<br>mysqldump语法：<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">mysqldump -u [username] -p [password] -h [host] [database] [tablename]&gt;[backup-name].sql</div></pre></td></tr></table></figure>
+</li>
+</ul>
+<p>将<strong>.sql</strong>文件导入数据库的两种方法：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">use DATABASE_NAME</div><div class="line">source path/to/file.sql;</div><div class="line">或者</div><div class="line">mysql -u [username] -p [password] [database_name] &lt;file.sql</div></pre></td></tr></table></figure></p>
+<p>3.3 停库拷贝<br>停止mysqld进程，然后在服务停止后通过对数据文件拷贝进行备份的方式。<br>适用范围：混合使用MyISAM和Innodb，对数据一致性需求不强烈</p>
+<p>3.4 Binlog全量备份<br>BINLOG就是一个记录SQL语句的过程，和普通的LOG一样。不过只是她是二进制存储，普通的是十进制存储罢了<br>将线上MySQL服务器的Binlog拷贝到备份服务器进行存档。<br>适用范围：对历史数据进行全量的非容灾性存档<br>对Binlog日志进行配置：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">[mysqld]</div><div class="line">log-bin = mysql-bin #名字可以改成自己的，如果不改名字的话，默认是以主机名字命名</div></pre></td></tr></table></figure></p>
+<p>然后重新启动mysql服务。<br>从binlog中恢复数据的方法：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">#首先导入到文本文件</div><div class="line">mysqlbinlog bin-log.00001 &gt; sql.txt</div><div class="line">#采用下面两种方法进行恢复</div><div class="line">mysqlbinlog bin-log.00001 | mysql -u -p</div><div class="line">或者</div><div class="line">source \path\to\sql.txt</div></pre></td></tr></table></figure></p>
+<p>3.5 Binlog增量备份</p>
 
   </section>
 
