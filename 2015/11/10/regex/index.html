@@ -16,7 +16,7 @@
     
     
 
-    <meta name="description" content="正则表达式学习和总结。原文链接
+    <meta name="description" content="正则表达式学习和总结。参考链接
 元字符常用的元字符：.  匹配除换行符以外的任意字符\w 匹配字母或数字或下划线或汉字\s 匹配任意空白符\d 匹配数字\b 匹配单词的开始或结束^  匹配字符串的开始$  匹配字符串的结束
 比如一个网站要求填写的QQ号码必须为5到12位，可以使用^\d{5,12}$如果去掉^和$就会匹配到一些包含5到12个数字的非法QQ号码。
 字符转义在需要转义的字符前使用\如\">
@@ -24,14 +24,14 @@
 <meta property="og:title" content="关于正则表达式 | 妍兮客栈">
 <meta property="og:url" content="http://yoursite.com/2015/11/10/regex/index.html">
 <meta property="og:site_name" content="妍兮客栈">
-<meta property="og:description" content="正则表达式学习和总结。原文链接
+<meta property="og:description" content="正则表达式学习和总结。参考链接
 元字符常用的元字符：.  匹配除换行符以外的任意字符\w 匹配字母或数字或下划线或汉字\s 匹配任意空白符\d 匹配数字\b 匹配单词的开始或结束^  匹配字符串的开始$  匹配字符串的结束
 比如一个网站要求填写的QQ号码必须为5到12位，可以使用^\d{5,12}$如果去掉^和$就会匹配到一些包含5到12个数字的非法QQ号码。
 字符转义在需要转义的字符前使用\如\">
-<meta property="og:updated_time" content="2016-10-10T13:59:43.000Z">
+<meta property="og:updated_time" content="2016-10-11T15:48:08.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="关于正则表达式 | 妍兮客栈">
-<meta name="twitter:description" content="正则表达式学习和总结。原文链接
+<meta name="twitter:description" content="正则表达式学习和总结。参考链接
 元字符常用的元字符：.  匹配除换行符以外的任意字符\w 匹配字母或数字或下划线或汉字\s 匹配任意空白符\d 匹配数字\b 匹配单词的开始或结束^  匹配字符串的开始$  匹配字符串的结束
 比如一个网站要求填写的QQ号码必须为5到12位，可以使用^\d{5,12}$如果去掉^和$就会匹配到一些包含5到12个数字的非法QQ号码。
 字符转义在需要转义的字符前使用\如\">
@@ -221,13 +221,25 @@ classes that you can use:
   </header>
 
   <section id="post-content" class="article-content post">
-    <p>正则表达式学习和总结。<a href="http://deerchao.net/tutorials/regex/regex.htm" target="_blank" rel="external">原文链接</a></p>
+    <p>正则表达式学习和总结。<a href="http://deerchao.net/tutorials/regex/regex.htm" target="_blank" rel="external">参考链接</a></p>
 <h2 id="元字符"><a href="#元字符" class="headerlink" title="元字符"></a>元字符</h2><p>常用的元字符：<br><strong>.</strong>  匹配除换行符以外的任意字符<br><strong>\w</strong> 匹配字母或数字或下划线或汉字<br><strong>\s</strong> 匹配任意空白符<br><strong>\d</strong> 匹配数字<br><strong>\b</strong> 匹配单词的开始或结束<br><strong>^</strong>  匹配字符串的开始<br><strong>$</strong>  匹配字符串的结束</p>
 <p>比如一个网站要求填写的QQ号码必须为5到12位，可以使用<strong>^\d{5,12}$</strong><br>如果去掉<strong>^和$</strong>就会匹配到一些包含5到12个数字的非法QQ号码。</p>
 <h2 id="字符转义"><a href="#字符转义" class="headerlink" title="字符转义"></a>字符转义</h2><p>在需要转义的字符前使用<strong>\</strong>如\.或者\*</p>
 <h2 id="重复"><a href="#重复" class="headerlink" title="重复"></a>重复</h2><p>常用的限定符：<br><strong>*</strong> 重复零次或更多次<br><strong>+</strong> 重复一次或更多次<br><strong>?</strong> 重复零次或一次<br><strong>{n}</strong>重复n次<br><strong>{n,}</strong>重复n次或更多次<br><strong>{n,m}</strong>重复n到m次<br>Windows\d+匹配Windows后面跟1个或更多数字<br>^\w+匹配一行的第一个单词(或整个字符串的第一个单词，具体匹配哪个意思得看选项设置)</p>
 <h2 id="字符类"><a href="#字符类" class="headerlink" title="字符类"></a>字符类</h2><p>因为有了对应字符集合的元字符，查找数字、字母、空白等这些是很简单的。<br>如果像匹配没有预定义元字符的字符集合比如 元音字母a e i o u。可以使用方括号。比如[aeiou]匹配任一个元音字母，[0-9]作用和\d一样匹配一位数字<br>如果要匹配像010-62975398、(010)62975333、01062976555这样的电话号码。可以使用正则<strong>(?\d{3}[)-]?\d{8}</strong><br>其中的<strong>[)-]?</strong>表示区号和电话号码之间可以用) -或者没有</p>
 <h2 id="分支条件"><a href="#分支条件" class="headerlink" title="分支条件"></a>分支条件</h2><p>上面的正则表达式<strong>(?\d{3}[)-]?\d{8}</strong>在匹配到正确的电话号码同时，也会冒出来010)62975398这种不正确的格式。<br>这里就需要用到分支条件了。<br>如实现上面的目的，可以用正则<strong>\d{3}[- ]?\d{8}|(\d{3})[- ]?\d{8}</strong>.<br>这个表达式匹配3位区号的电话号码，其中区号可以用小括号括起来，也可以不用，区号与本地号间可以用连字号或空格间隔，也可以没有间隔<br><strong>\d{5}-\d{4}|\d{5}</strong>这个表达式用于匹配美国的邮政编码。美国邮编的规则是5位数字，或者用连字号间隔的9位数字。之所以要给出这个例子是因为它能说明一个问题：使用分枝条件时，要注意各个条件的顺序。如果你把它改成<strong>\d{5}|\d{5}-\d{4}</strong>的话，那么就只会匹配5位的邮编(以及9位邮编的前5位)。原因是匹配分枝条件时，将会从左到右地测试每个条件，如果满足了某个分枝的话，就不会去再管其它的条件了</p>
+<h2 id="分组"><a href="#分组" class="headerlink" title="分组"></a>分组</h2><p>重复单个字符的时候只要在字符后面加上限定符就可以了。<br>如果想重复多个字符的话，就需要使用<strong>子表达式</strong>也就是分组了。<br>子表达式通常使用小括号来指定。例如：<br><strong>(\d{1,3}.){3}\d{1,3}</strong>用于表达IP地址的匹配。(\d{1,3}.){3}匹配三位数字加上一个英文句号(这个整体也就是这个分组)重复3次<br>但是上面这个表达式也会匹配的非法的IP地址，如999.123.888.222这样的。<br>因此还得使用下面冗长的表达式，来匹配IP地址<br><strong>((2[0-4]\d|25[0-5]|[01]?\d\d?).){3}(2[0-4]\d|25[0-5]|[01]?\d\d?)</strong></p>
+<h2 id="反义"><a href="#反义" class="headerlink" title="反义"></a>反义</h2><p>需要查找不属于之前定义的元字符的字符。比如想查找除了数字外的其他任意字符，就可以使用\D 也就是\d变大写<br>常用的反义代码：<br>\W     匹配任意不是字母、数字、下划线、汉字的字符<br>\S     匹配任意不是空白符的字符<br>\D     匹配任意非数字的字符<br>\B     匹配不是单词开头或结尾的位置<br>[^x]   匹配除了x以外的任意字符<br>[^aeiou]匹配除了aeiou外的任意字符</p>
+<h2 id="后向引用"><a href="#后向引用" class="headerlink" title="后向引用"></a>后向引用</h2><p>使用小括号指定一个子表达式后，匹配这个子表达式的文本(也就是此分组捕获的内容)可以在表达式或其它程序中作进一步的处理。默认情况下，每个分组会自动拥有一个组号，规则是：从左向右，以分组的左括号为标志，第一个出现的分组的组号为1，第二个为2，以此类推<br>比如匹配 go go ,hello hello这样的，可以使用<strong>\b(\w+)\b\s+\1\b</strong></p>
+<p>上面的\1代表分组1匹配到的文本，在这里捕获到(\w+)<br>如果不想使用\1这样的，也可以自己定义子表达式名称。<br>如(?<name>\w+)或者(?’name’\w+)把\w+的组名指定为name,可以使用\k<name>来捕获。<br>同样的，匹配上面的重复单词，可以使用<strong>\b(?<name>\w+)\b\s+\k<name>\b</name></name></strong></name></name></p>
+<p>使用小括号，还有很多特定用法</p>
+<ul>
+<li><p><strong>捕获</strong><br>(exp)        匹配exp，并捕获文本到自动命名的组里<br>(?<name>exp) 匹配exp，并捕获文本到自定义名称name的组里，也可用’’取代尖括号<br>(?:exp)      匹配exp，不捕获匹配的文本，也不给此组分配组号</name></p>
+</li>
+<li><p><strong>零宽断言</strong><br>(?=exp)      匹配exp后面的位置<br>(?&lt;=exp)     匹配exp前面的位置<br>(?!exp)      匹配后面跟的不是exp的位置<br>(?&lt;!exp)     匹配前面不是exp的位置</p>
+</li>
+<li><strong>注释</strong><br>(?#comment)  这种类型的分组不对正则表达式处理产生任何影响，用于提供注释供阅读</li>
+</ul>
 
   </section>
 
