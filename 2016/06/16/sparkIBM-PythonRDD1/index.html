@@ -22,7 +22,7 @@
 <meta property="og:url" content="http://yoursite.com/2016/06/16/sparkIBM-PythonRDD1/index.html">
 <meta property="og:site_name" content="妍兮客栈">
 <meta property="og:description" content="本系列是自己在IBM UNIVERSITY上学习Spark时整理的，为了方便今后自己查询吗，也为不方便翻墙的筒子们打开一扇学习的窗口。FYI首先介绍一下IBM数据科学家集成工作台，这是IBM提供的一个非常好用的工具可以让我们在浏览器中学习数据分析，里面配置好了各种数据分析应用环境。比如我关心的Spark运行环境。这样我们就不用自己繁琐的搭建spark集群，并进行各种配置。可以把精力集中在spark">
-<meta property="og:updated_time" content="2016-10-15T18:09:49.000Z">
+<meta property="og:updated_time" content="2016-10-15T18:15:25.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="IBM数据科学家集成工作台-PythonRDD练习 | 妍兮客栈">
 <meta name="twitter:description" content="本系列是自己在IBM UNIVERSITY上学习Spark时整理的，为了方便今后自己查询吗，也为不方便翻墙的筒子们打开一扇学习的窗口。FYI首先介绍一下IBM数据科学家集成工作台，这是IBM提供的一个非常好用的工具可以让我们在浏览器中学习数据分析，里面配置好了各种数据分析应用环境。比如我关心的Spark运行环境。这样我们就不用自己繁琐的搭建spark集群，并进行各种配置。可以把精力集中在spark">
@@ -214,12 +214,11 @@ classes that you can use:
   <section id="post-content" class="article-content post">
     <p>本系列是自己在IBM UNIVERSITY上学习Spark时整理的，为了方便今后自己查询吗，也为不方便翻墙的筒子们打开一扇学习的窗口。FYI<br>首先介绍一下<strong>IBM数据科学家集成工作台</strong>，这是IBM提供的一个非常好用的工具可以让我们在浏览器中学习数据分析，里面配置好了各种数据分析应用环境。比如我关心的Spark运行环境。<br>这样我们就不用自己繁琐的搭建spark集群，并进行各种配置。可以把精力集中在spark实际使用中。<br>使用的方法也非常的方便，注册一个账号登陆，然后打开Jupyter python,将实验环境文件拖到浏览器中。DaDa~就这样可以开始用了。</p>
 <p>一分钟快速上手视频</p>
-<embed type="video/mp4" allowscriptaccess="always" allowfullscreen="true" wmode="transparent" quality="high" height="300" width="480" src="https://datascientistworkbench.cn/DSWB-Tour.mp4">
+<embed type="video/mp4" allowscriptaccess="always" allowfullscreen="true" wmode="transparent" quality="high" height="540" width="720" src="https://datascientistworkbench.cn/DSWB-Tour.mp4">
 
 <p>下面开始正文~~~</p>
 <hr>
-<h2 id="Python-Working-with-RDD-operations"><a href="#Python-Working-with-RDD-operations" class="headerlink" title="Python - Working with RDD operations"></a>Python - Working with RDD operations</h2><p><a href="http://spark.apache.org/images/spark-logo.png" target="_blank" rel="external">spark</a> <a href="https://upload.wikimedia.org/wikipedia/commons/f/f8/Python_logo_and_wordmark.svg" target="_blank" rel="external">python</a></p>
-<h3 id="分析一个日志文件-Analyzing-a-log-file"><a href="#分析一个日志文件-Analyzing-a-log-file" class="headerlink" title="分析一个日志文件(Analyzing a log file)"></a>分析一个日志文件(Analyzing a log file)</h3><p>载入一个log文件，创建一个RDD(First, create an RDD by loading in a log file):<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">logFile = sc.textFile(&quot;/resources/LabData/notebook.log&quot;)</div></pre></td></tr></table></figure></p>
+<h2 id="Python-Working-with-RDD-operations"><a href="#Python-Working-with-RDD-operations" class="headerlink" title="Python - Working with RDD operations"></a>Python - Working with RDD operations</h2><h3 id="分析一个日志文件-Analyzing-a-log-file"><a href="#分析一个日志文件-Analyzing-a-log-file" class="headerlink" title="分析一个日志文件(Analyzing a log file)"></a>分析一个日志文件(Analyzing a log file)</h3><p>载入一个log文件，创建一个RDD(First, create an RDD by loading in a log file):<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">logFile = sc.textFile(&quot;/resources/LabData/notebook.log&quot;)</div></pre></td></tr></table></figure></p>
 <p>找出文件中包含‘INFO’关键词的行(In the cell below, Filter out the lines that contains INFO)<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">info=logFile.filter(lambda line:&apos;INFO&apos; in line)</div></pre></td></tr></table></figure></p>
 <p>计算行数(Count the lines):<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">info.count()</div><div class="line">输出：13438</div></pre></td></tr></table></figure></p>
 <p>通过使用transformation和action计算包含‘spark’关键词的行(Count the lines with “spark” in it by combining transformation and action.):<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">info.filter(lambda line:&apos;spark&apos; in line).count()</div><div class="line">输出：156</div></pre></td></tr></table></figure></p>
