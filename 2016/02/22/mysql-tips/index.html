@@ -24,7 +24,7 @@
 <meta property="og:site_name" content="妍兮客栈">
 <meta property="og:description" content="HAVING 用法通常在使用 GROUP BY 后，又需要限制条件，这时候不能用WHERE语句。使用HAVING是个很好的选择
 +————-+——-+————-+| Store_Name  | Sales | Txn_Date    |+————-+——-+————-+| Los Angeles |  1500 | 05-jan-1999 || San Diego   |   250 | 07-j">
-<meta property="og:updated_time" content="2016-10-11T13:15:31.000Z">
+<meta property="og:updated_time" content="2016-10-15T12:40:07.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="mysql小贴士 | 妍兮客栈">
 <meta name="twitter:description" content="HAVING 用法通常在使用 GROUP BY 后，又需要限制条件，这时候不能用WHERE语句。使用HAVING是个很好的选择
@@ -225,7 +225,18 @@ classes that you can use:
 <p>Mysql5.5.5版本开始默认引擎为InnoDB。<br>行级锁的优点：<br>1当在许多线程中访问不同的行时，只存在少量的锁定冲突。<br>2回滚时只有少量的更改。<br>3可以长时间锁定单一的行<br>行级锁的缺点：<br>1比页级和表级锁占用更多的内存。<br>2当在表的大部分中使用时，比页级和表级要速度慢，因为你必须获取更多的锁。<br>3如果在大部分数据上常使用GROUP BY等必须扫描整个表的操作时，比其他锁要明显慢很多。<br>InnoDB和MyISAM锁的最大不同在于：一是支持事务TRANSACTION，二是采用行级锁。<br>事务是由一组SQL语句组成的逻辑处理单元，有四个属性，简称ACID属性：<br>1原子性Atomicity.事务是一个原子操作单元，其对数据的修改，要么全部执行，要么全部不执行。<br>2一致性Consistent.在事务开始和完成时，数据必须保持一致状态。<br>3隔离性Isolation.数据库系统提供一定的隔离机制，保障事务在不受外部并发操作影响的‘独立’环境执行。<br>4持久性Durable.事务完成后，它对于数据的修改时永久的，即使出现系统故障也能保持。</p>
 <p>InnoDB有两种模式的行锁：<br>1共享锁。允许一个事务读取一行，阻止其他事务获得相同数据集的排它锁。<br>2排他锁。允许获得排他锁的事务更新数据，阻止其他事务取得相同数据集的共享读锁和排他写锁。<br>InnoDB的行锁是通过给索引项加锁来实现的。即只有通过索引条件检索数据，才能使用行级锁，否则使用表锁.</p>
 <h2 id="MySql-备份策略"><a href="#MySql-备份策略" class="headerlink" title="MySql 备份策略"></a>MySql 备份策略</h2><p><a href="http://zheming.wang/blog/2015/01/09/30E015EC-9C3A-4E1A-B148-BE81B6DAB5D2/" target="_blank" rel="external">参考链接</a></p>
-<h3 id="1-实时备份"><a href="#1-实时备份" class="headerlink" title="1.实时备份"></a>1.实时备份</h3><p>主从备份<br>主从复制时数据库的一种自动备份机制，使用MySQL中的Replication机制进行实时的数据备份。在多层数据库架构中，用于备份的数据库应位于第二层，以减少复制延时对数据完整性造成的影响。</p>
+<h3 id="1-实时备份"><a href="#1-实时备份" class="headerlink" title="1.实时备份"></a>1.实时备份</h3><p>主从备份<br>主从复制时数据库的一种自动备份机制，使用MySQL中的Replication机制进行实时的数据备份。在多层数据库架构中，用于备份的数据库应位于第二层，以减少复制延时对数据完整性造成的影响。<br><a href="http://www.cnblogs.com/shuidao/p/3551238.html" target="_blank" rel="external">原blog链接</a><br><strong>原理：</strong>简单的来说，就是从服务器把主服务器上执行过的sql语句重复执行一遍，这样如果主从服务器的数据库初始状态一样，就能一直自动同步<br>如下面示意图：<br><a href="http://img.my.csdn.net/uploads/201202/28/0_1330439010P7lI.gif" target="_blank" rel="external">主从服务器</a><br>对于一个mysql服务器， 一般有两个线程来负责复制和被复制。当开启复制之后。</p>
+<ul>
+<li><ol>
+<li>作为主服务器Master，  会把自己的每一次改动都记录到 二进制日志 Binarylog 中。 （从服务器会负责来读取这个log， 然后在自己那里再执行一遍。）</li>
+</ol>
+</li>
+<li><ol>
+<li>作为从服务器Slave， 会用master上的账号登陆到 master上， 读取master的Binarylog,  写入到自己的中继日志 Relaylog， 然后自己的sql线程会负责读取这个中继日志，并执行一遍。  到这里主服务器上的更改就同步到从服务器上了。</li>
+</ol>
+</li>
+</ul>
+<p>查看进度：<br>在mysql上可以查看当前服务器的主，从状态。 其实就是当前服务器的 Binary（作为主服务器角色）状态和位置。 以及其RelayLog（作为从服务器）的复制进度。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">mysql&gt; show master status\G</div><div class="line">*************************** 1. row ***************************</div><div class="line">            File: mysql-bin.000014</div><div class="line">        Position: 107</div><div class="line">    Binlog_Do_DB: </div><div class="line">Binlog_Ignore_DB: mysql,information_schema,performance_schema,amh</div><div class="line">1 row in set (0.00 sec)</div></pre></td></tr></table></figure></p>
 <h3 id="2-数据热备"><a href="#2-数据热备" class="headerlink" title="2.数据热备"></a>2.数据热备</h3><p>hotbackup工具。是Innodb提供的收费数据备份工具，可以在不停止数据库写入的情况下，对使用Innodb引擎的存储数据进行复制备份。</p>
 <h3 id="3-数据冷备"><a href="#3-数据冷备" class="headerlink" title="3.数据冷备"></a>3.数据冷备</h3><p>3.1 mysqlhotcopy<br>这是一个随MySQL一起发布的数据备份工具。在不停止mysqld进程的情况下对使用MyISAM引擎存储的数据进行备份。<br>3.2 数据库Dump<br>也就是使用<strong>mysqldumo</strong>等工具或select into outfile等语句将MySQL数据导出到文件。并拷贝到备份服务器进行备份的方式。<br>使用范围：</p>
 <ul>
