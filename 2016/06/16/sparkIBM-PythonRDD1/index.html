@@ -1,0 +1,307 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="chrome=1">
+
+    
+
+    <title>
+      IBM数据科学家集成工作台-PythonRDD练习 | 妍兮客栈 
+    </title>
+
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+    
+      <meta name="author" content="John Doe">
+    
+    
+
+    <meta name="description" content="本系列是自己在IBM UNIVERSITY上学习Spark时整理的，为了方便今后自己查询吗，也为不方便翻墙的筒子们打开一扇学习的窗口。FYI首先介绍一下IBM数据科学家集成工作台，这是IBM提供的一个非常好用的工具可以让我们在浏览器中学习数据分析，里面配置好了各种数据分析应用环境。比如我关心的Spark运行环境。这样我们就不用自己繁琐的搭建spark集群，并进行各种配置。可以把精力集中在spark">
+<meta property="og:type" content="article">
+<meta property="og:title" content="IBM数据科学家集成工作台-PythonRDD练习 | 妍兮客栈">
+<meta property="og:url" content="http://yoursite.com/2016/06/16/sparkIBM-PythonRDD1/index.html">
+<meta property="og:site_name" content="妍兮客栈">
+<meta property="og:description" content="本系列是自己在IBM UNIVERSITY上学习Spark时整理的，为了方便今后自己查询吗，也为不方便翻墙的筒子们打开一扇学习的窗口。FYI首先介绍一下IBM数据科学家集成工作台，这是IBM提供的一个非常好用的工具可以让我们在浏览器中学习数据分析，里面配置好了各种数据分析应用环境。比如我关心的Spark运行环境。这样我们就不用自己繁琐的搭建spark集群，并进行各种配置。可以把精力集中在spark">
+<meta property="og:updated_time" content="2016-10-15T18:06:04.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="IBM数据科学家集成工作台-PythonRDD练习 | 妍兮客栈">
+<meta name="twitter:description" content="本系列是自己在IBM UNIVERSITY上学习Spark时整理的，为了方便今后自己查询吗，也为不方便翻墙的筒子们打开一扇学习的窗口。FYI首先介绍一下IBM数据科学家集成工作台，这是IBM提供的一个非常好用的工具可以让我们在浏览器中学习数据分析，里面配置好了各种数据分析应用环境。比如我关心的Spark运行环境。这样我们就不用自己繁琐的搭建spark集群，并进行各种配置。可以把精力集中在spark">
+    
+    
+    
+    <link rel="stylesheet" href="/css/uno.css">
+    <link rel="stylesheet" href="/css/highlight.css">
+    <link rel="stylesheet" href="/css/archive.css">
+    <link rel="stylesheet" href="/css/china-social-icon.css">
+
+</head>
+<body>
+
+    <span class="mobile btn-mobile-menu">
+        <i class="icon icon-list btn-mobile-menu__icon"></i>
+        <i class="icon icon-x-circle btn-mobile-close__icon hidden"></i>
+    </span>
+
+    
+
+<header class="panel-cover panel-cover--collapsed">
+
+
+  <div class="panel-main">
+
+  
+    <div class="panel-main__inner panel-inverted">
+    <div class="panel-main__content">
+
+        
+
+        <h1 class="panel-cover__title panel-title"><a href="/" title="link to homepage">妍兮客栈</a></h1>
+        <hr class="panel-cover__divider" />
+
+        
+        <p class="panel-cover__description">
+          A site for YanXi Zheng
+        </p>
+        <hr class="panel-cover__divider panel-cover__divider--secondary" />
+        
+
+        <div class="navigation-wrapper">
+
+          <nav class="cover-navigation cover-navigation--primary">
+            <ul class="navigation">
+
+              
+                
+                <li class="navigation__item"><a href="/#blog" title="" class="blog-button">学学习</a></li>
+              
+                
+                <li class="navigation__item"><a href="/about" title="" class="">看看图</a></li>
+              
+                
+                <li class="navigation__item"><a href="/archive" title="" class="">归归档</a></li>
+              
+
+            </ul>
+          </nav>
+
+          <!-- ----------------------------
+To add a new social icon simply duplicate one of the list items from below
+and change the class in the <i> tag to match the desired social network
+and then add your link to the <a>. Here is a full list of social network
+classes that you can use:
+
+    icon-social-500px
+    icon-social-behance
+    icon-social-delicious
+    icon-social-designer-news
+    icon-social-deviant-art
+    icon-social-digg
+    icon-social-dribbble
+    icon-social-facebook
+    icon-social-flickr
+    icon-social-forrst
+    icon-social-foursquare
+    icon-social-github
+    icon-social-google-plus
+    icon-social-hi5
+    icon-social-instagram
+    icon-social-lastfm
+    icon-social-linkedin
+    icon-social-medium
+    icon-social-myspace
+    icon-social-path
+    icon-social-pinterest
+    icon-social-rdio
+    icon-social-reddit
+    icon-social-skype
+    icon-social-spotify
+    icon-social-stack-overflow
+    icon-social-steam
+    icon-social-stumbleupon
+    icon-social-treehouse
+    icon-social-tumblr
+    icon-social-twitter
+    icon-social-vimeo
+    icon-social-xbox
+    icon-social-yelp
+    icon-social-youtube
+    icon-social-zerply
+    icon-mail
+
+-------------------------------->
+
+<!-- add social info here -->
+
+
+
+<nav class="cover-navigation navigation--social">
+  <ul class="navigation">
+
+    
+      <!-- Github -->
+      <li class="navigation__item">
+        <a href="https://github.com/xiaodingdangdaddy" title="Huno on GitHub">
+          <i class='icon icon-social-github'></i>
+          <span class="label">GitHub</span>
+        </a>
+      </li>
+    
+
+    <!-- China social icon -->
+    <!--
+    
+      <li class="navigation__item">
+        <a href="" title="">
+          <i class='icon cs-icon-douban'></i>
+          <span class="label">Douban</span>
+        </a>
+      </li>
+
+      <li class="navigation__item">
+        <a href="" title="">
+          <i class='icon cs-icon-weibo'></i>
+          <span class="label">Weibo</span>
+        </a>
+      </li>
+
+    -->
+
+
+
+  </ul>
+</nav>
+
+
+
+        </div>
+
+      </div>
+
+    </div>
+
+    <div class="panel-cover--overlay"></div>
+  </div>
+</header>
+
+    <div class="content-wrapper">
+        <div class="content-wrapper__inner entry">
+            
+
+<article class="post-container post-container--single">
+
+  <header class="post-header">
+    
+    <h1 class="post-title">IBM数据科学家集成工作台-PythonRDD练习</h1>
+
+    
+
+    <div class="post-meta">
+      <time datetime="2016-06-16" class="post-meta__date date">2016-06-16</time> 
+
+      <span class="post-meta__tags tags">
+
+          
+
+          
+
+      </span>
+    </div>
+    
+    
+
+  </header>
+
+  <section id="post-content" class="article-content post">
+    <p>本系列是自己在IBM UNIVERSITY上学习Spark时整理的，为了方便今后自己查询吗，也为不方便翻墙的筒子们打开一扇学习的窗口。FYI<br>首先介绍一下<strong>IBM数据科学家集成工作台</strong>，这是IBM提供的一个非常好用的工具可以让我们在浏览器中学习数据分析，里面配置好了各种数据分析应用环境。比如我关心的Spark运行环境。<br>这样我们就不用自己繁琐的搭建spark集群，并进行各种配置。可以把精力集中在spark实际使用中。<br>使用的方法也非常的方便，注册一个账号登陆，然后打开Jupyter python,将实验环境文件拖到浏览器中。DaDa~就这样可以开始用了。</p>
+<p>下面开始正文~~~</p>
+<hr>
+<h2 id="Python-Working-with-RDD-operations"><a href="#Python-Working-with-RDD-operations" class="headerlink" title="Python - Working with RDD operations"></a>Python - Working with RDD operations</h2><p><a href="http://spark.apache.org/images/spark-logo.png" target="_blank" rel="external">spark</a> <a href="https://upload.wikimedia.org/wikipedia/commons/f/f8/Python_logo_and_wordmark.svg" target="_blank" rel="external">python</a></p>
+<h3 id="分析一个日志文件-Analyzing-a-log-file"><a href="#分析一个日志文件-Analyzing-a-log-file" class="headerlink" title="分析一个日志文件(Analyzing a log file)"></a>分析一个日志文件(Analyzing a log file)</h3><p>载入一个log文件，创建一个RDD(First, create an RDD by loading in a log file):<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">logFile = sc.textFile(&quot;/resources/LabData/notebook.log&quot;)</div></pre></td></tr></table></figure></p>
+<p>找出文件中包含‘INFO’关键词的行(In the cell below, Filter out the lines that contains INFO)<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">info=logFile.filter(lambda line:&apos;INFO&apos; in line)</div></pre></td></tr></table></figure></p>
+<p>计算行数(Count the lines):<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">info.count()</div><div class="line">输出：13438</div></pre></td></tr></table></figure></p>
+<p>通过使用transformation和action计算包含‘spark’关键词的行(Count the lines with “spark” in it by combining transformation and action.):<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">info.filter(lambda line:&apos;spark&apos; in line).count()</div><div class="line">输出：156</div></pre></td></tr></table></figure></p>
+<p>将这些行，以字符串数组的形式抓取出来(Fetch those lines as an array of Strings)<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line">info.filter(lambda line:&apos;spark&apos; in line).collect()</div><div class="line">输出：</div><div class="line">[u&apos;15/10/14 14:29:23 INFO Remoting: Remoting started; listening on addresses :[akka.tcp://sparkDriver@172.17.0.22:53333]&apos;,</div><div class="line"> u&quot;15/10/14 14:29:23 INFO Utils: Successfully started service &apos;sparkDriver&apos; on port 53333.&quot;,</div><div class="line">............</div><div class="line">............</div><div class="line"> u&apos;15/10/14 14:29:23 INFO DiskBlockManager: Created local directory at /tmp/spark-fe150378-7bad-42b6-876b-d14e2c193eb6/blockmgr-c142f2f1-ebb6-4612-945b-0a67d156230a&apos;,</div><div class="line"> u&apos;15/10/14 14:29:23 INFO HttpFileServer: HTTP File server directory is /tmp/spark-fe150378-7bad-42b6-876b-d14e2c193eb6/httpd-ed3f4ab0-7218-48bc-9d8a-3981b1cfe574&apos;,</div><div class="line"> u&quot;15/10/14 14:29:24 INFO Utils: Successfully started service &apos;org.apache.spark.network.netty.NettyBlockTransferService&apos; on port 35726.&quot;]</div></pre></td></tr></table></figure></p>
+<p>看一下上述命令中的RDD 图表(View the graph of an RDD using this command):<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">print info.toDebugString()</div><div class="line">输出：</div><div class="line">(2) PythonRDD[8] at RDD at PythonRDD.scala:43 []</div><div class="line"> |  MapPartitionsRDD[1] at textFile at NativeMethodAccessorImpl.java:-2 []</div><div class="line"> |  /resources/LabData/notebook.log HadoopRDD[0] at textFile at NativeMethodAccessorImpl.java:-2 []</div></pre></td></tr></table></figure></p>
+<h2 id="连接RDD-Joining-RDDs"><a href="#连接RDD-Joining-RDDs" class="headerlink" title="连接RDD(Joining RDDs)"></a>连接RDD(Joining RDDs)</h2><p>为README和CHANGES文件创建RDDS<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">readmeFile = sc.textFile(&quot;/resources/LabData/README.md&quot;)</div><div class="line">pomFile = sc.textFile(&quot;/resources/LabData/pom.xml&quot;)</div></pre></td></tr></table></figure></p>
+<p>计算每个文件中’spark’关键词的个数(How many Spark keywords are in each file?)<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">print readmeFile.filter(lambda line: &quot;Spark&quot; in line).count()</div><div class="line">print pomFile.filter(lambda line: &quot;Spark&quot; in line).count()</div><div class="line">输出：</div><div class="line">18</div><div class="line">2</div></pre></td></tr></table></figure></p>
+<p>对每个RDD计算wordcount，得到(K,V)对(word,count)<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line">readmeCount=readmeFile.                    \</div><div class="line">    flatMap(lambda line:line.split(&quot; &quot;)).  \</div><div class="line">    map(lambda word:(word,1).              \</div><div class="line">    reduceByKey(lambda a,b:a+b)</div><div class="line"></div><div class="line">pomCount=pomFile.                      \</div><div class="line">    flatMap(lambda line:line.split(&quot; &quot;)).  \</div><div class="line">    map(lambda word:(word,1)).             \</div><div class="line">    reduceByKey(a,b:a+b)</div></pre></td></tr></table></figure></p>
+<p>看一下上面计算的结果<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">print &quot;Readme Count\n&quot;</div><div class="line">print readmeCount.collect()</div><div class="line">输出：</div><div class="line">Readme Count</div><div class="line"></div><div class="line">[(u&apos;&apos;, 67), (u&apos;when&apos;, 1), (u&apos;R,&apos;, 1), (u&apos;including&apos;, 3), (u&apos;computation&apos;, 1), (u&apos;using:&apos;, 1), (u&apos;guidance&apos;, 3), (u&apos;Scala,&apos;, 1), (u&apos;environment&apos;, 1), ........</div><div class="line">.....................(u&apos;spark://&apos;, 1), (u&apos;programs&apos;, 2), (u&apos;documentation&apos;, 3), (u&apos;It&apos;, 2), (u&apos;graphs&apos;, 1), (u&apos;./dev/run-tests&apos;, 1), (u&apos;first&apos;, 1), (u&apos;latest&apos;, 1)]</div></pre></td></tr></table></figure></p>
+<p>使用join函数，连接两个数据集。使得数据集(K,V)和(K,W)成为(K,(V,W))<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div></pre></td><td class="code"><pre><div class="line">joined = readmeCount.join(pomCount)</div><div class="line">joined.collect()</div><div class="line">输出：</div><div class="line">[(u&apos;&apos;, (67, 2931)),</div><div class="line"> (u&apos;Apache&apos;, (1, 2)),</div><div class="line"> (u&apos;Spark&apos;, (14, 1)),</div><div class="line"> (u&apos;this&apos;, (1, 3)),</div><div class="line"> (u&apos;for&apos;, (12, 2)),</div><div class="line"> (u&apos;use&apos;, (3, 1)),</div><div class="line"> (u&apos;uses&apos;, (1, 1)),</div><div class="line"> .......</div><div class="line"> .......</div><div class="line"> (u&apos;in&apos;, (5, 3)),</div><div class="line"> (u&apos;or&apos;, (3, 3)),</div><div class="line"> (u&apos;at&apos;, (2, 1))]</div></pre></td></tr></table></figure></p>
+<p>计算总数(combine the values together to get the total count)<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">joinedSum=joined.map(lambda k:(k[0],(k[1][0]+k[1][1])))</div><div class="line">注释：</div><div class="line">对上面结果项(u&apos;Spark&apos;, (14, 1))来说，k[0]对应‘spark’,k[1][0]和k[1][1]分别对应14和1</div></pre></td></tr></table></figure></p>
+<p>看一下计算结果<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line">print joined.take(5)</div><div class="line">输出：</div><div class="line">[(u&apos;&apos;, (67, 2931)), (u&apos;Apache&apos;, (1, 2)), (u&apos;Spark&apos;, (14, 1)), (u&apos;this&apos;, (1, 3)), (u&apos;for&apos;, (12, 2))]</div><div class="line"></div><div class="line">print joinedSum.take(5)</div><div class="line">输出：</div><div class="line">[(u&apos;&apos;, 2998), (u&apos;Apache&apos;, 3), (u&apos;Spark&apos;, 15), (u&apos;this&apos;, 4), (u&apos;for&apos;, 14)]</div><div class="line"></div><div class="line">注释：可见二者的确是相加关系67+2931=2998</div></pre></td></tr></table></figure></p>
+
+  </section>
+
+  
+  
+
+<section class="post-comments">
+
+    <div class="ds-thread" data-thread-key="2016/06/16/sparkIBM-PythonRDD1/"></div>
+
+    <script type="text/javascript">
+      var duoshuoQuery = {short_name:"xiaodingdangdaddy"};
+      (function() {
+        var ds = document.createElement('script');
+        ds.type = 'text/javascript';ds.async = true;
+        ds.src = '//static.duoshuo.com/embed.js';
+        ds.charset = 'UTF-8';
+        (document.getElementsByTagName('head')[0] 
+        || document.getElementsByTagName('body')[0]).appendChild(ds);
+      })();
+    </script> 
+
+</section>
+
+
+</article>
+
+
+            <footer class="footer">
+
+    <span class="footer__copyright">&copy; 2014-2015. | 由<a href="https://hexo.io/">Hexo</a>强力驱动 | 主题<a href="https://github.com/someus/huno">Huno</a></span>
+    
+</footer>
+        </div>
+    </div>
+
+    <!-- js files -->
+    <script src="/js/jquery.min.js"></script>
+    <script src="/js/main.js"></script>
+    <script src="/js/scale.fix.js"></script>
+    
+
+    
+
+    <script type="text/javascript" src="//cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <script type="text/javascript"> 
+        $(document).ready(function(){
+            MathJax.Hub.Config({ 
+                tex2jax: {inlineMath: [['[latex]','[/latex]'], ['\\(','\\)']]} 
+            });
+        });
+    </script>
+
+
+    
+
+    <script src="/js/awesome-toc.min.js"></script>
+    <script>
+        $(document).ready(function(){
+            $.awesome_toc({
+                overlay: true,
+                contentId: "post-content",
+            });
+        });
+    </script>
+
+
+    
+    
+    <!--kill ie6 -->
+<!--[if IE 6]>
+  <script src="//letskillie6.googlecode.com/svn/trunk/2/zh_CN.js"></script>
+<![endif]-->
+
+</body>
+</html>
