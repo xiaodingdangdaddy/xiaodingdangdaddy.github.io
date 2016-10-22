@@ -22,7 +22,7 @@
 <meta property="og:url" content="http://yoursite.com/2016/06/22/spark-jupyternotebook/index.html">
 <meta property="og:site_name" content="妍兮客栈">
 <meta property="og:description" content="在spark学习过程中，看到一些国外的开发者使用Jupyter notebook进行spark开发。可以像写文章一样，一边调试一边记录，还能保存为markdown格式，随手就是一个详实的博客，确实挺吸引人。但最终让我入坑的，还是使用了IBM的data science workbench，第一次发现，写代码也可以这样干。这种感觉就像拿了一个笔记本，一边写思路，一边写代码，写完就能调试运行出结果，全程">
-<meta property="og:updated_time" content="2016-10-22T14:49:12.000Z">
+<meta property="og:updated_time" content="2016-10-22T14:53:21.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="安装使用jupyter notebook 进行Spark开发 | 妍兮客栈">
 <meta name="twitter:description" content="在spark学习过程中，看到一些国外的开发者使用Jupyter notebook进行spark开发。可以像写文章一样，一边调试一边记录，还能保存为markdown格式，随手就是一个详实的博客，确实挺吸引人。但最终让我入坑的，还是使用了IBM的data science workbench，第一次发现，写代码也可以这样干。这种感觉就像拿了一个笔记本，一边写思路，一边写代码，写完就能调试运行出结果，全程">
@@ -231,7 +231,7 @@ classes that you can use:
 <li>设置jupyter notebook在后台不间断运行，且配置成错误信息输出到屏幕（可选），$ nohup jupyter notebook &gt;/dev/null 2&gt;&amp;1 &amp;</li>
 </ul>
 <h2 id="启动jupyter-notebook-和spark"><a href="#启动jupyter-notebook-和spark" class="headerlink" title="启动jupyter notebook 和spark"></a>启动jupyter notebook 和spark</h2><p>注意要先手动在master上启动hadoop、yarn、spark<br>然后运行：<br><strong>pyspark</strong><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">note:如果环境变量里面没有</div><div class="line">export PYSPARK_DRIVER_PYTHON=ipython2</div><div class="line">export PYSPARK_DRIVER_PYTHON_OPTS=&quot;notebook&quot;</div><div class="line"></div><div class="line">则需要运行命令：</div><div class="line">**PYSPARK_DRIVER_PYTHON=&quot;jupyter&quot; PYSPARK_DRIVER_PYTHON_OPTS=&quot;notebook&quot; pyspark**</div></pre></td></tr></table></figure></p>
-<p>这时候win10打开浏览器访问192.168.1.61:9001，<br>输入：sc<br>输出：<pyspark.context.sparkcontext at="" 0x3384650=""><br>ok了</pyspark.context.sparkcontext></p>
+<p>这时候win10打开浏览器访问192.168.1.61:9001，<br>输入：<strong>sc</strong><br>输出：<strong><pyspark.context.sparkcontext at="" 0x3384650=""></pyspark.context.sparkcontext></strong><br>ok了</p>
 
   </section>
 
