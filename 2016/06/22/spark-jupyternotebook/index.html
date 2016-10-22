@@ -22,7 +22,7 @@
 <meta property="og:url" content="http://yoursite.com/2016/06/22/spark-jupyternotebook/index.html">
 <meta property="og:site_name" content="妍兮客栈">
 <meta property="og:description" content="在spark学习过程中，看到一些国外的开发者使用Jupyter notebook进行spark开发。可以像写文章一样，一边调试一边记录，还能保存为markdown格式，随手就是一个详实的博客，确实挺吸引人。但最终让我入坑的，还是使用了IBM的data science workbench，第一次发现，写代码也可以这样干。这种感觉就像拿了一个笔记本，一边写思路，一边写代码，写完就能调试运行出结果，全程">
-<meta property="og:updated_time" content="2016-10-22T13:19:09.000Z">
+<meta property="og:updated_time" content="2016-10-22T14:49:12.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="安装使用jupyter notebook 进行Spark开发 | 妍兮客栈">
 <meta name="twitter:description" content="在spark学习过程中，看到一些国外的开发者使用Jupyter notebook进行spark开发。可以像写文章一样，一边调试一边记录，还能保存为markdown格式，随手就是一个详实的博客，确实挺吸引人。但最终让我入坑的，还是使用了IBM的data science workbench，第一次发现，写代码也可以这样干。这种感觉就像拿了一个笔记本，一边写思路，一边写代码，写完就能调试运行出结果，全程">
@@ -215,7 +215,23 @@ classes that you can use:
     <p>在spark学习过程中，看到一些国外的开发者使用Jupyter notebook进行spark开发。可以像写文章一样，一边调试一边记录，还能保存为markdown格式，随手就是一个详实的博客，确实挺吸引人。<br>但最终让我入坑的，还是使用了IBM的data science workbench，第一次发现，写代码也可以这样干。这种感觉就像拿了一个笔记本，一边写思路，一边写代码，写完就能调试运行出结果，全程都在一个浏览器上完成。</p>
 <p>———————华丽的分割线——————–<br>先吐个槽：国内貌似用这个的不多，教程也是残次不齐，在各种baidu、google和stackOverFlow翻滚后，总结下自己的部署过程</p>
 <h2 id="前提"><a href="#前提" class="headerlink" title="前提"></a>前提</h2><p>我是在IP尾数为61(master)和62(slave)的两台Vmware centos虚拟机上，部署了Hadoop,yarn和spark.<br>调试运行均正常。<br>这部分网上的教程非常多，不再详述</p>
-<h2 id="安装jupyter-notebook"><a href="#安装jupyter-notebook" class="headerlink" title="安装jupyter notebook"></a>安装jupyter notebook</h2><p>运行 pip install jupyter 直接傻瓜式安装。<br>如果你和我一样是安装在centos7上，很可能遇到gcc编译错误。解决方法可以参考我另一篇文章 ：<a href="">gcc error</a></p>
+<h2 id="安装jupyter-notebook"><a href="#安装jupyter-notebook" class="headerlink" title="安装jupyter notebook"></a>安装jupyter notebook</h2><p>运行 pip install jupyter 直接傻瓜式安装。<br>如果你和我一样是安装在centos7上，很可能遇到gcc编译错误。解决方法可以参考我另一篇文章 ：<a href="http://yanxi.pub/2016/05/22/jupyterInstall/" target="_blank" rel="external">gcc error</a></p>
+<h2 id="配置环境变量"><a href="#配置环境变量" class="headerlink" title="配置环境变量"></a>配置环境变量</h2><p>vim ~/.bash_profile<br>添加：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">export SPARK_HOME=/home/spark/spark-1.6.1-bin-hadoop2.6</div><div class="line">export PATH=$SPARK_HOME/bin:$PATH</div><div class="line">export PYSPARK_DRIVER_PYTHON=ipython2</div><div class="line">export PYSPARK_DRIVER_PYTHON_OPTS=&quot;notebook&quot;</div><div class="line"></div><div class="line">export PYTHONPATH=$SPARK_HOME/python/:$PYTHONPATH</div><div class="line">export PYTHONPATH=$SPARK_HOME/python/lib/py4j-0.9-src.zip:$PYTHONPATH</div></pre></td></tr></table></figure></p>
+<p>注意上面的‘/home/spark/spark-1.6.1-bin-hadoop2.6’路径要换成自己的。<br>‘/py4j-0.9-src.zip’也要查看本机安装的版本，然后更换。</p>
+<h2 id="配置客户端浏览器登陆"><a href="#配置客户端浏览器登陆" class="headerlink" title="配置客户端浏览器登陆"></a>配置客户端浏览器登陆</h2><p>centos7上，上述安装完成后，在运行jupyter notebook启动后，很可能出现warning: No web browser found: could not locate runnable browser<br>这是由于默认安装后，只能在本地浏览器访问。<br>像我这样的，安装在虚拟机中，然后想在win10浏览器里访问，还要进行一下内容</p>
+<ul>
+<li><p>启动ipython，$ ipython</p>
+</li>
+<li><p>创建远程连接密码，In [1]: from notebook.auth import passwd; passwd()<br>输入两次密码，将得到一个字符串，比如’sha1:d0270e88f33b:212384922803ca9bd49d1fb6c11ab42651ccb358’，该终端不要关掉，复制该字符串，后面会用到；</p>
+</li>
+<li><p>生成jupyter的配置文件，$ jupyter notebook –generate-config，将会在home目录下生成一个隐藏文件夹.jupyter，该文件夹中有一个jupyter的配置文件；</p>
+</li>
+<li><p>打开配置文件，$ vim ~/.jupyter/jupyter_notebook_config.py，复制以下内容粘贴到配置文件中<br>c.NotebookApp.ip = ‘*’<br>c.NotebookApp.password = u’ sha1:d0270e88f33b:212384922803ca9bd49d1fb6c11ab42651ccb358’#这里需要改为第（2）步你自己电脑上生成的密钥字符串<br>c.NotebookApp.port = 9001<br>c.InteractiveShellApp.matplotlib = ‘inline’</p>
+</li>
+<li>设置jupyter notebook在后台不间断运行，且配置成错误信息输出到屏幕（可选），$ nohup jupyter notebook &gt;/dev/null 2&gt;&amp;1 &amp;</li>
+</ul>
+<h2 id="启动jupyter-notebook-和spark"><a href="#启动jupyter-notebook-和spark" class="headerlink" title="启动jupyter notebook 和spark"></a>启动jupyter notebook 和spark</h2><p>注意要先手动在master上启动hadoop、yarn、spark<br>然后运行：<br><strong>pyspark</strong><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">note:如果环境变量里面没有</div><div class="line">export PYSPARK_DRIVER_PYTHON=ipython2</div><div class="line">export PYSPARK_DRIVER_PYTHON_OPTS=&quot;notebook&quot;</div><div class="line"></div><div class="line">则需要运行命令：</div><div class="line">**PYSPARK_DRIVER_PYTHON=&quot;jupyter&quot; PYSPARK_DRIVER_PYTHON_OPTS=&quot;notebook&quot; pyspark**</div></pre></td></tr></table></figure></p>
+<p>这时候win10打开浏览器访问192.168.1.61:9001，<br>输入：sc<br>输出：<pyspark.context.sparkcontext at="" 0x3384650=""><br>ok了</pyspark.context.sparkcontext></p>
 
   </section>
 
