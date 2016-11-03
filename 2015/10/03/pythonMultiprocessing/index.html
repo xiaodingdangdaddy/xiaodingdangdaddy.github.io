@@ -1,0 +1,303 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="chrome=1">
+
+    
+
+    <title>
+      python多进程详解Multiprocessing | 妍兮客栈 
+    </title>
+
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+    
+      <meta name="author" content="John Doe">
+    
+    
+
+    <meta name="description" content="Multiprocessing模块是Python跨平台版本的多进程模块。
+Multiprocessing通过Process来构造一个子进程，通过p.start()启动子进程，再通过p.join()方法来使得子进程运行结束后再执行父进程示例代码如下：12345678910111213141516171819from multiprocessing import Processimport osdef">
+<meta property="og:type" content="article">
+<meta property="og:title" content="python多进程详解Multiprocessing | 妍兮客栈">
+<meta property="og:url" content="http://yoursite.com/2015/10/03/pythonMultiprocessing/index.html">
+<meta property="og:site_name" content="妍兮客栈">
+<meta property="og:description" content="Multiprocessing模块是Python跨平台版本的多进程模块。
+Multiprocessing通过Process来构造一个子进程，通过p.start()启动子进程，再通过p.join()方法来使得子进程运行结束后再执行父进程示例代码如下：12345678910111213141516171819from multiprocessing import Processimport osdef">
+<meta property="og:updated_time" content="2016-11-03T00:11:09.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="python多进程详解Multiprocessing | 妍兮客栈">
+<meta name="twitter:description" content="Multiprocessing模块是Python跨平台版本的多进程模块。
+Multiprocessing通过Process来构造一个子进程，通过p.start()启动子进程，再通过p.join()方法来使得子进程运行结束后再执行父进程示例代码如下：12345678910111213141516171819from multiprocessing import Processimport osdef">
+    
+    
+    
+    <link rel="stylesheet" href="/css/uno.css">
+    <link rel="stylesheet" href="/css/highlight.css">
+    <link rel="stylesheet" href="/css/archive.css">
+    <link rel="stylesheet" href="/css/china-social-icon.css">
+
+</head>
+<body>
+
+    <span class="mobile btn-mobile-menu">
+        <i class="icon icon-list btn-mobile-menu__icon"></i>
+        <i class="icon icon-x-circle btn-mobile-close__icon hidden"></i>
+    </span>
+
+    
+
+<header class="panel-cover panel-cover--collapsed">
+
+
+  <div class="panel-main">
+
+  
+    <div class="panel-main__inner panel-inverted">
+    <div class="panel-main__content">
+
+        
+
+        <h1 class="panel-cover__title panel-title"><a href="/" title="link to homepage">妍兮客栈</a></h1>
+        <hr class="panel-cover__divider" />
+
+        
+        <p class="panel-cover__description">
+          A site for YanXi Zheng
+        </p>
+        <hr class="panel-cover__divider panel-cover__divider--secondary" />
+        
+
+        <div class="navigation-wrapper">
+
+          <nav class="cover-navigation cover-navigation--primary">
+            <ul class="navigation">
+
+              
+                
+                <li class="navigation__item"><a href="/#blog" title="" class="blog-button">学学习</a></li>
+              
+                
+                <li class="navigation__item"><a href="/about" title="" class="">看看图</a></li>
+              
+                
+                <li class="navigation__item"><a href="/archive" title="" class="">归归档</a></li>
+              
+
+            </ul>
+          </nav>
+
+          <!-- ----------------------------
+To add a new social icon simply duplicate one of the list items from below
+and change the class in the <i> tag to match the desired social network
+and then add your link to the <a>. Here is a full list of social network
+classes that you can use:
+
+    icon-social-500px
+    icon-social-behance
+    icon-social-delicious
+    icon-social-designer-news
+    icon-social-deviant-art
+    icon-social-digg
+    icon-social-dribbble
+    icon-social-facebook
+    icon-social-flickr
+    icon-social-forrst
+    icon-social-foursquare
+    icon-social-github
+    icon-social-google-plus
+    icon-social-hi5
+    icon-social-instagram
+    icon-social-lastfm
+    icon-social-linkedin
+    icon-social-medium
+    icon-social-myspace
+    icon-social-path
+    icon-social-pinterest
+    icon-social-rdio
+    icon-social-reddit
+    icon-social-skype
+    icon-social-spotify
+    icon-social-stack-overflow
+    icon-social-steam
+    icon-social-stumbleupon
+    icon-social-treehouse
+    icon-social-tumblr
+    icon-social-twitter
+    icon-social-vimeo
+    icon-social-xbox
+    icon-social-yelp
+    icon-social-youtube
+    icon-social-zerply
+    icon-mail
+
+-------------------------------->
+
+<!-- add social info here -->
+
+
+
+<nav class="cover-navigation navigation--social">
+  <ul class="navigation">
+
+    
+      <!-- Github -->
+      <li class="navigation__item">
+        <a href="https://github.com/xiaodingdangdaddy" title="Huno on GitHub">
+          <i class='icon icon-social-github'></i>
+          <span class="label">GitHub</span>
+        </a>
+      </li>
+    
+
+    <!-- China social icon -->
+    <!--
+    
+      <li class="navigation__item">
+        <a href="" title="">
+          <i class='icon cs-icon-douban'></i>
+          <span class="label">Douban</span>
+        </a>
+      </li>
+
+      <li class="navigation__item">
+        <a href="" title="">
+          <i class='icon cs-icon-weibo'></i>
+          <span class="label">Weibo</span>
+        </a>
+      </li>
+
+    -->
+
+
+
+  </ul>
+</nav>
+
+
+
+        </div>
+
+      </div>
+
+    </div>
+
+    <div class="panel-cover--overlay"></div>
+  </div>
+</header>
+
+    <div class="content-wrapper">
+        <div class="content-wrapper__inner entry">
+            
+
+<article class="post-container post-container--single">
+
+  <header class="post-header">
+    
+    <h1 class="post-title">python多进程详解Multiprocessing</h1>
+
+    
+
+    <div class="post-meta">
+      <time datetime="2015-10-03" class="post-meta__date date">2015-10-03</time> 
+
+      <span class="post-meta__tags tags">
+
+          
+
+          
+
+      </span>
+    </div>
+    
+    
+
+  </header>
+
+  <section id="post-content" class="article-content post">
+    <p>Multiprocessing模块是Python跨平台版本的多进程模块。</p>
+<h2 id="Multiprocessing"><a href="#Multiprocessing" class="headerlink" title="Multiprocessing"></a>Multiprocessing</h2><p>通过Process来构造一个子进程，通过p.start()启动子进程，再通过p.join()方法来使得子进程运行结束后再执行父进程<br>示例代码如下：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div></pre></td><td class="code"><pre><div class="line">from multiprocessing import Process</div><div class="line">import os</div><div class="line"></div><div class="line">def run_proc(name):</div><div class="line">    print(&apos;Run child process %s : %s ...&apos;%(name, os.getpid()))</div><div class="line"></div><div class="line">if __name__ == &apos;__main__&apos;:</div><div class="line">    print(&apos;Parent process %s .&apos;% os.getpid())</div><div class="line">    p = Process(target=run_proc, args=(&apos;childproc&apos;,))</div><div class="line">    print(&apos;Process will start&apos;)</div><div class="line">    p.start()</div><div class="line">    p.join()</div><div class="line">    print(&apos;Process ended&apos;)</div><div class="line"></div><div class="line">输出：</div><div class="line">Parent process 13204 .</div><div class="line">Process will start</div><div class="line">Run child process childproc : 10364 ...</div><div class="line">Process ended</div></pre></td></tr></table></figure></p>
+<h2 id="在Multiporcessing中使用进程池pool"><a href="#在Multiporcessing中使用进程池pool" class="headerlink" title="在Multiporcessing中使用进程池pool"></a>在Multiporcessing中使用进程池pool</h2><p>如果需要多个子进程时可以使用进程池来管理<br>如下代码<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div></pre></td><td class="code"><pre><div class="line">#coding=utf-8</div><div class="line">from multiprocessing import Pool</div><div class="line">import os,time</div><div class="line"></div><div class="line">def long_time_task(name):</div><div class="line">    print(&apos;Run task %s : %s &apos;%(name, os.getpid()))</div><div class="line">    startTime = time.time()</div><div class="line">    time.sleep(3)</div><div class="line">    endTime = time.time()</div><div class="line">    print(&apos;Task %s runs %0.2f seconds.&apos;%(name, (endTime-startTime)))</div><div class="line"></div><div class="line"></div><div class="line">if __name__==&apos;__main__&apos;:</div><div class="line">    print(&apos;Parent process id %s&apos;%os.getpid())</div><div class="line"></div><div class="line">    p = Pool()</div><div class="line">    for i in range(5):</div><div class="line">        p.apply_async(long_time_task, args = (i,))</div><div class="line">    print(&apos;Waiting for all subprocess done......&apos;)</div><div class="line">    p.close()</div><div class="line">    p.join()</div><div class="line">    print(&apos;All subprocess done&apos;)</div><div class="line">输出：</div><div class="line">Parent process id 16304</div><div class="line">Waiting for all subprocess done......</div><div class="line">Run task 0 : 10012 </div><div class="line">Run task 1 : 10984 </div><div class="line">Task 0 runs 3.00 seconds.</div><div class="line">Run task 2 : 10012 </div><div class="line">Task 1 runs 3.00 seconds.</div><div class="line">Run task 3 : 10984 </div><div class="line">Task 2 runs 3.00 seconds.</div><div class="line">Run task 4 : 10012 </div><div class="line">Task 3 runs 3.00 seconds.</div><div class="line">Task 4 runs 3.00 seconds.</div><div class="line">All subprocess done</div></pre></td></tr></table></figure></p>
+<p>Pool创建子进程是通过p.apply_async(func,args=(args))实现的，默认情况下一个进程池能同时运行的任务数取决于电脑的CPU数量，在我的电脑中由于是双核，因此同时启动的只有task0和task1，task2在前者结束后才开始运行。<br>如果定义p =Pool(5),那么所有5个子进程可以同时进行。<br>上述代码中的p.close()是关掉进程池，之后就不能再往里面添加进程了。对Pool对象调用join()会等待所有子进程执行完毕。<br>调用join()之前必须先执行close()</p>
+<h2 id="多个子进程间通信"><a href="#多个子进程间通信" class="headerlink" title="多个子进程间通信"></a>多个子进程间通信</h2><p>多个子进程间的通信就要采用第一步中说到的Queue，比如有以下的需求，一个子进程向队列中写数据，另外一个进程从队列中取数据<br>代码如下：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div></pre></td><td class="code"><pre><div class="line">#coding=utf-8</div><div class="line"></div><div class="line">from multiprocessing import  Process,Queue</div><div class="line">import os,time,random</div><div class="line"></div><div class="line">#向队列中写数据</div><div class="line">def write(queueName):</div><div class="line">    print(&apos;process to write :%s&apos;%os.getpid())</div><div class="line">    for value in [&apos;A&apos;,&apos;B&apos;,&apos;C&apos;]:</div><div class="line">        print(&apos;put %s into queue!!!&apos;%value)</div><div class="line">        queueName.put(value)</div><div class="line">        time.sleep(random.random())</div><div class="line"></div><div class="line">#从队列中读取数据</div><div class="line">def read(queueName):</div><div class="line">    print(&apos;process to read :%s&apos;%os.getpid())</div><div class="line">    while True:</div><div class="line">        if not queueName.empty():</div><div class="line">            value = queueName.get(True)</div><div class="line">            print(&apos;get %s from queue&apos;%value)</div><div class="line">            time.sleep(random.random())</div><div class="line">        else:</div><div class="line">            break</div><div class="line"></div><div class="line">if __name__ == &apos;__main__&apos;:</div><div class="line">    q = Queue()</div><div class="line">    processWrite = Process(target=write, args=(q,))</div><div class="line">    processRead = Process(target=read, args=(q,))</div><div class="line">    #启动写入进程</div><div class="line">    processWrite.start()</div><div class="line">    #启动读取进程</div><div class="line">    processRead.start()</div><div class="line">    #等待写入进程结束</div><div class="line">    processWrite.join()</div><div class="line">    #读取进程是死循环，强行终止</div><div class="line">    processRead.terminate()</div><div class="line">    print(&apos;数据写入，并读取完成&apos;)</div><div class="line"></div><div class="line">输出：</div><div class="line">process to write :13916</div><div class="line">put A into queue!!!</div><div class="line">process to read :16896</div><div class="line">get A from queue</div><div class="line">put B into queue!!!</div><div class="line">get B from queue</div><div class="line">put C into queue!!!</div><div class="line">get C from queue</div><div class="line">数据写入，并读取完成</div></pre></td></tr></table></figure></p>
+<h2 id="父进程和子进程间通信"><a href="#父进程和子进程间通信" class="headerlink" title="父进程和子进程间通信"></a>父进程和子进程间通信</h2><p>在上述例子中，如果执行代码改为<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line">if __name__==&apos;__main__&apos;:    </div><div class="line">    q = Queue() # 父进程创建Queue，并传给各个子进程：</div><div class="line">    p = Pool()</div><div class="line">    pw = p.apply_async(write,args=(q,))    </div><div class="line">    pr = p.apply_async(read,args=(q,))</div><div class="line">    p.close()</div><div class="line">    p.join()</div><div class="line">输出：</div><div class="line">报错：RuntimeError: Queue objects should only be shared between processes through inheritance</div></pre></td></tr></table></figure></p>
+<p>父进程创建一个队列，然后把父进程创建的队列作为参数传给进程池中的子进程，结果是报错，因为队列对象不能再父进程和进程池中的子进程间通信</p>
+<p>如果想实现进程池中子进程和父进程队列通信，需要使用<strong>multiprocess中的Manager类</strong><br>上述代码改为：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line">if __name__==&apos;__main__&apos;:</div><div class="line">    manager = multiprocessing.Manager()</div><div class="line">    # 父进程创建Queue，并传给各个子进程：</div><div class="line">    q = manager.Queue()</div><div class="line">    p = Pool()</div><div class="line">    pw = p.apply_async(write,args=(q,))</div><div class="line">    time.sleep(0.5)</div><div class="line">    pr = p.apply_async(read,args=(q,))</div><div class="line">    p.close()</div><div class="line">    p.join()</div></pre></td></tr></table></figure></p>
+<h2 id="使用锁"><a href="#使用锁" class="headerlink" title="使用锁"></a>使用锁</h2><p>在不同程序间如果有同时对同一个队列操作的时候，为了避免错误，可以在某个函数操作队列的时候给它加把锁，这样在同一个时间内则只能有一个子进程对队列进行操作。<br>使用锁同样要使用Multiprocess中的manager类</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div></pre></td><td class="code"><pre><div class="line">from multiprocessing import Process,Queue,Pool</div><div class="line">import multiprocessing</div><div class="line">import os, time, random</div><div class="line"></div><div class="line"># 写数据进程执行的代码:</div><div class="line">def write(q,lock):</div><div class="line">    lock.acquire() #加上锁</div><div class="line">    for value in [&apos;A&apos;, &apos;B&apos;, &apos;C&apos;]:</div><div class="line">        print &apos;Put %s to queue...&apos; % value        </div><div class="line">        q.put(value)        </div><div class="line">    lock.release() #释放锁  </div><div class="line"></div><div class="line"># 读数据进程执行的代码:</div><div class="line">def read(q):</div><div class="line">    while True:</div><div class="line">        if not q.empty():</div><div class="line">            value = q.get(False)</div><div class="line">            print &apos;Get %s from queue.&apos; % value</div><div class="line">            time.sleep(random.random())</div><div class="line">        else:</div><div class="line">            break</div><div class="line"></div><div class="line">if __name__==&apos;__main__&apos;:</div><div class="line">    manager = multiprocessing.Manager()</div><div class="line">    # 父进程创建Queue，并传给各个子进程：</div><div class="line">    q = manager.Queue()</div><div class="line">    lock = manager.Lock() #初始化一把锁</div><div class="line">    p = Pool()</div><div class="line">    pw = p.apply_async(write,args=(q,lock))    </div><div class="line">    pr = p.apply_async(read,args=(q,))</div><div class="line">    p.close()</div><div class="line">    p.join()</div></pre></td></tr></table></figure>
+
+  </section>
+
+  
+  
+
+<section class="post-comments">
+
+    <div class="ds-thread" data-thread-key="2015/10/03/pythonMultiprocessing/"></div>
+
+    <script type="text/javascript">
+      var duoshuoQuery = {short_name:"xiaodingdangdaddy"};
+      (function() {
+        var ds = document.createElement('script');
+        ds.type = 'text/javascript';ds.async = true;
+        ds.src = '//static.duoshuo.com/embed.js';
+        ds.charset = 'UTF-8';
+        (document.getElementsByTagName('head')[0] 
+        || document.getElementsByTagName('body')[0]).appendChild(ds);
+      })();
+    </script> 
+
+</section>
+
+
+</article>
+
+
+            <footer class="footer">
+
+    <span class="footer__copyright">&copy; 2014-2015. | 由<a href="https://hexo.io/">Hexo</a>强力驱动 | 主题<a href="https://github.com/someus/huno">Huno</a></span>
+    
+</footer>
+        </div>
+    </div>
+
+    <!-- js files -->
+    <script src="/js/jquery.min.js"></script>
+    <script src="/js/main.js"></script>
+    <script src="/js/scale.fix.js"></script>
+    
+
+    
+
+    <script type="text/javascript" src="//cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <script type="text/javascript"> 
+        $(document).ready(function(){
+            MathJax.Hub.Config({ 
+                tex2jax: {inlineMath: [['[latex]','[/latex]'], ['\\(','\\)']]} 
+            });
+        });
+    </script>
+
+
+    
+
+    <script src="/js/awesome-toc.min.js"></script>
+    <script>
+        $(document).ready(function(){
+            $.awesome_toc({
+                overlay: true,
+                contentId: "post-content",
+            });
+        });
+    </script>
+
+
+    
+    
+    <!--kill ie6 -->
+<!--[if IE 6]>
+  <script src="//letskillie6.googlecode.com/svn/trunk/2/zh_CN.js"></script>
+<![endif]-->
+
+</body>
+</html>
