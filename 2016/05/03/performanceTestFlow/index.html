@@ -1,0 +1,349 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="chrome=1">
+
+    
+
+    <title>
+      性能测试流程和报告形式 | 妍兮客栈 
+    </title>
+
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+    
+      <meta name="author" content="John Doe">
+    
+    
+
+    <meta name="description" content="原文链接性能测试不是闭门造车，需要了解我们的测试目的，测试对象，才能按流程进行
+确定性能测试目的明确客户的需求，主要有一下几种：
+
+客户有明确的要求这是理想的状态，说明客户对性能测试有一定了解。指定自己的系统要达到一个什么样的标志。如：系统要能满足100用户同时登陆，平均每个用户登录时间不超过5秒。针对这一明确的需求，我们可以对客户现在的需求做一次性能测试。并针对测试结果给客户报告
+
+客户只是想知">
+<meta property="og:type" content="article">
+<meta property="og:title" content="性能测试流程和报告形式 | 妍兮客栈">
+<meta property="og:url" content="http://yoursite.com/2016/05/03/performanceTestFlow/index.html">
+<meta property="og:site_name" content="妍兮客栈">
+<meta property="og:description" content="原文链接性能测试不是闭门造车，需要了解我们的测试目的，测试对象，才能按流程进行
+确定性能测试目的明确客户的需求，主要有一下几种：
+
+客户有明确的要求这是理想的状态，说明客户对性能测试有一定了解。指定自己的系统要达到一个什么样的标志。如：系统要能满足100用户同时登陆，平均每个用户登录时间不超过5秒。针对这一明确的需求，我们可以对客户现在的需求做一次性能测试。并针对测试结果给客户报告
+
+客户只是想知">
+<meta property="og:updated_time" content="2016-11-03T11:02:53.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="性能测试流程和报告形式 | 妍兮客栈">
+<meta name="twitter:description" content="原文链接性能测试不是闭门造车，需要了解我们的测试目的，测试对象，才能按流程进行
+确定性能测试目的明确客户的需求，主要有一下几种：
+
+客户有明确的要求这是理想的状态，说明客户对性能测试有一定了解。指定自己的系统要达到一个什么样的标志。如：系统要能满足100用户同时登陆，平均每个用户登录时间不超过5秒。针对这一明确的需求，我们可以对客户现在的需求做一次性能测试。并针对测试结果给客户报告
+
+客户只是想知">
+    
+    
+    
+    <link rel="stylesheet" href="/css/uno.css">
+    <link rel="stylesheet" href="/css/highlight.css">
+    <link rel="stylesheet" href="/css/archive.css">
+    <link rel="stylesheet" href="/css/china-social-icon.css">
+
+</head>
+<body>
+
+    <span class="mobile btn-mobile-menu">
+        <i class="icon icon-list btn-mobile-menu__icon"></i>
+        <i class="icon icon-x-circle btn-mobile-close__icon hidden"></i>
+    </span>
+
+    
+
+<header class="panel-cover panel-cover--collapsed">
+
+
+  <div class="panel-main">
+
+  
+    <div class="panel-main__inner panel-inverted">
+    <div class="panel-main__content">
+
+        
+
+        <h1 class="panel-cover__title panel-title"><a href="/" title="link to homepage">妍兮客栈</a></h1>
+        <hr class="panel-cover__divider" />
+
+        
+        <p class="panel-cover__description">
+          A site for YanXi Zheng
+        </p>
+        <hr class="panel-cover__divider panel-cover__divider--secondary" />
+        
+
+        <div class="navigation-wrapper">
+
+          <nav class="cover-navigation cover-navigation--primary">
+            <ul class="navigation">
+
+              
+                
+                <li class="navigation__item"><a href="/#blog" title="" class="blog-button">学学习</a></li>
+              
+                
+                <li class="navigation__item"><a href="/about" title="" class="">看看图</a></li>
+              
+                
+                <li class="navigation__item"><a href="/archive" title="" class="">归归档</a></li>
+              
+
+            </ul>
+          </nav>
+
+          <!-- ----------------------------
+To add a new social icon simply duplicate one of the list items from below
+and change the class in the <i> tag to match the desired social network
+and then add your link to the <a>. Here is a full list of social network
+classes that you can use:
+
+    icon-social-500px
+    icon-social-behance
+    icon-social-delicious
+    icon-social-designer-news
+    icon-social-deviant-art
+    icon-social-digg
+    icon-social-dribbble
+    icon-social-facebook
+    icon-social-flickr
+    icon-social-forrst
+    icon-social-foursquare
+    icon-social-github
+    icon-social-google-plus
+    icon-social-hi5
+    icon-social-instagram
+    icon-social-lastfm
+    icon-social-linkedin
+    icon-social-medium
+    icon-social-myspace
+    icon-social-path
+    icon-social-pinterest
+    icon-social-rdio
+    icon-social-reddit
+    icon-social-skype
+    icon-social-spotify
+    icon-social-stack-overflow
+    icon-social-steam
+    icon-social-stumbleupon
+    icon-social-treehouse
+    icon-social-tumblr
+    icon-social-twitter
+    icon-social-vimeo
+    icon-social-xbox
+    icon-social-yelp
+    icon-social-youtube
+    icon-social-zerply
+    icon-mail
+
+-------------------------------->
+
+<!-- add social info here -->
+
+
+
+<nav class="cover-navigation navigation--social">
+  <ul class="navigation">
+
+    
+      <!-- Github -->
+      <li class="navigation__item">
+        <a href="https://github.com/xiaodingdangdaddy" title="Huno on GitHub">
+          <i class='icon icon-social-github'></i>
+          <span class="label">GitHub</span>
+        </a>
+      </li>
+    
+
+    <!-- China social icon -->
+    <!--
+    
+      <li class="navigation__item">
+        <a href="" title="">
+          <i class='icon cs-icon-douban'></i>
+          <span class="label">Douban</span>
+        </a>
+      </li>
+
+      <li class="navigation__item">
+        <a href="" title="">
+          <i class='icon cs-icon-weibo'></i>
+          <span class="label">Weibo</span>
+        </a>
+      </li>
+
+    -->
+
+
+
+  </ul>
+</nav>
+
+
+
+        </div>
+
+      </div>
+
+    </div>
+
+    <div class="panel-cover--overlay"></div>
+  </div>
+</header>
+
+    <div class="content-wrapper">
+        <div class="content-wrapper__inner entry">
+            
+
+<article class="post-container post-container--single">
+
+  <header class="post-header">
+    
+    <h1 class="post-title">性能测试流程和报告形式</h1>
+
+    
+
+    <div class="post-meta">
+      <time datetime="2016-05-03" class="post-meta__date date">2016-05-03</time> 
+
+      <span class="post-meta__tags tags">
+
+          
+
+          
+
+      </span>
+    </div>
+    
+    
+
+  </header>
+
+  <section id="post-content" class="article-content post">
+    <p><a href="http://www.cnblogs.com/fnng/archive/2011/11/15/2250445.html" target="_blank" rel="external">原文链接</a><br>性能测试不是闭门造车，需要了解我们的测试目的，测试对象，才能按流程进行</p>
+<h2 id="确定性能测试目的"><a href="#确定性能测试目的" class="headerlink" title="确定性能测试目的"></a>确定性能测试目的</h2><p>明确客户的需求，主要有一下几种：</p>
+<ul>
+<li><p>客户有明确的要求<br>这是理想的状态，说明客户对性能测试有一定了解。指定自己的系统要达到一个什么样的标志。如：系统要能满足100用户同时登陆，平均每个用户登录时间不超过5秒。<br>针对这一明确的需求，我们可以对客户现在的需求做一次性能测试。并针对测试结果给客户报告</p>
+</li>
+<li><p>客户只是想知道当前的系统性能（容量测试）<br>主要就是求的最大并发用户数和最佳并发用户数。这仍然是比较含糊的需求，需要我们对系统做出分析，找出系统的压力点</p>
+</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">在理发店模型中有以下假设：</div><div class="line">1. 理发店共有3名理发师；</div><div class="line">2. 每位理发师剪一个发的时间都是1小时；</div><div class="line">3. 我们顾客们都是很有时间观念的人而且非常挑剔，他们对于每次光顾理发店时所能容忍的等待时间+剪发时间是3小时，而且等待时间越长，顾客的满意度越低。如果3个小时还不能剪完头发，我们的顾客会立马生气的走人</div><div class="line"></div><div class="line">在这种模型下，最佳并发用户数应该是3，最大并发用户数应该是9</div></pre></td></tr></table></figure>
+<p><a href="http://www.cnblogs.com/jackei/archive/2006/11/20/565527.html" target="_blank" rel="external">理发店模型原文链接</a></p>
+<ul>
+<li><p>找出系统的性能瓶颈<br>这个同意需要分析可能对系统造成瓶颈的逻辑业务，然后才能进行性能测试</p>
+</li>
+<li><p>了解系统在长时间压力下的性能状况(强度测试)<br>也就是验证系统的稳定性，因为系统一旦上线，就有可能会长期处于大量用户的访问状态，一些之前没发现的问题就会暴露出来。比如内存溢出</p>
+</li>
+</ul>
+<h2 id="确定性能测试环境"><a href="#确定性能测试环境" class="headerlink" title="确定性能测试环境"></a>确定性能测试环境</h2><p>明确了测试目的后，需要确定测试环境。主要考虑一下几点：</p>
+<ul>
+<li><p>硬件环境<br>主要是了解被测服务器的硬件配置，还有用户加压客户端的机器配置。</p>
+</li>
+<li><p>软件环境<br>需要了解被测系统的架构、前端、中间件、服务器(这里指运行系统软件的服务器，如tomcat)、数据库以及他们的部署位置。<br>用于加压的客户端采用什么性能测试工具进行加压</p>
+</li>
+<li><p>网络环境<br>网络环境非常重要。上面几个性能测试目的中，除了找出性能瓶颈可以在广域网中进行外，因为这个测试目的不用设置太多虚拟用户，只用找出系统那个地方影响整体性能。<br>其他的目的测试都需要在局域网下进行。否则压力工具发送的请求会卡死在网络的传输过程。</p>
+</li>
+</ul>
+<p>以上这些都会在测试报告者明确列出。</p>
+<h2 id="寻找系统的压力点"><a href="#寻找系统的压力点" class="headerlink" title="寻找系统的压力点"></a>寻找系统的压力点</h2><p>我们需要对系统的哪个页面或业务进行加压。这个不是自己想出来的，需要与开发人员的沟通。系统的首页？系统的登录？还是系统的交易过程？各个业务的用户比例是多少？<br>只有获得<strong>有效的性能需求</strong>，才容易寻找和定位压力点。 </p>
+<p><a href="http://www.cnblogs.com/jackei/archive/2006/12/12/589473.html" target="_blank" rel="external">性能需求参考原文链接</a></p>
+<p>###　有效的性能需求应该符合以下三个条件：</p>
+<ul>
+<li>1.明确的数字，而不是模糊的语句。例如常见的一种需求是“系统需要支持5000用户”，或者“最大在线用户数为8000”。这些有数字的需求仍然不够明确，因为还需要考虑区分系统中不同业务模块的负载，以及区分在线用户和并发用户的区别。</li>
+<li>2.有凭有据，合理，有实际意义。通常来说，性能需求要么由客户提出，要么由开发方提出。对于第一种情况，要保证需求是合理的，有现实意义的，不能由着客户使劲往高处说，要让客户明白性能是有成本的。对于第二种情况，性能需求不能简单的来源于项目组成员、PM或者测试工程师的估计或者猜测，要保证性能需求的提出是有根据的，所使用的数据和计算公式是有出处的</li>
+<li>3.相关人员达成一致。这是非常关键的点。如果相关人不能对性能需求达成一致，可能测了白测。别是在客户没有提出明确的性能需求而由开发方提出时。这里要注意“相关人员”的识别，通常项目型的项目的需要与客户方的项目经理或负责人进行确认，产品型的项目需要与直属领导或者市场部进行确认。如果实在不知道该找谁确认，那就把这个责任交给你的直属领导；如果你就是领导了，那这领导也白当了</li>
+</ul>
+<h3 id="如何获得有效的性能需求"><a href="#如何获得有效的性能需求" class="headerlink" title="如何获得有效的性能需求"></a>如何获得有效的性能需求</h3><p>这些方法是作者在实际工作中用过并证实可行的。由易到难分别有</p>
+<ul>
+<li>1.客户方提出。这是最理想的一种方式，通常电信、金融、保险、证券以及一些其他运营商级系统的客户——特别是国外的客户都会提出比较明确的性能需求。</li>
+<li>2.根据历史数据来分析。根据客户以往的业务情况来分析客户的业务量以及每年、每月、每周、每天的峰值业务量。如果客户有旧的系统，可以根据已有系统的访问日志，数据库记录，业务报表来分析。要特别注意的是，不同行业、不同应用、不同的业务是有各自的特点的。例如，购物网站在平时的负载主要集中在晚上，但是节假日时访问量和交易量会是平时的数倍；而地铁的售票系统面临的高峰除了周末，还有周一到周五的一早一晚上下班时间。</li>
+<li>3.参考历史项目的数据。如果该产品已有其他客户使用，并且规模类似的，可以参考其他客户的需求。例如在线购物网站，或者超市管理系统，各行业的进销存系统。</li>
+<li>4.参考其他同行类似项目的数据。如果本企业没有做过类似的项目，那么可以参考其他同行企业的公布出来的数据——通常在企业公布的新闻或者成功解决方案中会提到，包括系统容量，系统所能承受的负载以及系统响应能力等。</li>
+<li>5.参考其他类似行业应用的数据。如果无法找打其他同行的数据，也可以参考类似的应用的需求。例如做IPTV或者DVB计费系统的测试，可以参考电信计费系统的需求——虽然不能完全照搬数据，但是可以通过其他行业成熟的需求来了解需要测试的项目有哪些，应该考虑到的情况有哪些种。</li>
+<li>6.参考新闻或其他资料中的数据。最后的一招，特别是对于一些当前比较引人关注的行业，涉及到所谓的“政绩”的行业，通常可以通过各种新闻媒体找到一些可供参考的数据，但是需要耐心的寻找。例如我们在IPTV和DVB系统的测试中，可以根据新闻中公布的各省、各市，以及国外各大运营商的用户发展情况和用户使用习惯来估算系统容量和系统各个模块的并发量。</li>
+</ul>
+<h2 id="最后，参照上述内容，看一份实际的性能测试报告"><a href="#最后，参照上述内容，看一份实际的性能测试报告" class="headerlink" title="最后，参照上述内容，看一份实际的性能测试报告"></a>最后，参照上述内容，看一份实际的性能测试报告</h2><p><a href="http://www.cnblogs.com/fnng/archive/2011/11/20/2255161.html" target="_blank" rel="external">性能测试报告原文链接</a></p>
+
+  </section>
+
+  
+  
+
+<section class="post-comments">
+
+    <div class="ds-thread" data-thread-key="2016/05/03/performanceTestFlow/"></div>
+
+    <script type="text/javascript">
+      var duoshuoQuery = {short_name:"xiaodingdangdaddy"};
+      (function() {
+        var ds = document.createElement('script');
+        ds.type = 'text/javascript';ds.async = true;
+        ds.src = '//static.duoshuo.com/embed.js';
+        ds.charset = 'UTF-8';
+        (document.getElementsByTagName('head')[0] 
+        || document.getElementsByTagName('body')[0]).appendChild(ds);
+      })();
+    </script> 
+
+</section>
+
+
+</article>
+
+
+            <footer class="footer">
+
+    <span class="footer__copyright">&copy; 2014-2015. | 由<a href="https://hexo.io/">Hexo</a>强力驱动 | 主题<a href="https://github.com/someus/huno">Huno</a></span>
+    
+</footer>
+        </div>
+    </div>
+
+    <!-- js files -->
+    <script src="/js/jquery.min.js"></script>
+    <script src="/js/main.js"></script>
+    <script src="/js/scale.fix.js"></script>
+    
+
+    
+
+    <script type="text/javascript" src="//cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <script type="text/javascript"> 
+        $(document).ready(function(){
+            MathJax.Hub.Config({ 
+                tex2jax: {inlineMath: [['[latex]','[/latex]'], ['\\(','\\)']]} 
+            });
+        });
+    </script>
+
+
+    
+
+    <script src="/js/awesome-toc.min.js"></script>
+    <script>
+        $(document).ready(function(){
+            $.awesome_toc({
+                overlay: true,
+                contentId: "post-content",
+            });
+        });
+    </script>
+
+
+    
+    
+    <!--kill ie6 -->
+<!--[if IE 6]>
+  <script src="//letskillie6.googlecode.com/svn/trunk/2/zh_CN.js"></script>
+<![endif]-->
+
+</body>
+</html>
