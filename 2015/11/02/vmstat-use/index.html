@@ -1,0 +1,380 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="chrome=1">
+
+    
+
+    <title>
+      系统性能测试和vmstat概述 | 妍兮客栈 
+    </title>
+
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+    
+      <meta name="author" content="John Doe">
+    
+    
+
+    <meta name="description" content="参考原文链接1参考原文链接2本文学习上面文章，并进行了部分总结。以备查询
+性能分析的目的
+找出系统性能的瓶颈(包括硬件瓶颈和软件瓶颈)
+提供性能优化的方案(升级硬件、改进系统结构、数据库优化等)
+达到合理的硬件和软件配置
+使系统资源使用达到最大的平衡。(通常情况下系统正常运行时候，各项资源达到一个平衡值，任何一项资源的过度使用都会造成平衡体系破坏，进而造成系统负载极高或者响应缓慢。比如CPU使用率">
+<meta property="og:type" content="article">
+<meta property="og:title" content="系统性能测试和vmstat概述 | 妍兮客栈">
+<meta property="og:url" content="http://yoursite.com/2015/11/02/vmstat-use/index.html">
+<meta property="og:site_name" content="妍兮客栈">
+<meta property="og:description" content="参考原文链接1参考原文链接2本文学习上面文章，并进行了部分总结。以备查询
+性能分析的目的
+找出系统性能的瓶颈(包括硬件瓶颈和软件瓶颈)
+提供性能优化的方案(升级硬件、改进系统结构、数据库优化等)
+达到合理的硬件和软件配置
+使系统资源使用达到最大的平衡。(通常情况下系统正常运行时候，各项资源达到一个平衡值，任何一项资源的过度使用都会造成平衡体系破坏，进而造成系统负载极高或者响应缓慢。比如CPU使用率">
+<meta property="og:image" content="http://img.my.csdn.net/uploads/201207/17/1342512919_6278.JPG">
+<meta property="og:image" content="http://img.my.csdn.net/uploads/201207/17/1342512888_1693.JPG">
+<meta property="og:updated_time" content="2016-11-04T14:32:55.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="系统性能测试和vmstat概述 | 妍兮客栈">
+<meta name="twitter:description" content="参考原文链接1参考原文链接2本文学习上面文章，并进行了部分总结。以备查询
+性能分析的目的
+找出系统性能的瓶颈(包括硬件瓶颈和软件瓶颈)
+提供性能优化的方案(升级硬件、改进系统结构、数据库优化等)
+达到合理的硬件和软件配置
+使系统资源使用达到最大的平衡。(通常情况下系统正常运行时候，各项资源达到一个平衡值，任何一项资源的过度使用都会造成平衡体系破坏，进而造成系统负载极高或者响应缓慢。比如CPU使用率">
+<meta name="twitter:image" content="http://img.my.csdn.net/uploads/201207/17/1342512919_6278.JPG">
+    
+    
+    
+    <link rel="stylesheet" href="/css/uno.css">
+    <link rel="stylesheet" href="/css/highlight.css">
+    <link rel="stylesheet" href="/css/archive.css">
+    <link rel="stylesheet" href="/css/china-social-icon.css">
+
+</head>
+<body>
+
+    <span class="mobile btn-mobile-menu">
+        <i class="icon icon-list btn-mobile-menu__icon"></i>
+        <i class="icon icon-x-circle btn-mobile-close__icon hidden"></i>
+    </span>
+
+    
+
+<header class="panel-cover panel-cover--collapsed">
+
+
+  <div class="panel-main">
+
+  
+    <div class="panel-main__inner panel-inverted">
+    <div class="panel-main__content">
+
+        
+
+        <h1 class="panel-cover__title panel-title"><a href="/" title="link to homepage">妍兮客栈</a></h1>
+        <hr class="panel-cover__divider" />
+
+        
+        <p class="panel-cover__description">
+          A site for YanXi Zheng
+        </p>
+        <hr class="panel-cover__divider panel-cover__divider--secondary" />
+        
+
+        <div class="navigation-wrapper">
+
+          <nav class="cover-navigation cover-navigation--primary">
+            <ul class="navigation">
+
+              
+                
+                <li class="navigation__item"><a href="/#blog" title="" class="blog-button">学学习</a></li>
+              
+                
+                <li class="navigation__item"><a href="/about" title="" class="">看看图</a></li>
+              
+                
+                <li class="navigation__item"><a href="/archive" title="" class="">归归档</a></li>
+              
+
+            </ul>
+          </nav>
+
+          <!-- ----------------------------
+To add a new social icon simply duplicate one of the list items from below
+and change the class in the <i> tag to match the desired social network
+and then add your link to the <a>. Here is a full list of social network
+classes that you can use:
+
+    icon-social-500px
+    icon-social-behance
+    icon-social-delicious
+    icon-social-designer-news
+    icon-social-deviant-art
+    icon-social-digg
+    icon-social-dribbble
+    icon-social-facebook
+    icon-social-flickr
+    icon-social-forrst
+    icon-social-foursquare
+    icon-social-github
+    icon-social-google-plus
+    icon-social-hi5
+    icon-social-instagram
+    icon-social-lastfm
+    icon-social-linkedin
+    icon-social-medium
+    icon-social-myspace
+    icon-social-path
+    icon-social-pinterest
+    icon-social-rdio
+    icon-social-reddit
+    icon-social-skype
+    icon-social-spotify
+    icon-social-stack-overflow
+    icon-social-steam
+    icon-social-stumbleupon
+    icon-social-treehouse
+    icon-social-tumblr
+    icon-social-twitter
+    icon-social-vimeo
+    icon-social-xbox
+    icon-social-yelp
+    icon-social-youtube
+    icon-social-zerply
+    icon-mail
+
+-------------------------------->
+
+<!-- add social info here -->
+
+
+
+<nav class="cover-navigation navigation--social">
+  <ul class="navigation">
+
+    
+      <!-- Github -->
+      <li class="navigation__item">
+        <a href="https://github.com/xiaodingdangdaddy" title="Huno on GitHub">
+          <i class='icon icon-social-github'></i>
+          <span class="label">GitHub</span>
+        </a>
+      </li>
+    
+
+    <!-- China social icon -->
+    <!--
+    
+      <li class="navigation__item">
+        <a href="" title="">
+          <i class='icon cs-icon-douban'></i>
+          <span class="label">Douban</span>
+        </a>
+      </li>
+
+      <li class="navigation__item">
+        <a href="" title="">
+          <i class='icon cs-icon-weibo'></i>
+          <span class="label">Weibo</span>
+        </a>
+      </li>
+
+    -->
+
+
+
+  </ul>
+</nav>
+
+
+
+        </div>
+
+      </div>
+
+    </div>
+
+    <div class="panel-cover--overlay"></div>
+  </div>
+</header>
+
+    <div class="content-wrapper">
+        <div class="content-wrapper__inner entry">
+            
+
+<article class="post-container post-container--single">
+
+  <header class="post-header">
+    
+    <h1 class="post-title">系统性能测试和vmstat概述</h1>
+
+    
+
+    <div class="post-meta">
+      <time datetime="2015-11-02" class="post-meta__date date">2015-11-02</time> 
+
+      <span class="post-meta__tags tags">
+
+          
+
+          
+
+      </span>
+    </div>
+    
+    
+
+  </header>
+
+  <section id="post-content" class="article-content post">
+    <p><a href="http://blog.chinaunix.net/uid-24020646-id-1992032.html" target="_blank" rel="external">参考原文链接1</a><br><a href="http://blog.csdn.net/aovenus/article/details/7755770" target="_blank" rel="external">参考原文链接2</a><br>本文学习上面文章，并进行了部分总结。以备查询</p>
+<h2 id="性能分析的目的"><a href="#性能分析的目的" class="headerlink" title="性能分析的目的"></a>性能分析的目的</h2><ul>
+<li>找出系统性能的瓶颈(包括硬件瓶颈和软件瓶颈)</li>
+<li>提供性能优化的方案(升级硬件、改进系统结构、数据库优化等)</li>
+<li>达到合理的硬件和软件配置</li>
+<li>使系统资源使用达到最大的平衡。(通常情况下系统正常运行时候，各项资源达到一个平衡值，任何一项资源的过度使用都会造成平衡体系破坏，进而造成系统负载极高或者响应缓慢。比如CPU使用率过高会造成大量进程等待CPU资源，系统响应变慢，反过来会造成等待进程数增加，进程增加使得内存使用增加，内存耗尽又会造成虚拟内存使用，虚拟内存使用会造成磁盘IO增加和CPU开销增加。成为一种恶性循环)</li>
+</ul>
+<h2 id="影响性能的因素"><a href="#影响性能的因素" class="headerlink" title="影响性能的因素"></a>影响性能的因素</h2><ul>
+<li>CPU使用率。也就是用户进程与系统进程消耗的CPU时间百分比，长时间情况下，通常可接受上限不超过85%</li>
+<li>内存利用率。内存利用率=（1-空闲内存/总内存大小）*100%，一般至少有10%可用内存，内存使用率可接受上限为85%</li>
+<li>磁盘I/O。磁盘主要用于存取数据，因此IO操作通常指的是存数据的写IO操作和取数据的读IO操作。小文件读写瓶颈是磁盘的寻址，大文件读写的瓶颈是带宽。linux可以利用空闲内存来作文件系统访问的cache，因而系统内存越大I/O性能也越好。一般使用% Disk Time（磁盘用于读写操作所占用的时间百分比）度量磁盘读写性能。</li>
+<li>网络带宽。 般使用计数器Bytes Total/sec来度量，Bytes Total/sec表示为发送和接收字节的速率，包括帧字符在内。判断网络连接速度是否是瓶颈，可以用该计数器的值和目前网络的带宽比较</li>
+</ul>
+<h2 id="判断系统性能的系统指标"><a href="#判断系统性能的系统指标" class="headerlink" title="判断系统性能的系统指标"></a>判断系统性能的系统指标</h2><ul>
+<li>并发用户数。某一时刻同时向系统提交请求的用户数</li>
+<li>在线用户数。某段时间内访问系统的用户数，但这些用户不一定同时向系统提交请求</li>
+<li>平均响应时间。 系统处理事务的响应时间的平均值。事务的响应时间是从客户端提交访问请求到客户端接收到服务器响应所消耗的时间。对系统快速响应类也没，通常为3秒左右。</li>
+<li>事务成功率。 性能测试中，定义事务用于度量一个或者多个业务流程的性能指标，如用户登录、保存订单、提交订单的操作均可定义为事务，如下所示<br><img src="http://img.my.csdn.net/uploads/201207/17/1342512919_6278.JPG" alt="事务"><br>单位时间内，系统可以成功完成多少个定义的事务，在一定程度上反应了系统的处理能力。</li>
+</ul>
+<h2 id="vmstat详解"><a href="#vmstat详解" class="headerlink" title="vmstat详解"></a>vmstat详解</h2><p>vmstat是一个很全面的性能分析工具，可以观察到系统的进程状态、内存使用、虚拟内存使用、磁盘的IO、中断、上下文切换、CPU使用等。对于 Linux 的性能分析，100%理解 vmstat 输出内容的含义，并能灵活应用，那对系统性能分析的能力就算是基本掌握了<br>如下面命令：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line">[root@master ~]# vmstat 1 6</div><div class="line">procs -----------memory---------- ---swap-- -----io---- -system-- ------cpu-----</div><div class="line"> r  b   swpd   free   buff  cache   si   so    bi    bo   in   cs us sy id wa st</div><div class="line"> 2  0      0 586984    948 194372    0    0    17     1   23   56  0  0 100  0  0</div><div class="line"> 0  0      0 586984    948 194372    0    0     0     0   22   49  0  0 100  0  0</div><div class="line"> 0  0      0 586984    948 194372    0    0     0     0   21   42  0  0 100  0  0</div><div class="line"> 0  0      0 586984    948 194372    0    0     0     0   20   44  0  1 99  0  0</div><div class="line"> 0  0      0 586984    948 194372    0    0     0     0   23   48  0  0 100  0  0</div><div class="line"> 0  0      0 586984    948 194372    0    0     0     0   23   43  0  0 100  0  0</div></pre></td></tr></table></figure></p>
+<p>查看man vmstat可以看出输出的值分为以下几个区域：</p>
+<h3 id="PROC"><a href="#PROC" class="headerlink" title="PROC"></a>PROC</h3><ul>
+<li>r: the number of runnable processes(running or waiting for run time).表示运行和等待CPU时间片的进程数，如果该值长期大于系统CPU个数，说明CPU资源不足，需要增加。</li>
+<li>b: the number of processes in uninterruptible sleep.表示等待系统资源的进程数，如等待I/O或者内存交换。</li>
+</ul>
+<h3 id="Memory"><a href="#Memory" class="headerlink" title="Memory"></a>Memory</h3><ul>
+<li>swpd: the amount of virtual memory used.也就是虚拟内存的使用量。如果swpd值不为0或者比较大，而且si、so值长期为0，则不用担心，不会影响系统性能。</li>
+<li>free: the amount of idle memory.当前空闲的物理内存数量(KB)。</li>
+<li>buff: the amount of memory used as buffers.用作buffer的内存量，buffer是用于存放要输出到disk(块设备)的数据的。</li>
+<li>cache: the amount of memory used as cache.用作cache的内存量。cache是存放从disk上读出的数据。一般用于作文件系统的cache，那些频繁访问的文件都会被cached.如果cached数值很大，说明cached的文件数目比较多，若此时IO中的bi比较小，说明文件系统的效率很高。<br>note： buff和cache是为了提高IO性能，并由OS管理的。</li>
+</ul>
+<h3 id="Swap"><a href="#Swap" class="headerlink" title="Swap"></a>Swap</h3><p>Swap的调整对Linux服务器，特别是web服务器性能至关重要。正确的调整有时候可以越过系统性能瓶颈，节省系统升级费用。<br>Swap空间可描述为：当系统的物理内存不够用的时候，就需要将物理内存中的一部分空间释放出来，以供当前运行的程序使用。那些被释放的空间可能来自一些很长时间没有什么操作的程序，这些被释放的空间被临时保存到Swap空间中，等到那些程序要运行时，再从Swap中恢复保存的数据到内存中。这样，系统总是在物理内存不够时，才进行Swap交换</p>
+<ul>
+<li>si: amount of memory swapped in from disk.表示由磁盘调入内存，也就是内存进入内存交换区的数量</li>
+<li>so: amount of memory swapped to disk.表示由内存调入磁盘，也就是内存交换区进入内存的数量。<br>note: 通常情况下si、so的值都为0，如果二者长期不为0则表示系统内存不足，需要考虑是否增加系统内存。</li>
+</ul>
+<h3 id="IO"><a href="#IO" class="headerlink" title="IO"></a>IO</h3><ul>
+<li>bi: Blocks received from a block device.表示从块设备读入的数据总量，即读磁盘，单位KB/秒</li>
+<li>bo: Blocks sent to a block device.表示写入到块设备的数据总量，既写磁盘，单位同上<br>note: 这里设置的bi + bo参考值为1000，如果超过1000，并且wa的值比较大，则表示系统磁盘I/O达到性能瓶颈</li>
+</ul>
+<h3 id="System"><a href="#System" class="headerlink" title="System"></a>System</h3><ul>
+<li>in: the number of interrupts per second,including the clock.表示在某一时间间隔中观察到的每秒设备中断数。</li>
+<li>cs: the number of context switcher per second.表示每秒产生的上下文切换次数<br>note: 这两个值越大，会看到内核消耗的CPU时间越多。</li>
+</ul>
+<h3 id="CPU"><a href="#CPU" class="headerlink" title="CPU"></a>CPU</h3><ul>
+<li>us: Time spent running non-kernel code.用户进程消耗CPU时间的百分比。US值高说明用户进程消耗CPU时间多，如果us值长期超过50%，需要考虑优化程序。</li>
+<li>sy: Time spend running kernel code.内核进程消耗CPU时间的百分比。sy值高说明内核消耗CPU时间多，如果us + ys值超过80%,说明系统CPU资源不足</li>
+<li>id: Time spend idle.CPU处在空闲状态的时间百分比</li>
+<li>wa: Time spend wating for IO.表示I/O等待所占的CPU时间百分比，wa值越高，说明I/o等待越严重。如果wa超过20%说明系统I/o等待严重</li>
+</ul>
+<h2 id="分析监控的关键指标"><a href="#分析监控的关键指标" class="headerlink" title="分析监控的关键指标"></a>分析监控的关键指标</h2><p>主要从资源指标和系统指标两个方面进行分析：<br><img src="http://img.my.csdn.net/uploads/201207/17/1342512888_1693.JPG" alt="指标组成"></p>
+<h3 id="资源指标分析"><a href="#资源指标分析" class="headerlink" title="资源指标分析"></a>资源指标分析</h3><ul>
+<li>判断CPU是否是瓶颈的方法：<br>一般情况下CPU满负荷工作，有时候并不能判定为CPU出现瓶颈，比如Linux总是试图要CPU尽可能的繁忙，使得任务的吞吐量最大化，即CPU尽可能最大化使用。因此，一般判断CPU为瓶颈，主要从两方面：一是CPU空闲持续为0，二是运行队列大于CPU核数（经验值3-4倍），即可判定存在瓶颈，对于CPU高消耗主要由什么引起的，可能是应用程序不合理造成，也可能是硬件资源不足，需要具体问题具体分析，比如问题SQL语句引起，则需要跟踪并优化引起CPU使用过高的SQL语句。</li>
+<li>判断内存是否是瓶颈的方法：<br>一般至少有10%可用内存，内存使用率可接受上限为85%。当空闲内存变小时，系统开始频繁地调动磁盘页面文件，空闲内存过小可能是内存不足或内存泄漏引起，需要根据系统实际情况监控分析。</li>
+<li>判断磁盘I/O是否是瓶颈：<br>计算每磁盘I/O数。磁盘I/O数可用来与磁盘的I/O能力进行对比，如果经过计算得到的每磁盘I/O数超过了磁盘标称的I/O能力，则说明确实存在磁盘的性能瓶颈。计算方法<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">RAID类型 计算方法</div><div class="line">RAID0     (Reads+Writes)/Numbers of Disks</div><div class="line">RAID1     (Reads+2*Writes)/2</div><div class="line">RAID5     [Reads+(4*Writes)] /Numbers of Disks</div><div class="line">RAID10    [Reads+(2*Writes)] /Numbers of Disks</div></pre></td></tr></table></figure>
+</li>
+</ul>
+<p>监控磁盘读写，如果磁盘长时间进行大数据量读写操作，且cpu等待超过20%，则说明磁盘I/O存在问题，考虑提高磁盘I/O读写性能。</p>
+<ul>
+<li>判断网络带宽是否是瓶颈。<br>判断网络带宽是否是系统运行性能瓶颈的首要条件是网络带宽是否会影响系统交易执行性能。例如：减小网络带宽，并发用户数、响应时间与事务通过率等性能指标是否不能接受；或者增加网络带宽，并发用户数、响应时间与事务通过率等性能指标会得到明显提高。在实际性能测试中，如果发现始终报连接超时，而实际手工访问可以正常访问，可以通过ping应用服务器IP或网关IP，如果出现网络严重延迟或丢包，则说明网络不稳定，需要检查网络。</li>
+</ul>
+<p>通过对资源指标四个指标的分析，实际上各个方面都是互相依赖的，不能孤立的单从某个方面进行排查。当一个方面出现性能问题时，往往会引发其他方面的性能问题，例如，大量的磁盘读写势必消耗CPU和IO资源，而内存的不足会导致频繁地进行内存页写入磁盘、磁盘写到内存的操作，造成磁盘IO瓶颈，同时，大量的网络流量也会造成CPU过载，所以，在分析性能问题时，需要从各个方面进行考虑。</p>
+<h3 id="系统指标分析"><a href="#系统指标分析" class="headerlink" title="系统指标分析"></a>系统指标分析</h3><ul>
+<li><p>并发用户数。<br>系统能够支持的用户数，是系统容量的重要标志，并发用户数用于度量系统在高并发访问下，系统的并行处理能力。通常如果系统存在死锁、资源争用，在并发访问下，由于请求处理队列等待中，系统响应就会随着时间变慢。一般情况下，选用高吞吐量、高数据库I/O、高商业风险的业务功能进行并发用户访问测试。<br><strong>判断系统能够承受的最大并发用户数，通常以满足以下条件为准：</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">1、业务功能操作平均响应时间在合理范围之内</div><div class="line">2、事务成功率在合理范围之内</div><div class="line">3、 系统运行无故障（无异常宕机）</div><div class="line">4、系统资源指标使用在合理范围内</div></pre></td></tr></table></figure>
+</li>
+<li><p>平均响应时间<br>对客户端用户来说，最直观感受就是访问页面的快慢。如在持续并发性能测试过程中，客户感知访问应用很慢，监控到的平均响应时间也逐渐变长，这时候：<br>1 借助监控到的资源指标，首先排除资源方面的限制因素<br>2 排除资源问题后，再从软件系统本身进行定位，如可以采用页面细分工具（如httpwatch、Loadrunner Anaysis中的页面组件细分）分析响应比较慢的页面。</p>
+</li>
+<li><p>事务成功率、超时出错率<br>事务成功率越高，说明系统处理能力越大。而事务失败主要可能是系统响应慢，导致访问业务功能超时，或者系统业务功能异常，不能正常访问，需要根据事务错误提示具体分析。</p>
+</li>
+</ul>
+<h2 id="软件性能测试总结"><a href="#软件性能测试总结" class="headerlink" title="软件性能测试总结"></a>软件性能测试总结</h2><p>软件性能测试时执行、监控、分析、调优不断进行的过程。<br>监控是为分析提供更多参考数据<br>分析是为了进行调优<br>调优是解决当前系统存在的性能瓶颈，为客户提供更好更快的用户体验。</p>
+
+  </section>
+
+  
+  
+
+<section class="post-comments">
+
+    <div class="ds-thread" data-thread-key="2015/11/02/vmstat-use/"></div>
+
+    <script type="text/javascript">
+      var duoshuoQuery = {short_name:"xiaodingdangdaddy"};
+      (function() {
+        var ds = document.createElement('script');
+        ds.type = 'text/javascript';ds.async = true;
+        ds.src = '//static.duoshuo.com/embed.js';
+        ds.charset = 'UTF-8';
+        (document.getElementsByTagName('head')[0] 
+        || document.getElementsByTagName('body')[0]).appendChild(ds);
+      })();
+    </script> 
+
+</section>
+
+
+</article>
+
+
+            <footer class="footer">
+
+    <span class="footer__copyright">&copy; 2014-2015. | 由<a href="https://hexo.io/">Hexo</a>强力驱动 | 主题<a href="https://github.com/someus/huno">Huno</a></span>
+    
+</footer>
+        </div>
+    </div>
+
+    <!-- js files -->
+    <script src="/js/jquery.min.js"></script>
+    <script src="/js/main.js"></script>
+    <script src="/js/scale.fix.js"></script>
+    
+
+    
+
+    <script type="text/javascript" src="//cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <script type="text/javascript"> 
+        $(document).ready(function(){
+            MathJax.Hub.Config({ 
+                tex2jax: {inlineMath: [['[latex]','[/latex]'], ['\\(','\\)']]} 
+            });
+        });
+    </script>
+
+
+    
+
+    <script src="/js/awesome-toc.min.js"></script>
+    <script>
+        $(document).ready(function(){
+            $.awesome_toc({
+                overlay: true,
+                contentId: "post-content",
+            });
+        });
+    </script>
+
+
+    
+    
+    <!--kill ie6 -->
+<!--[if IE 6]>
+  <script src="//letskillie6.googlecode.com/svn/trunk/2/zh_CN.js"></script>
+<![endif]-->
+
+</body>
+</html>
